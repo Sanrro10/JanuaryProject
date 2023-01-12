@@ -1,2 +1,3 @@
-# JanuaryProject
-2D Runner game
+# Project: Planeshifter
+### One Liner
+Project: Planeshifter is a 2D Runner *game*

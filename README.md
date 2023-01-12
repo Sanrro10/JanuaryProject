@@ -7,6 +7,9 @@ As an autorunner, the main character will move on their own, thus, leaving the p
 - **Jump**: the character can jump and, when used against walls, they can wall-jump and change run direction.
 - **Planeshifting**: there are paths that can only be used when in the correct plane of reality. The character has the ability to change between the two realms to walk over these paths.
 
+## Enemies and Dangers
+Reaching the goal won't be a piece of cake. The player must evade triangular enemies and spikes present in the levels while taking care of not falling into the abyss.
+
 ## Lore
 
 ## Levels

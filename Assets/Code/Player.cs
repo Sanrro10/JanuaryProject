@@ -34,6 +34,9 @@ public class Player : MonoBehaviour
 
         }
     }
+    public Vector2 GetPlayerDirection(){
+        return playerDirection;
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -52,6 +55,8 @@ public class Player : MonoBehaviour
 
         transform.Translate(playerDirection * playerSpeed * Time.deltaTime);
     }
+
+    
 
     void FixedUpdate(){
         

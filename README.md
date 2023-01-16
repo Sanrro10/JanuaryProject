@@ -22,6 +22,7 @@ These enemies need to be evaded in every ocasion. Confrontation is not an option
 As a minimalist art, the game doesn't have complex visual design. It is componed by simple shapes and colors with different functions:
 - **Player**: The player is a yellow circle that stands out agains the background. It is always visible by the player.
 - **Enemies**: The enemies are red triangles that also stand out agains the background. They are seeing with enough time to evade them.
+- **Spikes**: The spikes are static enemies that will kill the player if he touchs them. They will have almost the same color as the main platform or floor, but sightly different, maybe more dark to contrast with the background.
 - **Basic Platforms**: The platforms are dark-grey rectangles (with circular edges), and they are the only walkable element in all the game.
 - **Plane Platforms**: The platforms that can change between planes are blue and orange rectangles (also with circular edges). When the player is in its right plane, the platform is saturated blue or orange, but if the player is in the other plane, the platform swith into a grey blue or grey orange.
 - **Goal**: The goal is composed by a green platform and a green flag.
@@ -33,6 +34,9 @@ As a minimalist art, the game doesn't have complex visual design. It is componed
 In **Project: Planeshifter** levels are BIG. The player moves horizontally to the right most of the time, but there will be ocasions in which the player will need to change the direction, ascend or go down by different paths to find the goal.
 There will be **at least** 3 levels:
 - **Level 0 (Tutorial)**: The main objective of this level is to teach the player the basic navigation through the level and mechanics, which is basically jump, wall jump and change planes.
+- **Level 1**: The main objective of this level is to introduce the negative elements of the game; the enemies and the spikes. Of course, the player will also put in practice what he learned in the previous level.
+- **Level 2**: This will be the first **complete level**, which will be composed of every element of the game without the objective of teach the player anything.
+Having these 3 levels, we can make some more in order to design diferent fun levels.
 
 ### Camera
 The player will be moving every time, so he needs to see a several part of the map in his current position to not die unfairly. The player is located in 1/3 of the X axis to be always visible when the screen is tapped.

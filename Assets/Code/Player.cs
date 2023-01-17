@@ -16,7 +16,6 @@ public class Player : MonoBehaviour
     private Vector2 playerDirection;
 
     public void Jump(){
-        Debug.Log("Jump");
         if(rb.IsTouchingLayers(LayerMask.GetMask("Ground"))){
             rb.AddForce(Vector2.up * jumpForce);
         }else{
@@ -36,6 +35,12 @@ public class Player : MonoBehaviour
     }
     public Vector2 GetPlayerDirection(){
         return playerDirection;
+    }
+    public CircleCollider2D GetPLayerCollider(){
+        return circleCollider;
+    }
+    public Rigidbody2D GetPlayerRigidbody(){
+        return rb;
     }
     // Start is called before the first frame update
     void Start()

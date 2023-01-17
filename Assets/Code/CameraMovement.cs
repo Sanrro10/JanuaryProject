@@ -17,69 +17,19 @@ public class CameraMovement : MonoBehaviour
     {
         cam = GetComponent<Camera>();
         horizontalThreshold = cam.orthographicSize * (float) 0.5;
-        Debug.Log("Horizontal threshold: " + horizontalThreshold);
         verticalThreshold = cam.orthographicSize * (float) 0.7;
-        Debug.Log("Vertical threshold: " + verticalThreshold);
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log("Direction: " + ((player.GetPlayerDirection() == Vector2.right) ? "Right " : "Left ") + "Distance: " + (cam.transform.position.x - player.transform.position.x) + "Threshold: " + horizontalThreshold);
-        // if(player.GetPlayerDirection() == Vector2.right){
-        //     if(cam.transform.position.x - player.transform.position.x > horizontalThreshold){
-        //         cam.transform.position = new Vector3(player.transform.position.x - horizontalThreshold, cam.transform.position.y, cam.transform.position.z);
-        //         Debug.Log("1");
-        //     }else if(player.transform.position.x - cam.transform.position.x > horizontalThreshold){
-        //         cam.transform.position = new Vector3(player.transform.position.x - horizontalThreshold, cam.transform.position.y, cam.transform.position.z);
-        //         Debug.Log("2");
-        //     }
-        // }else{
-        //     if(player.transform.position.x - cam.transform.position.x > horizontalThreshold){
-        //         cam.transform.position = new Vector3(player.transform.position.x + horizontalThreshold, cam.transform.position.y, cam.transform.position.z);
-        //         Debug.Log("3");
-        //     }else if(cam.transform.position.x - player.transform.position.x > horizontalThreshold){
-        //         cam.transform.position = new Vector3(player.transform.position.x + horizontalThreshold, cam.transform.position.y, cam.transform.position.z);
-        //         Debug.Log("4");
-        //     }
-        // }
-
-        // if(player.GetPlayerDirection() == Vector2.right){
-        //     if(0<=(cam.transform.position.x - (player.transform.position.x + horizontalThreshold)) && 
-        //     (cam.transform.position.x - (player.transform.position.x + horizontalThreshold)) <= cameraError){
-        //         cam.transform.position = new Vector3(player.transform.position.x, cam.transform.position.y, cam.transform.position.z);
-        //     }else{
-        //         if(cam.transform.position.x - (player.transform.position.x + horizontalThreshold) <= cameraError){
-        //             transform.Translate(player.GetPlayerDirection() * catchUpSpeed * player.playerSpeed * Time.deltaTime);
-        //         }else{
-        //             //transform.Translate(player.GetPlayerDirection() * catchUpSpeed * player.playerSpeed * Time.deltaTime);
-        //         }
-               
-        //     }
-        // }else{
-        //     if(0<= cam.transform.position.x - (player.transform.position.x - horizontalThreshold) &&
-        //     cam.transform.position.x - (player.transform.position.x - horizontalThreshold) <= cameraError){
-        //         cam.transform.position = new Vector3(player.transform.position.x, cam.transform.position.y, cam.transform.position.z);
-        //     }else{
-        //         if(cam.transform.position.x - (player.transform.position.x - horizontalThreshold) <= cameraError){
-        //             transform.Translate(player.GetPlayerDirection() * catchUpSpeed * player.playerSpeed * Time.deltaTime);
-        //         }else{
-        //             //transform.Translate(player.GetPlayerDirection() * catchUpSpeed * player.playerSpeed * Time.deltaTime);
-        //         }               
-        //     }
-        //}
-
         if(player.GetPlayerDirection() == Vector2.right){
             if(player.transform.position.x >= cam.transform.position.x -horizontalThreshold + cameraError 
             && player.transform.position.x <= cam.transform.position.x -horizontalThreshold - cameraError){
                 transform.Translate(player.GetPlayerDirection() * player.playerSpeed * Time.deltaTime);
-                Debug.Log("En los márgenes");
             }else{
                 if(player.transform.position.x > cam.transform.position.x -horizontalThreshold){
                     transform.Translate(player.GetPlayerDirection() * catchUpSpeed * player.playerSpeed * Time.deltaTime);
-                    Debug.Log("Fuera de los márgenes: Catch Up");
-                }else{
-                    Debug.Log("Fuera de los márgenes: Wait");
                 }
             }
         }else{
@@ -90,9 +40,6 @@ public class CameraMovement : MonoBehaviour
             }else{
                 if(player.transform.position.x < cam.transform.position.x + horizontalThreshold){
                     transform.Translate(player.GetPlayerDirection() * catchUpSpeed * player.playerSpeed * Time.deltaTime);
-                    Debug.Log("Fuera de los márgenes: Catch Up");
-                }else{
-                    Debug.Log("Fuera de los márgenes: Wait");
                 }
             }
         }

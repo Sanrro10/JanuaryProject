@@ -22,15 +22,14 @@ public class JumpingEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.DrawRay(transform.position, player.transform.position, Color.red, 10f);
         if(edgeCollider.IsTouching(player.GetPLayerCollider()))
         {
             gameController.Die();
         }
         if(edgeCollider.IsTouchingLayers(LayerMask.GetMask("Ground"))){
-            if(Vector2.Distance(transform.position, player.transform.position) < triggerDistance){
+            if(Vector2.Distance(transform.position, player.transform.position) <= triggerDistance){
                 
-                if(Physics2D.Raycast(transform.position, player.transform.position).rigidbody == player.GetPlayerRigidbody()){
+                if(Physics2D.Raycast(transform.position, -transform.position + player.transform.position).rigidbody == player.GetPlayerRigidbody()){
                     rb.AddForce(Vector2.up * jumpForce);
                 }
             }

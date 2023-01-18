@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class GameController : MonoBehaviour
 {
     public Player player;
-    public GameObject of;
-    public GameObject bf;
+    public TilemapSwitch orangeTilemap;
+    public TilemapSwitch blueTilemap;
+
+    private bool orangeActive;
 
     private bool running;
 
@@ -33,15 +36,23 @@ public class GameController : MonoBehaviour
         running = true;
         Time.timeScale = 1;
     }
+    public void swapTilemaps(){
+        orangeActive = !orangeActive;
+        orangeTilemap.Swap(orangeActive);
+        blueTilemap.Swap(!orangeActive);
+    }
     // Start is called before the first frame update
     void Start()
     {
         running = true;
+        orangeActive = false;
+        orangeTilemap.Swap(orangeActive);
+        blueTilemap.Swap(!orangeActive);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

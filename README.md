@@ -47,4 +47,4 @@ There are only two possible inputs, jump and shift planes. Talking about input, 
 - **Right**: The right part of the screen has the **shift planes** input. For the same reason than above, the main obstacles and "plane platforms" will be on the right part of the screen, so that part will be the main focus of the player. For this reason, is natural that the player uses that part of the screen to use the "shift planes" action, which is a more active action than jumping.
 
 ## Screens Flow
-
+![](https://github.com/Sanrro10/JanuaryProject/blob/main/Others/Screens%20Flow.png)

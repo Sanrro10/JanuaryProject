@@ -16,7 +16,7 @@ public class BasicEnemy : MonoBehaviour
     void Start()
     {
         gameController = GameObject.Find("GameController").GetComponent<GameController>();
-        player = gameController.getPlayer();
+        player = gameController.GetPlayer();
         waypoint1.GetComponent<SpriteRenderer>().enabled = false;
         waypoint2.GetComponent<SpriteRenderer>().enabled = false;
         target = waypoint1.transform.position;

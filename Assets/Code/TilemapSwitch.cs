@@ -69,7 +69,9 @@ public class TilemapSwitch : MonoBehaviour
             tilemap.SwapTile(leftSpikes, leftSpikesAlt);
             tilemap.SwapTile(rightSpikes, rightSpikesAlt);
             tilemap.SwapTile(bottomSpikes, bottomSpikesAlt);
-        }else{
+        }
+        else
+        {
             tilemap.SwapTile(mediumLeftAlt, mediumLeft);
             tilemap.SwapTile(mediumMiddleAlt, mediumMiddle);
             tilemap.SwapTile(mediumRightAlt, mediumRight);
@@ -91,6 +93,14 @@ public class TilemapSwitch : MonoBehaviour
             tilemap.SwapTile(bottomSpikesAlt, bottomSpikes);
         }
         tilemapCollider2D.enabled = active;
+    }
+    public Tilemap GetTilemap()
+    {
+        return tilemap;
+    }
+    public List<Tile> GetSpikeTiles()
+    {
+        return new List<Tile> { topSpikes, leftSpikes, rightSpikes, bottomSpikes };
     }
     // Start is called before the first frame update
     void Start()

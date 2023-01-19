@@ -16,7 +16,7 @@ public class JumpingEnemy : MonoBehaviour
     void Start()
     {
         gameController = GameObject.Find("GameController").GetComponent<GameController>();
-        player = gameController.getPlayer();
+        player = gameController.GetPlayer();
     }
 
     // Update is called once per frame

@@ -40,7 +40,7 @@ Having these 3 levels, we can make some more in order to design diferent fun lev
 Levels can be selected by the **Select Level** screen. The player can slide between levels and play the level he wants (if it is unlocked). Every level must be unlocked be completing the previous level. Level 0 is always unlocked.
 
 ### Camera
-The player will be moving every time, so he needs to see a several part of the map in his current position to not die unfairly. The player is located in 1/3 of the X axis to be always visible when the screen is tapped.
+The player will be moving every time, so he needs to see a several part of the map in his current position to not die unfairly. The player is located in 3/7 or 4/7 of the X axis to be always visible when the screen is tapped.
 
 ## Controls
 There are only two possible inputs, jump and shift planes. Talking about input, the screen is divided in two parts, the left and the right:
@@ -49,3 +49,5 @@ There are only two possible inputs, jump and shift planes. Talking about input, 
 
 ## Screens Flow
 ![](https://github.com/Sanrro10/JanuaryProject/blob/main/Others/Screens%20Flow.png)
+
+The player can navigate between screens by clicking on the different buttons, but some other buttons open "sub-screens", instead of change to another screen.

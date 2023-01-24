@@ -39,7 +39,8 @@ public class GameController : MonoBehaviour
     }
     public void Die()
     {
-        Pause();
+        Reload();
+        //Pause();
         //UI de muerte y reinicio
     }
     public void Reload()

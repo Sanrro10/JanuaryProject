@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private TilemapSwitch blueTilemap;
     [SerializeField] private Tilemap mainTilemap;
     [SerializeField] private List<Tile> spikeTiles;
+    [SerializeField] private List<Tile> victoryTiles;
 
     private bool orangeActive;
 
@@ -39,13 +40,14 @@ public class GameController : MonoBehaviour
     }
     public void Die()
     {
-        Reload();
+        SceneLevelManager.instance.ReloadLevel();
         //Pause();
         //UI de muerte y reinicio
     }
-    public void Reload()
+    public void Win()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Pause();
+        //UI de victoria y siguiente nivel
     }
     public void Pause()
     {
@@ -65,6 +67,9 @@ public class GameController : MonoBehaviour
     }
     public List<Tile> GetSpikeTiles(){
         return spikeTiles;
+    }
+    public List<Tile> GetVictoryTiles(){
+        return victoryTiles;
     }
     // Start is called before the first frame update
     void Start()

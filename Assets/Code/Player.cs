@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     [SerializeField] private CapsuleCollider2D rightColliderTrigger;
     private GameController gameController;
     private List<Sprite> spikeSprites;
+    private List<Sprite> victorySprites;
     private Vector2 playerDirection;
 
     public void Jump()
@@ -69,6 +70,11 @@ public class Player : MonoBehaviour
         {
             spikeSprites.Add(tile.sprite);
         }
+        victorySprites = new List<Sprite>();
+        foreach (Tile tile in gameController.GetVictoryTiles())
+        {
+            victorySprites.Add(tile.sprite);
+        }
         Debug.Log(spikeSprites.Count);
     }
     void OnCollisionEnter2D(Collision2D collision)
@@ -80,10 +86,12 @@ public class Player : MonoBehaviour
                 try
                 {
                     Tilemap map = contact.collider.GetComponent<Tilemap>();
-                    Debug.Log("Tilemap: " + map.name + "Tile: " + map.GetSprite(map.layoutGrid.WorldToCell(contact.point)));
                     if (spikeSprites.Contains(map.GetSprite(map.layoutGrid.WorldToCell(contact.point))))
                     {
                         gameController.Die();
+                    } else if (victorySprites.Contains(map.GetSprite(map.layoutGrid.WorldToCell(contact.point))))
+                    {
+                        gameController.Win();
                     }
                 }
                 catch (System.Exception e)

@@ -53,3 +53,19 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 68893b3a0d85e6740b5c2ff9d6e51798, type: 2}
   - {fileID: 11400000, guid: 31be3a36e8190694e9fa8b1e072ae95c, type: 2}
   - {fileID: 11400000, guid: 392e310ef267e894993b2fd8424930fd, type: 2}
+  victoryTiles:
+  - {fileID: 11400000, guid: ae1376d7efcd24a4fa29eff6d94b414e, type: 2}
+  - {fileID: 11400000, guid: 027cea4b8b2d7424b8abb02581357463, type: 2}
+  - {fileID: 11400000, guid: 043c89314e219c141a1319164a7be677, type: 2}
+  - {fileID: 11400000, guid: 8d816201101ce3044be6bc8e1c78910d, type: 2}
+  - {fileID: 11400000, guid: 9538bfe53379d9c469ab28e34bdac8f9, type: 2}
+  - {fileID: 11400000, guid: f2af3ce836d3755438f4fcc95f5220ac, type: 2}
+  - {fileID: 11400000, guid: 2e5e312ea24f970488b60bdd4608e2aa, type: 2}
+  - {fileID: 11400000, guid: 6c62a8c04bf17774b981fd438a70f7e2, type: 2}
+  - {fileID: 11400000, guid: b549b5cb1d16d4c43955cf896ddab5da, type: 2}
+  - {fileID: 11400000, guid: f769f9a5b4bfb7544b096bb3e5081096, type: 2}
+  - {fileID: 11400000, guid: ac5744c11905cff4fbc0610baa885d9a, type: 2}
+  - {fileID: 11400000, guid: f9b4aa88cfcbab04a94327c9f103d687, type: 2}
+  - {fileID: 11400000, guid: f0e7f361545f6844fb08ec1865d7e7c5, type: 2}
+  - {fileID: 11400000, guid: 57e5707579a29aa45a9819740d73fd8e, type: 2}
+  - {fileID: 11400000, guid: 83924a592fa92c24dbc055bf61997830, type: 2}

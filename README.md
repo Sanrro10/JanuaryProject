@@ -29,6 +29,14 @@ As a minimalist art, the game doesn't have complex visual design. It is componed
 - **Background**: The background is composed by a grey scale, with a subtle blue or orange, depending on the plane the player is, so it doesn't distract the player for the obstacles and the goal.
 
 ## Lore
+Bolinche was a **normal ball** that just went around the Round world. They always rolled around everywere without any special worry. They was a ball and they liked balls, everything was simple. 
+But one day, things changed. Suddenly, Bolinche unintentionally **changed between dimensions**. Was something like that possible? Well, Bolinche did it, so it seems so. But they didn't know how that change occurred, so they didn't know how to go back to their round dimension. Now they were **trapped** in a strange dimension of squares, rectagles and even triangles! But, for some reason, they can **shift between planes**, alternating the blue and the orange dimension. They still didn't know how they were doing that thing, but one thing was clear: they will find they way to **return to their original dimension**.
+Time passed, and Bolinche learned a bit how to use those strange super powers, but they felt **lonely**. They can see through all those dimensions, but it seems nobody can notice Bolinche. Everywhere they went, thing seemed **dangerous and hostile**. Bolinche could not help but feel threatened. However, they didn't give up, and continue forging ahead with the hope of return to the round dimension.
+During the journey, Bolinche experimented the loneliness from different points of view:
+- **Social**: They were completely alone. There were a lot of beings and things around there, yes, but Bolinche didn't understand a thing. They could communicate with nobody, they felt they were they last ball in every dimension.
+- **Emotional**: Feeling like the last ball in all existence was painful, a very concrete way of feeling alone.
+- **Existential**: What if they could never return? Whas if they was trapped eternally? What was the meaning of life then?
+As they moved forward, Bolinche found a balance in the journey. They were understanding how the different dimensions works, and they were discovering things that every ball would find incomprehensible. Bolinche was the only ball that was allowed to see all those amazing things, and they have masterized the plane shifting. Maybe... this was their destiny? Travel around the never-ending dimensions and grow? They didn't know, but they were more confortable with their situation. **Journey before destination**
 
 ## Levels
 In **Project: Planeshifter** levels are BIG. The player moves horizontally to the right most of the time, but there will be ocasions in which the player will need to change the direction, ascend or go down by different paths to find the goal.

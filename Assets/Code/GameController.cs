@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class GameController : MonoBehaviour
     [SerializeField] private Tilemap mainTilemap;
     [SerializeField] private List<Tile> spikeTiles;
     [SerializeField] private List<Tile> victoryTiles;
+
+    //Background
+    [SerializeField] private RawImage BgImg;
 
     private bool orangeActive;
 
@@ -64,6 +68,7 @@ public class GameController : MonoBehaviour
         orangeActive = !orangeActive;
         orangeTilemap.Swap(orangeActive);
         blueTilemap.Swap(!orangeActive);
+        ChangeBackground(BgImg, orangeActive);
     }
     public List<Tile> GetSpikeTiles(){
         return spikeTiles;
@@ -71,6 +76,19 @@ public class GameController : MonoBehaviour
     public List<Tile> GetVictoryTiles(){
         return victoryTiles;
     }
+
+    void ChangeBackground(RawImage img, bool orangeActive) { 
+        if (orangeActive)
+        {
+            img.CrossFadeAlpha(0, 0.2f, false);
+        }
+        else
+        {
+            img.CrossFadeAlpha(1, 0.2f, false);
+        }
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -90,4 +108,6 @@ public class GameController : MonoBehaviour
     {
 
     }
+
+    
 }

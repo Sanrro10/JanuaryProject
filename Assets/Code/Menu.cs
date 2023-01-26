@@ -7,12 +7,14 @@ using UnityEngine.UI;
 public class Menu : MonoBehaviour
 {
     [SerializeField] List<Level> levels = new List<Level>();
-    private int currentLevel = 0;
+    private static int currentLevel = 0;
     private int lastUnlockedLevel = 0;
     public GameObject MainMenu;
     public GameObject LevelSelectMenu;
+    public GameObject OptionsMenu;
     public Button LeftArrow;
     public Button RightArrow;
+    public Button SelectLevelButton;
     public TextMeshProUGUI LevelName;
     public TextMeshProUGUI LevelDifficulty;
     public TextMeshProUGUI LevelScore;
@@ -21,6 +23,7 @@ public class Menu : MonoBehaviour
     {
         MainMenu.SetActive(true);
         LevelSelectMenu.SetActive(false);
+        OptionsMenu.SetActive(false);
     } 
     private void SetLastUnlockedLevel()
     {
@@ -33,6 +36,11 @@ public class Menu : MonoBehaviour
                 break;
             }
         }
+    }
+    public void ShowOptionsMenu()
+    {
+        MainMenu.SetActive(false);
+        OptionsMenu.SetActive(true);
     }
     public void ShowLevelSelectMenu()
     {
@@ -51,6 +59,12 @@ public class Menu : MonoBehaviour
         LevelName.text = levels[currentLevel].scene.SceneName;
         LevelDifficulty.text = "Difficulty: "+ levels[currentLevel].difficulty.ToString() + "/5";
         LevelScore.text = "Score: " + levels[currentLevel].GetScore().ToString();
+        if(levels[currentLevel].IsUnlocked())
+        {
+            SelectLevelButton.gameObject.SetActive(true);
+        }else{
+            SelectLevelButton.gameObject.SetActive(false);
+        }
     }
     public void NextLevel()
     {
@@ -91,6 +105,7 @@ public class Menu : MonoBehaviour
     {
         SetLastUnlockedLevel();
         currentLevel = lastUnlockedLevel;
+        ReturnButton();
     }
 
     // Update is called once per frame

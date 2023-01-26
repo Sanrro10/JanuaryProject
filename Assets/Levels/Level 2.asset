@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Level 2
   m_EditorClassIdentifier: 
   scene:
-    m_SceneAsset: {fileID: 102900000, guid: 3fc8acdd13e6c734bafef6554d6fdbcd, type: 3}
+    m_SceneAsset: {fileID: 102900000, guid: 7442ca259e303ff4cad2c1f2ea796266, type: 3}
     m_IsDirty: 0
-    m_ScenePath: Assets/Scenes/SampleScene.unity
+    m_ScenePath: Assets/Scenes/BaseLevel.unity
   difficulty: 0
   unlocked: 1

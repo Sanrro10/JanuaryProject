@@ -36,6 +36,7 @@ During the journey, Bolinche experimented the loneliness from different points o
 - **Social**: They were completely alone. There were a lot of beings and things around there, yes, but Bolinche didn't understand a thing. They could communicate with nobody, they felt they were they last ball in every dimension.
 - **Emotional**: Feeling like the last ball in all existence was painful, a very concrete way of feeling alone.
 - **Existential**: What if they could never return? Whas if they was trapped eternally? What was the meaning of life then?
+
 As they moved forward, Bolinche found a balance in the journey. They were understanding how the different dimensions works, and they were discovering things that every ball would find incomprehensible. Bolinche was the only ball that was allowed to see all those amazing things, and they have masterized the plane shifting. Maybe... this was their destiny? Travel around the never-ending dimensions and grow? They didn't know, but they were more confortable with their situation. **Journey before destination**
 
 ## Levels

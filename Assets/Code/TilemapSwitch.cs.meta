@@ -3,7 +3,47 @@ guid: cf89eb4649f539d489491dcba8f41e3c
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - tilemap: {instanceID: 0}
+  - tilemapCollider2D: {instanceID: 0}
+  - mediumLeft: {instanceID: 0}
+  - mediumMiddle: {instanceID: 0}
+  - mediumRight: {instanceID: 0}
+  - smallLeft: {instanceID: 0}
+  - smallMiddle: {instanceID: 0}
+  - smallRight: {instanceID: 0}
+  - bigTopLeft: {instanceID: 0}
+  - bigTopMiddle: {instanceID: 0}
+  - bigTopRight: {instanceID: 0}
+  - bigMiddleLeft: {instanceID: 0}
+  - bigMiddleMiddle: {instanceID: 0}
+  - bigMiddleRight: {instanceID: 0}
+  - bigBottomLeft: {instanceID: 0}
+  - bigBottomMiddle: {instanceID: 0}
+  - bigBottomRight: {instanceID: 0}
+  - topSpikes: {instanceID: 0}
+  - leftSpikes: {instanceID: 0}
+  - rightSpikes: {instanceID: 0}
+  - bottomSpikes: {instanceID: 0}
+  - mediumLeftAlt: {instanceID: 0}
+  - mediumMiddleAlt: {instanceID: 0}
+  - mediumRightAlt: {instanceID: 0}
+  - smallLeftAlt: {instanceID: 0}
+  - smallMiddleAlt: {instanceID: 0}
+  - smallRightAlt: {instanceID: 0}
+  - bigTopLeftAlt: {instanceID: 0}
+  - bigTopMiddleAlt: {instanceID: 0}
+  - bigTopRightAlt: {instanceID: 0}
+  - bigMiddleLeftAlt: {instanceID: 0}
+  - bigMiddleMiddleAlt: {instanceID: 0}
+  - bigMiddleRightAlt: {instanceID: 0}
+  - bigBottomLeftAlt: {instanceID: 0}
+  - bigBottomMiddleAlt: {instanceID: 0}
+  - bigBottomRightAlt: {instanceID: 0}
+  - topSpikesAlt: {instanceID: 0}
+  - leftSpikesAlt: {instanceID: 0}
+  - rightSpikesAlt: {instanceID: 0}
+  - bottomSpikesAlt: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

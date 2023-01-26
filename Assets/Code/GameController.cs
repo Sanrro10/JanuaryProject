@@ -44,7 +44,7 @@ public class GameController : MonoBehaviour
     }
     public void Die()
     {
-        SceneLevelManager.instance.ReloadLevel();
+        SceneLevelManager.ReloadLevel();
         //Pause();
         //UI de muerte y reinicio
     }
@@ -96,6 +96,7 @@ public class GameController : MonoBehaviour
         orangeActive = false;
         orangeTilemap.Swap(orangeActive);
         blueTilemap.Swap(!orangeActive);
+        SceneLevelManager.SetCurrentLevel(SceneManager.GetActiveScene().buildIndex);
     }
     void Awake()
     {

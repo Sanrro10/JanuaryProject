@@ -75,19 +75,21 @@ public class Player : MonoBehaviour
         {
             victorySprites.Add(tile.sprite);
         }
-        Debug.Log(spikeSprites.Count);
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
-        {
+        { 
             foreach (ContactPoint2D contact in collision.contacts)
             {
                 try
                 {
                     Tilemap map = contact.collider.GetComponent<Tilemap>();
+                    Debug.Log("Point: " + contact.point);
+                    Debug.Log("Cell" + map.layoutGrid.WorldToCell(contact.point));
+                    Debug.Log("Sprite: " + map.GetSprite(map.layoutGrid.WorldToCell(contact.point)));
                     if (spikeSprites.Contains(map.GetSprite(map.layoutGrid.WorldToCell(contact.point))))
-                    {
+                    {   Debug.Log("Spike");
                         gameController.Die();
                     } else if (victorySprites.Contains(map.GetSprite(map.layoutGrid.WorldToCell(contact.point))))
                     {

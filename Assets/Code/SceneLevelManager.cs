@@ -6,7 +6,7 @@ public class SceneLevelManager : MonoBehaviour
 {
     public static SceneLevelManager instance;
 
-    public int currentLevel = 0;
+    public static int currentLevel = 0;
 
     private void Awake()
     {
@@ -25,7 +25,7 @@ public class SceneLevelManager : MonoBehaviour
         currentLevel++;
         UnityEngine.SceneManagement.SceneManager.LoadScene(currentLevel);
     }
-    public void ReloadLevel()
+    public static void ReloadLevel()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene(currentLevel);
     }
@@ -38,5 +38,9 @@ public class SceneLevelManager : MonoBehaviour
     {
         currentLevel = 0;
         UnityEngine.SceneManagement.SceneManager.LoadScene(currentLevel);
+    }
+    public static void SetCurrentLevel(int level)
+    {
+        currentLevel = level;
     }
 }

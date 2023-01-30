@@ -69,3 +69,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f0e7f361545f6844fb08ec1865d7e7c5, type: 2}
   - {fileID: 11400000, guid: 57e5707579a29aa45a9819740d73fd8e, type: 2}
   - {fileID: 11400000, guid: 83924a592fa92c24dbc055bf61997830, type: 2}
+  BgImg: {fileID: 0}

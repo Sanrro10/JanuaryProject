@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 1056903964170598176}
   - component: {fileID: 1056903964170598189}
   - component: {fileID: 1056903964170598190}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSpeed: 10
-  jumpForce: 250
+  jumpForce: 400
   circleCollider: {fileID: 1056903964170598177}
   leftCollider: {fileID: 1056903964170598189}
   rightCollider: {fileID: 1056903964170598190}

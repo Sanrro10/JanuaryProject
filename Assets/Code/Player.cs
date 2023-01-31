@@ -78,8 +78,9 @@ public class Player : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
+        Debug.Log("Collision");
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
-        { 
+        {
             foreach (ContactPoint2D contact in collision.contacts)
             {
                 try
@@ -103,6 +104,7 @@ public class Player : MonoBehaviour
             }
         }
     }
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
@@ -122,12 +124,5 @@ public class Player : MonoBehaviour
     void Update()
     {
         transform.Translate(playerDirection * playerSpeed * Time.deltaTime);
-    }
-
-
-
-    void FixedUpdate()
-    {
-
     }
 }

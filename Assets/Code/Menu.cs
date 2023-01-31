@@ -107,11 +107,5 @@ public class Menu : MonoBehaviour
         currentLevel = lastUnlockedLevel;
         ReturnButton();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     
 }

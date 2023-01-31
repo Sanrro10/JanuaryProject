@@ -107,6 +107,14 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            player.Jump();
+        }
+        if(Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            SwapTilemaps();
+        }
 
     }
 

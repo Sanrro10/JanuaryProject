@@ -12,10 +12,14 @@ public class CameraMovement : MonoBehaviour
     public float cameraError = 1.5f;
 
     public float catchUpSpeed = 2f;
+    private Transform cameraTransform;
+    private Transform playerTransform;
     // Start is called before the first frame update
     void Start()
     {
         cam = GetComponent<Camera>();
+        cameraTransform = transform;
+        playerTransform = player.transform;
         horizontalThreshold = cam.orthographicSize * (float) 0.5;
         verticalThreshold = cam.orthographicSize * (float) 0.7;
     }
@@ -24,31 +28,30 @@ public class CameraMovement : MonoBehaviour
     void Update()
     {
         if(player.GetPlayerDirection() == Vector2.right){
-            if(player.transform.position.x >= cam.transform.position.x -horizontalThreshold + cameraError 
-            && player.transform.position.x <= cam.transform.position.x -horizontalThreshold - cameraError){
+            if(playerTransform.position.x >= cameraTransform.position.x -horizontalThreshold + cameraError 
+            && playerTransform.position.x <= cameraTransform.position.x -horizontalThreshold - cameraError){
                 transform.Translate(player.GetPlayerDirection() * player.playerSpeed * Time.deltaTime);
             }else{
-                if(player.transform.position.x > cam.transform.position.x -horizontalThreshold){
+                if(playerTransform.position.x > cameraTransform.position.x -horizontalThreshold){
                     transform.Translate(player.GetPlayerDirection() * catchUpSpeed * player.playerSpeed * Time.deltaTime);
                 }
             }
         }else{
-            if(player.transform.position.x >= cam.transform.position.x + horizontalThreshold + cameraError  //Igual no hay que cambiar los signos
-            && player.transform.position.x <= cam.transform.position.x + horizontalThreshold - cameraError){
+            if(playerTransform.position.x >= cameraTransform.position.x + horizontalThreshold + cameraError  //Igual no hay que cambiar los signos
+            && playerTransform.position.x <= cameraTransform.position.x + horizontalThreshold - cameraError){
                 transform.Translate(player.GetPlayerDirection() * player.playerSpeed * Time.deltaTime);
-                Debug.Log("En los márgenes");
             }else{
-                if(player.transform.position.x < cam.transform.position.x + horizontalThreshold){
+                if(playerTransform.position.x < cameraTransform.position.x + horizontalThreshold){
                     transform.Translate(player.GetPlayerDirection() * catchUpSpeed * player.playerSpeed * Time.deltaTime);
                 }
             }
         }
         
 
-        if(cam.transform.position.y - player.transform.position.y > verticalThreshold){
-            cam.transform.position = new Vector3(cam.transform.position.x, player.transform.position.y + verticalThreshold, cam.transform.position.z);
-        }else if(player.transform.position.y - cam.transform.position.y > verticalThreshold){
-            cam.transform.position = new Vector3(cam.transform.position.x, player.transform.position.y - verticalThreshold, cam.transform.position.z);
+        if(cameraTransform.position.y - playerTransform.position.y > verticalThreshold){
+            cameraTransform.position = new Vector3(cameraTransform.position.x, playerTransform.position.y + verticalThreshold, cameraTransform.position.z);
+        }else if(playerTransform.position.y - cameraTransform.position.y > verticalThreshold){
+            cameraTransform.position = new Vector3(cameraTransform.position.x, playerTransform.position.y - verticalThreshold, cameraTransform.position.z);
         }
     }
 }

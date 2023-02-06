@@ -14,7 +14,6 @@ public class Player : MonoBehaviour
     [SerializeField] private CapsuleCollider2D leftColliderTrigger;
     [SerializeField] private CapsuleCollider2D rightColliderTrigger;
     private GameController gameController;
-    private List<Sprite> spikeSprites;
     private List<Sprite> victorySprites;
     private Vector2 playerDirection;
 
@@ -69,13 +68,6 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         playerDirection = Vector2.right;
         gameController = GameObject.Find("GameController").GetComponent<GameController>();
-        List<Tile> spikeTiles = gameController.GetSpikeTiles();
-        Debug.Log("Spikes: " + spikeTiles.Count);
-        spikeSprites = new List<Sprite>();
-        foreach (Tile tile in spikeTiles)
-        {
-            spikeSprites.Add(tile.sprite);
-        }
         victorySprites = new List<Sprite>();
         foreach (Tile tile in gameController.GetVictoryTiles())
         {
@@ -92,13 +84,11 @@ public class Player : MonoBehaviour
                 try
                 {
                     Tilemap map = contact.collider.GetComponent<Tilemap>();
-                    Debug.Log("Point: " + contact.point);
-                    Debug.Log("Cell" + map.layoutGrid.WorldToCell(contact.point));
-                    Debug.Log("Sprite: " + map.GetSprite(map.layoutGrid.WorldToCell(contact.point)));
-                    if (spikeSprites.Contains(map.GetSprite(map.layoutGrid.WorldToCell(contact.point))))
-                    {   Debug.Log("Spike");
+                    if (map == gameController.GetSpikeTilemap())
+                    {
                         gameController.Die();
-                    } else if (victorySprites.Contains(map.GetSprite(map.layoutGrid.WorldToCell(contact.point))))
+                    }
+                    else if (victorySprites.Contains(map.GetSprite(map.layoutGrid.WorldToCell(contact.point))))
                     {
                         gameController.Win();
                     }

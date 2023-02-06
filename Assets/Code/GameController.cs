@@ -8,10 +8,8 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
     [SerializeField] private Player player;
-    [SerializeField] private TilemapSwitch orangeTilemap;
-    [SerializeField] private TilemapSwitch blueTilemap;
-    [SerializeField] private Tilemap mainTilemap;
-    [SerializeField] private List<Tile> spikeTiles;
+    [SerializeField] private TilemapSwitch spikeTilemap;
+    [SerializeField] private TilemapSwitch mainTilemap;
     [SerializeField] private List<Tile> victoryTiles;
 
     //Background
@@ -32,15 +30,11 @@ public class GameController : MonoBehaviour
     }
     public Tilemap GetMainTilemap()
     {
-        return mainTilemap;
+        return mainTilemap.GetTilemap();
     }
-    public Tilemap GetOrangeTilemap()
+    public Tilemap GetSpikeTilemap()
     {
-        return orangeTilemap.GetTilemap();
-    }
-    public Tilemap GetBlueTilemap()
-    {
-        return blueTilemap.GetTilemap();
+        return spikeTilemap.GetTilemap();
     }
     public void Die()
     {
@@ -66,12 +60,9 @@ public class GameController : MonoBehaviour
     public void SwapTilemaps()
     {
         orangeActive = !orangeActive;
-        orangeTilemap.Swap(orangeActive);
-        blueTilemap.Swap(!orangeActive);
+        mainTilemap.Swap(orangeActive);
+        spikeTilemap.Swap(orangeActive);
         ChangeBackground(BgImg, orangeActive);
-    }
-    public List<Tile> GetSpikeTiles(){
-        return spikeTiles;
     }
     public List<Tile> GetVictoryTiles(){
         return victoryTiles;
@@ -94,14 +85,9 @@ public class GameController : MonoBehaviour
     {
         running = true;
         orangeActive = false;
-        orangeTilemap.Swap(orangeActive);
-        blueTilemap.Swap(!orangeActive);
+        mainTilemap.Swap(orangeActive);
+        spikeTilemap.Swap(orangeActive);
         SceneLevelManager.SetCurrentLevel(SceneManager.GetActiveScene().buildIndex);
-    }
-    void Awake()
-    {
-        spikeTiles.AddRange(orangeTilemap.GetSpikeTiles());
-        spikeTiles.AddRange(blueTilemap.GetSpikeTiles());
     }
 
     // Update is called once per frame
@@ -117,6 +103,5 @@ public class GameController : MonoBehaviour
         }
 
     }
-
     
 }

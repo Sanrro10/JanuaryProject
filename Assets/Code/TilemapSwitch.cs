@@ -5,101 +5,190 @@ using UnityEngine.Tilemaps;
 
 public class TilemapSwitch : MonoBehaviour
 {
-    [SerializeField] private Tilemap tilemap;
-    [SerializeField] private TilemapCollider2D tilemapCollider2D;
-    [SerializeField] private Tile mediumLeft;
-    [SerializeField] private Tile mediumMiddle;
-    [SerializeField] private Tile mediumRight;
-    [SerializeField] private Tile smallLeft;
-    [SerializeField] private Tile smallMiddle;
-    [SerializeField] private Tile smallRight;
-    [SerializeField] private Tile bigTopLeft;
-    [SerializeField] private Tile bigTopMiddle;
-    [SerializeField] private Tile bigTopRight;
-    [SerializeField] private Tile bigMiddleLeft;
-    [SerializeField] private Tile bigMiddleMiddle;
-    [SerializeField] private Tile bigMiddleRight;
-    [SerializeField] private Tile bigBottomLeft;
-    [SerializeField] private Tile bigBottomMiddle;
-    [SerializeField] private Tile bigBottomRight;
-    [SerializeField] private Tile topSpikes;
-    [SerializeField] private Tile leftSpikes;
-    [SerializeField] private Tile rightSpikes;
-    [SerializeField] private Tile bottomSpikes;
-    [SerializeField] private Tile mediumLeftAlt;
-    [SerializeField] private Tile mediumMiddleAlt;
-    [SerializeField] private Tile mediumRightAlt;
-    [SerializeField] private Tile smallLeftAlt;
-    [SerializeField] private Tile smallMiddleAlt;
-    [SerializeField] private Tile smallRightAlt;
-    [SerializeField] private Tile bigTopLeftAlt;
-    [SerializeField] private Tile bigTopMiddleAlt;
-    [SerializeField] private Tile bigTopRightAlt;
-    [SerializeField] private Tile bigMiddleLeftAlt;
-    [SerializeField] private Tile bigMiddleMiddleAlt;
-    [SerializeField] private Tile bigMiddleRightAlt;
-    [SerializeField] private Tile bigBottomLeftAlt;
-    [SerializeField] private Tile bigBottomMiddleAlt;
-    [SerializeField] private Tile bigBottomRightAlt;
-    [SerializeField] private Tile topSpikesAlt;
-    [SerializeField] private Tile leftSpikesAlt;
-    [SerializeField] private Tile rightSpikesAlt;
-    [SerializeField] private Tile bottomSpikesAlt;
-
-    public void Swap(bool active)
+    public enum TilemapType
     {
-        if (!active)
+        Spikes,
+        Terrain
+    }
+    public TilemapType tilemapType;
+    [SerializeField] private Tilemap tilemap;
+    [SerializeField] private Tile blueMediumLeft;
+    [SerializeField] private Tile blueMediumMiddle;
+    [SerializeField] private Tile blueMediumRight;
+    [SerializeField] private Tile blueSmallLeft;
+    [SerializeField] private Tile blueSmallMiddle;
+    [SerializeField] private Tile blueSmallRight;
+    [SerializeField] private Tile blueBigTopLeft;
+    [SerializeField] private Tile blueBigTopMiddle;
+    [SerializeField] private Tile blueBigTopRight;
+    [SerializeField] private Tile blueBigMiddleLeft;
+    [SerializeField] private Tile blueBigMiddleMiddle;
+    [SerializeField] private Tile blueBigMiddleRight;
+    [SerializeField] private Tile blueBigBottomLeft;
+    [SerializeField] private Tile blueBigBottomMiddle;
+    [SerializeField] private Tile blueBigBottomRight;
+    [SerializeField] private Tile blueTopSpikes;
+    [SerializeField] private Tile blueLeftSpikes;
+    [SerializeField] private Tile blueRightSpikes;
+    [SerializeField] private Tile blueBottomSpikes;
+    [SerializeField] private Tile blueMediumLeftAlt;
+    [SerializeField] private Tile blueMediumMiddleAlt;
+    [SerializeField] private Tile blueMediumRightAlt;
+    [SerializeField] private Tile blueSmallLeftAlt;
+    [SerializeField] private Tile blueSmallMiddleAlt;
+    [SerializeField] private Tile blueSmallRightAlt;
+    [SerializeField] private Tile blueBigTopLeftAlt;
+    [SerializeField] private Tile blueBigTopMiddleAlt;
+    [SerializeField] private Tile blueBigTopRightAlt;
+    [SerializeField] private Tile blueBigMiddleLeftAlt;
+    [SerializeField] private Tile blueBigMiddleMiddleAlt;
+    [SerializeField] private Tile blueBigMiddleRightAlt;
+    [SerializeField] private Tile blueBigBottomLeftAlt;
+    [SerializeField] private Tile blueBigBottomMiddleAlt;
+    [SerializeField] private Tile blueBigBottomRightAlt;
+    [SerializeField] private Tile blueTopSpikesAlt;
+    [SerializeField] private Tile blueLeftSpikesAlt;
+    [SerializeField] private Tile blueRightSpikesAlt;
+    [SerializeField] private Tile blueBottomSpikesAlt;
+    [SerializeField] private Tile orangeMediumLeft;
+    [SerializeField] private Tile orangeMediumMiddle;
+    [SerializeField] private Tile orangeMediumRight;
+    [SerializeField] private Tile orangeSmallLeft;
+    [SerializeField] private Tile orangeSmallMiddle;
+    [SerializeField] private Tile orangeSmallRight;
+    [SerializeField] private Tile orangeBigTopLeft;
+    [SerializeField] private Tile orangeBigTopMiddle;
+    [SerializeField] private Tile orangeBigTopRight;
+    [SerializeField] private Tile orangeBigMiddleLeft;
+    [SerializeField] private Tile orangeBigMiddleMiddle;
+    [SerializeField] private Tile orangeBigMiddleRight;
+    [SerializeField] private Tile orangeBigBottomLeft;
+    [SerializeField] private Tile orangeBigBottomMiddle;
+    [SerializeField] private Tile orangeBigBottomRight;
+    [SerializeField] private Tile orangeTopSpikes;
+    [SerializeField] private Tile orangeLeftSpikes;
+    [SerializeField] private Tile orangeRightSpikes;
+    [SerializeField] private Tile orangeBottomSpikes;
+    [SerializeField] private Tile orangeMediumLeftAlt;
+    [SerializeField] private Tile orangeMediumMiddleAlt;
+    [SerializeField] private Tile orangeMediumRightAlt;
+    [SerializeField] private Tile orangeSmallLeftAlt;
+    [SerializeField] private Tile orangeSmallMiddleAlt;
+    [SerializeField] private Tile orangeSmallRightAlt;
+    [SerializeField] private Tile orangeBigTopLeftAlt;
+    [SerializeField] private Tile orangeBigTopMiddleAlt;
+    [SerializeField] private Tile orangeBigTopRightAlt;
+    [SerializeField] private Tile orangeBigMiddleLeftAlt;
+    [SerializeField] private Tile orangeBigMiddleMiddleAlt;
+    [SerializeField] private Tile orangeBigMiddleRightAlt;
+    [SerializeField] private Tile orangeBigBottomLeftAlt;
+    [SerializeField] private Tile orangeBigBottomMiddleAlt;
+    [SerializeField] private Tile orangeBigBottomRightAlt;
+    [SerializeField] private Tile orangeTopSpikesAlt;
+    [SerializeField] private Tile orangeLeftSpikesAlt;
+    [SerializeField] private Tile orangeRightSpikesAlt;
+    [SerializeField] private Tile orangeBottomSpikesAlt;
+
+    public void Swap(bool activateOrange)
+    {
+        if (activateOrange)
         {
-            tilemap.SwapTile(mediumLeft, mediumLeftAlt);
-            tilemap.SwapTile(mediumMiddle, mediumMiddleAlt);
-            tilemap.SwapTile(mediumRight, mediumRightAlt);
-            tilemap.SwapTile(smallLeft, smallLeftAlt);
-            tilemap.SwapTile(smallMiddle, smallMiddleAlt);
-            tilemap.SwapTile(smallRight, smallRightAlt);
-            tilemap.SwapTile(bigTopLeft, bigTopLeftAlt);
-            tilemap.SwapTile(bigTopMiddle, bigTopMiddleAlt);
-            tilemap.SwapTile(bigTopRight, bigTopRightAlt);
-            tilemap.SwapTile(bigMiddleLeft, bigMiddleLeftAlt);
-            tilemap.SwapTile(bigMiddleMiddle, bigMiddleMiddleAlt);
-            tilemap.SwapTile(bigMiddleRight, bigMiddleRightAlt);
-            tilemap.SwapTile(bigBottomLeft, bigBottomLeftAlt);
-            tilemap.SwapTile(bigBottomMiddle, bigBottomMiddleAlt);
-            tilemap.SwapTile(bigBottomRight, bigBottomRightAlt);
-            tilemap.SwapTile(topSpikes, topSpikesAlt);
-            tilemap.SwapTile(leftSpikes, leftSpikesAlt);
-            tilemap.SwapTile(rightSpikes, rightSpikesAlt);
-            tilemap.SwapTile(bottomSpikes, bottomSpikesAlt);
+            if (tilemapType.Equals(TilemapType.Spikes))
+            {
+                tilemap.SwapTile(blueTopSpikes, blueTopSpikesAlt);
+                tilemap.SwapTile(blueLeftSpikes, blueLeftSpikesAlt);
+                tilemap.SwapTile(blueRightSpikes, blueRightSpikesAlt);
+                tilemap.SwapTile(blueBottomSpikes, blueBottomSpikesAlt);
+                tilemap.SwapTile(orangeTopSpikesAlt, orangeTopSpikes);
+                tilemap.SwapTile(orangeLeftSpikesAlt, orangeLeftSpikes);
+                tilemap.SwapTile(orangeRightSpikesAlt, orangeRightSpikes);
+                tilemap.SwapTile(orangeBottomSpikesAlt, orangeBottomSpikes);
+            }
+            else
+            {
+                tilemap.SwapTile(blueMediumLeft, blueMediumLeftAlt);
+                tilemap.SwapTile(blueMediumMiddle, blueMediumMiddleAlt);
+                tilemap.SwapTile(blueMediumRight, blueMediumRightAlt);
+                tilemap.SwapTile(blueSmallLeft, blueSmallLeftAlt);
+                tilemap.SwapTile(blueSmallMiddle, blueSmallMiddleAlt);
+                tilemap.SwapTile(blueSmallRight, blueSmallRightAlt);
+                tilemap.SwapTile(blueBigTopLeft, blueBigTopLeftAlt);
+                tilemap.SwapTile(blueBigTopMiddle, blueBigTopMiddleAlt);
+                tilemap.SwapTile(blueBigTopRight, blueBigTopRightAlt);
+                tilemap.SwapTile(blueBigMiddleLeft, blueBigMiddleLeftAlt);
+                tilemap.SwapTile(blueBigMiddleMiddle, blueBigMiddleMiddleAlt);
+                tilemap.SwapTile(blueBigMiddleRight, blueBigMiddleRightAlt);
+                tilemap.SwapTile(blueBigBottomLeft, blueBigBottomLeftAlt);
+                tilemap.SwapTile(blueBigBottomMiddle, blueBigBottomMiddleAlt);
+                tilemap.SwapTile(blueBigBottomRight, blueBigBottomRightAlt);
+                tilemap.SwapTile(orangeMediumLeftAlt, orangeMediumLeft);
+                tilemap.SwapTile(orangeMediumMiddleAlt, orangeMediumMiddle);
+                tilemap.SwapTile(orangeMediumRightAlt, orangeMediumRight);
+                tilemap.SwapTile(orangeSmallLeftAlt, orangeSmallLeft);
+                tilemap.SwapTile(orangeSmallMiddleAlt, orangeSmallMiddle);
+                tilemap.SwapTile(orangeSmallRightAlt, orangeSmallRight);
+                tilemap.SwapTile(orangeBigTopLeftAlt, orangeBigTopLeft);
+                tilemap.SwapTile(orangeBigTopMiddleAlt, orangeBigTopMiddle);
+                tilemap.SwapTile(orangeBigTopRightAlt, orangeBigTopRight);
+                tilemap.SwapTile(orangeBigMiddleLeftAlt, orangeBigMiddleLeft);
+                tilemap.SwapTile(orangeBigMiddleMiddleAlt, orangeBigMiddleMiddle);
+                tilemap.SwapTile(orangeBigMiddleRightAlt, orangeBigMiddleRight);
+                tilemap.SwapTile(orangeBigBottomLeftAlt, orangeBigBottomLeft);
+                tilemap.SwapTile(orangeBigBottomMiddleAlt, orangeBigBottomMiddle);
+                tilemap.SwapTile(orangeBigBottomRightAlt, orangeBigBottomRight);
+            }
         }
         else
         {
-            tilemap.SwapTile(mediumLeftAlt, mediumLeft);
-            tilemap.SwapTile(mediumMiddleAlt, mediumMiddle);
-            tilemap.SwapTile(mediumRightAlt, mediumRight);
-            tilemap.SwapTile(smallLeftAlt, smallLeft);
-            tilemap.SwapTile(smallMiddleAlt, smallMiddle);
-            tilemap.SwapTile(smallRightAlt, smallRight);
-            tilemap.SwapTile(bigTopLeftAlt, bigTopLeft);
-            tilemap.SwapTile(bigTopMiddleAlt, bigTopMiddle);
-            tilemap.SwapTile(bigTopRightAlt, bigTopRight);
-            tilemap.SwapTile(bigMiddleLeftAlt, bigMiddleLeft);
-            tilemap.SwapTile(bigMiddleMiddleAlt, bigMiddleMiddle);
-            tilemap.SwapTile(bigMiddleRightAlt, bigMiddleRight);
-            tilemap.SwapTile(bigBottomLeftAlt, bigBottomLeft);
-            tilemap.SwapTile(bigBottomMiddleAlt, bigBottomMiddle);
-            tilemap.SwapTile(bigBottomRightAlt, bigBottomRight);
-            tilemap.SwapTile(topSpikesAlt, topSpikes);
-            tilemap.SwapTile(leftSpikesAlt, leftSpikes);
-            tilemap.SwapTile(rightSpikesAlt, rightSpikes);
-            tilemap.SwapTile(bottomSpikesAlt, bottomSpikes);
+            if (tilemapType.Equals(TilemapType.Spikes))
+            {
+                tilemap.SwapTile(orangeTopSpikes, orangeTopSpikesAlt);
+                tilemap.SwapTile(orangeLeftSpikes, orangeLeftSpikesAlt);
+                tilemap.SwapTile(orangeRightSpikes, orangeRightSpikesAlt);
+                tilemap.SwapTile(orangeBottomSpikes, orangeBottomSpikesAlt);
+                tilemap.SwapTile(blueTopSpikesAlt, blueTopSpikes);
+                tilemap.SwapTile(blueLeftSpikesAlt, blueLeftSpikes);
+                tilemap.SwapTile(blueRightSpikesAlt, blueRightSpikes);
+                tilemap.SwapTile(blueBottomSpikesAlt, blueBottomSpikes);
+            }
+            else
+            {
+                tilemap.SwapTile(orangeMediumLeft, orangeMediumLeftAlt);
+                tilemap.SwapTile(orangeMediumMiddle, orangeMediumMiddleAlt);
+                tilemap.SwapTile(orangeMediumRight, orangeMediumRightAlt);
+                tilemap.SwapTile(orangeSmallLeft, orangeSmallLeftAlt);
+                tilemap.SwapTile(orangeSmallMiddle, orangeSmallMiddleAlt);
+                tilemap.SwapTile(orangeSmallRight, orangeSmallRightAlt);
+                tilemap.SwapTile(orangeBigTopLeft, orangeBigTopLeftAlt);
+                tilemap.SwapTile(orangeBigTopMiddle, orangeBigTopMiddleAlt);
+                tilemap.SwapTile(orangeBigTopRight, orangeBigTopRightAlt);
+                tilemap.SwapTile(orangeBigMiddleLeft, orangeBigMiddleLeftAlt);
+                tilemap.SwapTile(orangeBigMiddleMiddle, orangeBigMiddleMiddleAlt);
+                tilemap.SwapTile(orangeBigMiddleRight, orangeBigMiddleRightAlt);
+                tilemap.SwapTile(orangeBigBottomLeft, orangeBigBottomLeftAlt);
+                tilemap.SwapTile(orangeBigBottomMiddle, orangeBigBottomMiddleAlt);
+                tilemap.SwapTile(orangeBigBottomRight, orangeBigBottomRightAlt);
+                tilemap.SwapTile(blueMediumLeftAlt, blueMediumLeft);
+                tilemap.SwapTile(blueMediumMiddleAlt, blueMediumMiddle);
+                tilemap.SwapTile(blueMediumRightAlt, blueMediumRight);
+                tilemap.SwapTile(blueSmallLeftAlt, blueSmallLeft);
+                tilemap.SwapTile(blueSmallMiddleAlt, blueSmallMiddle);
+                tilemap.SwapTile(blueSmallRightAlt, blueSmallRight);
+                tilemap.SwapTile(blueBigTopLeftAlt, blueBigTopLeft);
+                tilemap.SwapTile(blueBigTopMiddleAlt, blueBigTopMiddle);
+                tilemap.SwapTile(blueBigTopRightAlt, blueBigTopRight);
+                tilemap.SwapTile(blueBigMiddleLeftAlt, blueBigMiddleLeft);
+                tilemap.SwapTile(blueBigMiddleMiddleAlt, blueBigMiddleMiddle);
+                tilemap.SwapTile(blueBigMiddleRightAlt, blueBigMiddleRight);
+                tilemap.SwapTile(blueBigBottomLeftAlt, blueBigBottomLeft);
+                tilemap.SwapTile(blueBigBottomMiddleAlt, blueBigBottomMiddle);
+                tilemap.SwapTile(blueBigBottomRightAlt, blueBigBottomRight);
+            }
+
         }
-        tilemapCollider2D.enabled = active;
     }
     public Tilemap GetTilemap()
     {
         return tilemap;
-    }
-    public List<Tile> GetSpikeTiles()
-    {
-        return new List<Tile> { topSpikes, leftSpikes, rightSpikes, bottomSpikes };
     }
 }

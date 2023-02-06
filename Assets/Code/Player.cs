@@ -18,33 +18,39 @@ public class Player : MonoBehaviour
     private List<Sprite> victorySprites;
     private Vector2 playerDirection;
 
-    public void Jump()
-    {
-        if (rb.IsTouchingLayers(LayerMask.GetMask("Ground")))
-        {
-            rb.AddForce(Vector2.up * jumpForce);
-        }
-        else
-        {
-            if (leftColliderTrigger.IsTouchingLayers(LayerMask.GetMask("Ground")))
-            {
-                rb.AddForce(Vector2.up * jumpForce);
-                if (playerDirection == Vector2.right)
-                {
-                    playerDirection = Vector2.left;
-                }
-            }
-            else if (rightColliderTrigger.IsTouchingLayers(LayerMask.GetMask("Ground")))
-            {
-                rb.AddForce(Vector2.up * jumpForce);
-                if (playerDirection == Vector2.left)
-                {
-                    playerDirection = Vector2.right;
-                }
-            }
+    //JumpButton
+    [SerializeField] private JumpButtonHandler jumpButtonHandler;
+    [SerializeField] private float jumpTime;
+    private float jumpTimeCounter;
+    private bool isJumping;
 
-        }
-    }
+    //public void Jump()
+    //{
+    //    if (rb.IsTouchingLayers(LayerMask.GetMask("Ground")))
+    //    {
+    //        rb.AddForce(Vector2.up * jumpForce);
+    //    }
+    //    else
+    //    {
+    //        if (leftColliderTrigger.IsTouchingLayers(LayerMask.GetMask("Ground")))
+    //        {
+    //            rb.AddForce(Vector2.up * jumpForce);
+    //            if (playerDirection == Vector2.right)
+    //            {
+    //                playerDirection = Vector2.left;
+    //            }
+    //        }
+    //        else if (rightColliderTrigger.IsTouchingLayers(LayerMask.GetMask("Ground")))
+    //        {
+    //            rb.AddForce(Vector2.up * jumpForce);
+    //            if (playerDirection == Vector2.left)
+    //            {
+    //                playerDirection = Vector2.right;
+    //            }
+    //        }
+
+    //    }
+    //}
     public Vector2 GetPlayerDirection()
     {
         return playerDirection;
@@ -124,5 +130,54 @@ public class Player : MonoBehaviour
     void Update()
     {
         transform.Translate(playerDirection * playerSpeed * Time.deltaTime);
+
+        if (jumpButtonHandler.GetIsPressed())
+        {
+            if (rb.IsTouchingLayers(LayerMask.GetMask("Ground")))
+            {
+                isJumping = true;
+                jumpTimeCounter = jumpTime;
+                rb.velocity = Vector2.up * jumpForce;
+            }
+            else
+            {
+                if (leftColliderTrigger.IsTouchingLayers(LayerMask.GetMask("Ground")) && playerDirection == Vector2.left)
+                {
+                    rb.velocity = Vector2.up * jumpForce;
+                    if (playerDirection == Vector2.right)
+                    {
+                        playerDirection = Vector2.left;
+                    }
+                }
+                else if (rightColliderTrigger.IsTouchingLayers(LayerMask.GetMask("Ground")) && playerDirection == Vector2.right)
+                {
+                    rb.velocity = Vector2.up * jumpForce;
+                    if (playerDirection == Vector2.left)
+                    {
+                        playerDirection = Vector2.right;
+                    }
+                }
+            }
+        }
+        
+        
+        if(jumpButtonHandler.GetIsHold() && isJumping)
+        {
+            if (jumpTimeCounter > 0)
+            {
+                rb.velocity = Vector2.up * jumpForce;
+                jumpTimeCounter -= Time.deltaTime;
+            }
+            else
+            {
+                isJumping = false;
+            }
+        }
+
+        if (!jumpButtonHandler.GetIsPressed())
+        {
+            isJumping = false;
+        }
+
     }
 }

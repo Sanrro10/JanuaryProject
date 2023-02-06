@@ -109,7 +109,7 @@ public class GameController : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            player.Jump();
+            //player.Jump();
         }
         if(Input.GetKeyDown(KeyCode.LeftShift))
         {

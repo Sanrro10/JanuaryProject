@@ -23,6 +23,9 @@ public class Player : MonoBehaviour
     private float jumpTimeCounter;
     private bool isJumping;
 
+    //Sound
+    private bool isJumpingAudio=false;
+
     //public void Jump()
     //{
     //    if (rb.IsTouchingLayers(LayerMask.GetMask("Ground")))
@@ -120,7 +123,12 @@ public class Player : MonoBehaviour
     void Update()
     {
         transform.Translate(playerDirection * playerSpeed * Time.deltaTime);
-
+        /*
+        if (rb.IsTouchingLayers(LayerMask.GetMask("Ground")) && isJumping==false)
+        {
+            isJumpingAudio = false;
+        }
+        */
         if (jumpButtonHandler.GetIsPressed())
         {
             if (rb.IsTouchingLayers(LayerMask.GetMask("Ground")))
@@ -128,11 +136,18 @@ public class Player : MonoBehaviour
                 isJumping = true;
                 jumpTimeCounter = jumpTime;
                 rb.velocity = Vector2.up * jumpForce;
+                if (isJumpingAudio == false)
+                {
+                    AudioManager.Instance.PlaySFX("player_jump");
+                    isJumpingAudio = true;
+                }
+                
             }
             else
             {
                 if (leftColliderTrigger.IsTouchingLayers(LayerMask.GetMask("Ground")) && playerDirection == Vector2.left)
                 {
+                    
                     rb.velocity = Vector2.up * jumpForce;
                     if (playerDirection == Vector2.right)
                     {
@@ -141,6 +156,7 @@ public class Player : MonoBehaviour
                 }
                 else if (rightColliderTrigger.IsTouchingLayers(LayerMask.GetMask("Ground")) && playerDirection == Vector2.right)
                 {
+                    
                     rb.velocity = Vector2.up * jumpForce;
                     if (playerDirection == Vector2.left)
                     {
@@ -161,12 +177,14 @@ public class Player : MonoBehaviour
             else
             {
                 isJumping = false;
+                isJumpingAudio = false;
             }
         }
 
         if (!jumpButtonHandler.GetIsPressed())
         {
             isJumping = false;
+            isJumpingAudio = false;
         }
 
     }

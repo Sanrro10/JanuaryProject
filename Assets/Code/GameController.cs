@@ -39,12 +39,15 @@ public class GameController : MonoBehaviour
     public void Die()
     {
         SceneLevelManager.ReloadLevel();
+        AudioManager.Instance.PlaySFX("player_death");
         //Pause();
         //UI de muerte y reinicio
     }
     public void Win()
     {
         Pause();
+        AudioManager.Instance.PlaySFX("goal");
+        AudioManager.Instance.musicSource.Stop();
         //UI de victoria y siguiente nivel
     }
     public void Pause()

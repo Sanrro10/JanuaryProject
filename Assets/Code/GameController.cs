@@ -11,6 +11,13 @@ public class GameController : MonoBehaviour
     [SerializeField] private TilemapSwitch spikeTilemap;
     [SerializeField] private TilemapSwitch mainTilemap;
     [SerializeField] private List<Tile> victoryTiles;
+    [SerializeField] private GameObject victoryUI;
+    [SerializeField] private GameObject deathUI;
+    [SerializeField] private GameObject pauseUI;
+    [SerializeField] private GameObject optionsUI;
+    [SerializeField] private GameObject gameUI;
+    [SerializeField] private GameObject pauseOptionsPanel;
+
 
     //Background
     [SerializeField] private RawImage BgImg;
@@ -38,27 +45,51 @@ public class GameController : MonoBehaviour
     }
     public void Die()
     {
-        SceneLevelManager.ReloadLevel();
         AudioManager.Instance.PlaySFX("player_death");
-        //Pause();
+        running = false;
+        Time.timeScale = 0;
+        deathUI.SetActive(true);
         //UI de muerte y reinicio
     }
     public void Win()
     {
-        Pause();
         AudioManager.Instance.PlaySFX("goal");
         AudioManager.Instance.musicSource.Stop();
-        //UI de victoria y siguiente nivel
+        running = false;
+        Time.timeScale = 0;
+        victoryUI.SetActive(true);
     }
     public void Pause()
     {
         running = false;
         Time.timeScale = 0;
+        pauseOptionsPanel.SetActive(true);
+        pauseUI.SetActive(true);
+        gameUI.SetActive(false);
+
     }
     public void Resume()
     {
         running = true;
         Time.timeScale = 1;
+        pauseOptionsPanel.SetActive(false);
+        pauseUI.SetActive(false);
+        gameUI.SetActive(true);
+    }
+    public void ReturnFromOptions()
+    {
+        pauseUI.SetActive(true);
+        optionsUI.SetActive(false);
+    }
+    public void ShowOptionsMenu()
+    {
+        pauseUI.SetActive(false);
+        optionsUI.SetActive(true);
+    }
+    public void ReturnToMenu()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("MainMenu");
     }
     public void SwapTilemaps()
     {
@@ -81,6 +112,7 @@ public class GameController : MonoBehaviour
             img.CrossFadeAlpha(1, 0.2f, false);
         }
     }
+    
 
 
     // Start is called before the first frame update
@@ -90,7 +122,6 @@ public class GameController : MonoBehaviour
         orangeActive = false;
         mainTilemap.Swap(orangeActive);
         spikeTilemap.Swap(orangeActive);
-        SceneLevelManager.SetCurrentLevel(SceneManager.GetActiveScene().buildIndex);
     }
 
     // Update is called once per frame

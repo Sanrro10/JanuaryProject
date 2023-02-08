@@ -80,6 +80,8 @@ public class GameController : MonoBehaviour
     }
     public void Pause()
     {
+        AudioManager.Instance.PlaySFX("change_screen");
+        AudioManager.Instance.musicSource.Pause();
         running = false;
         Time.timeScale = 0;
         pauseOptionsPanel.SetActive(true);
@@ -88,6 +90,8 @@ public class GameController : MonoBehaviour
     }
     public void Resume()
     {
+        AudioManager.Instance.PlaySFX("change_screen");
+        AudioManager.Instance.musicSource.Play();
         running = true;
         Time.timeScale = 1;
         pauseOptionsPanel.SetActive(false);
@@ -106,16 +110,20 @@ public class GameController : MonoBehaviour
     }
     public void ReturnToMenu()
     {
+        AudioManager.Instance.PlaySFX("change_screen");
         Time.timeScale = 1;
         SceneManager.LoadScene("MainMenu");
     }
     public void Restart()
     {
+        AudioManager.Instance.PlaySFX("button_start_level");
+        AudioManager.Instance.PlayMusic("menu_music");
         Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public void LoadNextlevel()
     {
+        AudioManager.Instance.PlaySFX("button_start_level");
         Time.timeScale = 1;
         levels[currentLevel+1].LoadLevel();
         

@@ -8,6 +8,20 @@ public class OptionsMenu : MonoBehaviour
     [SerializeField] Slider volumeSlider;
     [SerializeField] Slider BrightnessSlider;
 
+    //Modo javi
+    public Slider soundSlider;
+
+    public void ToggleMusic()
+    {
+        AudioManager.Instance.ToggleSound();
+    }
+
+    public void SoundVolume()
+    {
+        AudioManager.Instance.SoundVolume(volumeSlider.value);
+    }
+
+    //Fin modo javi
     public void VolumeChanged()
     {
         PlayerPrefs.SetFloat("volume", volumeSlider.value);

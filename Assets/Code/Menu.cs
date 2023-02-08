@@ -94,6 +94,8 @@ public class Menu : MonoBehaviour
     }
     public void LoadCurrentLevel()
     {
+        //Si descomento esta linea de codigo el nivel no carga lol
+        //AudioManager.Instance.PlaySFX("button_start_level");
         levels[currentLevel].LoadLevel();
     }
     public void Exit()

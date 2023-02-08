@@ -69,6 +69,7 @@ public class GameController : MonoBehaviour
         Time.timeScale = 0;
         levels[currentLevel].SetTimer(timer);
         levels[currentLevel].SetCollectibles(collectibles);
+        UpdateVictoryUI();
         if (currentLevel < levels.Count - 1)
         {
             levels[currentLevel + 1].SetUnlocked(true);
@@ -122,7 +123,7 @@ public class GameController : MonoBehaviour
     private void UpdateVictoryUI()
     {
         victoryLevelName.text = "Level " + currentLevel + ":" + levels[currentLevel].name + " Completed!";
-        victoryTimer.text = "Time: " + timer.ToString("F2");
+        victoryTimer.text = "Time: " + timer.ToString("F2") + "s";
         victoryCollectibles.text = "Collectibles: " + collectibles + "/" + levels[currentLevel].GetCollectibles();
     }
     public void SwapTilemaps()

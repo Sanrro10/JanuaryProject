@@ -4,15 +4,20 @@ using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameController : MonoBehaviour
 {
+    [SerializeField] List<Level> levels = new List<Level>();
     [SerializeField] private Player player;
     [SerializeField] private TilemapSwitch spikeTilemap;
     [SerializeField] private TilemapSwitch mainTilemap;
-    [SerializeField] private List<Tile> victoryTiles;
+    [SerializeField] private Tilemap victoryTilemap;
     [SerializeField] private GameObject victoryUI;
-    [SerializeField] private GameObject deathUI;
+    [SerializeField] private TextMeshProUGUI victoryLevelName;
+    [SerializeField] private TextMeshProUGUI victoryTimer;
+    [SerializeField] private TextMeshProUGUI victoryCollectibles;
+    [SerializeField] private GameObject nextlevelButton;
     [SerializeField] private GameObject pauseUI;
     [SerializeField] private GameObject optionsUI;
     [SerializeField] private GameObject gameUI;
@@ -25,6 +30,10 @@ public class GameController : MonoBehaviour
     private bool orangeActive;
 
     private bool running;
+
+    private int currentLevel = 0;
+    private float timer;
+    private int collectibles;
 
     public bool IsRunning()
     {
@@ -43,13 +52,14 @@ public class GameController : MonoBehaviour
     {
         return spikeTilemap.GetTilemap();
     }
+    public Tilemap GetVictoryTilemap()
+    {
+        return victoryTilemap;
+    }
     public void Die()
     {
         AudioManager.Instance.PlaySFX("player_death");
-        running = false;
-        Time.timeScale = 0;
-        deathUI.SetActive(true);
-        //UI de muerte y reinicio
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public void Win()
     {
@@ -57,7 +67,15 @@ public class GameController : MonoBehaviour
         AudioManager.Instance.musicSource.Stop();
         running = false;
         Time.timeScale = 0;
+        levels[currentLevel].SetTimer(timer);
+        levels[currentLevel].SetCollectibles(collectibles);
+        if (currentLevel < levels.Count - 1)
+        {
+            levels[currentLevel + 1].SetUnlocked(true);
+            nextlevelButton.SetActive(true);
+        }
         victoryUI.SetActive(true);
+        gameUI.SetActive(false);
     }
     public void Pause()
     {
@@ -66,7 +84,6 @@ public class GameController : MonoBehaviour
         pauseOptionsPanel.SetActive(true);
         pauseUI.SetActive(true);
         gameUI.SetActive(false);
-
     }
     public void Resume()
     {
@@ -91,6 +108,23 @@ public class GameController : MonoBehaviour
         Time.timeScale = 1;
         SceneManager.LoadScene("MainMenu");
     }
+    public void Restart()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    public void LoadNextlevel()
+    {
+        Time.timeScale = 1;
+        levels[currentLevel+1].LoadLevel();
+        
+    }
+    private void UpdateVictoryUI()
+    {
+        victoryLevelName.text = "Level " + currentLevel + ":" + levels[currentLevel].name + " Completed!";
+        victoryTimer.text = "Time: " + timer.ToString("F2");
+        victoryCollectibles.text = "Collectibles: " + collectibles + "/" + levels[currentLevel].GetCollectibles();
+    }
     public void SwapTilemaps()
     {
         orangeActive = !orangeActive;
@@ -98,11 +132,13 @@ public class GameController : MonoBehaviour
         spikeTilemap.Swap(orangeActive);
         ChangeBackground(BgImg, orangeActive);
     }
-    public List<Tile> GetVictoryTiles(){
-        return victoryTiles;
+    public void addCollectible()
+    {
+        collectibles++;
     }
 
-    void ChangeBackground(RawImage img, bool orangeActive) { 
+    private void ChangeBackground(RawImage img, bool orangeActive)
+    {
         if (orangeActive)
         {
             img.CrossFadeAlpha(0, 0.2f, false);
@@ -112,7 +148,7 @@ public class GameController : MonoBehaviour
             img.CrossFadeAlpha(1, 0.2f, false);
         }
     }
-    
+
 
 
     // Start is called before the first frame update
@@ -122,20 +158,31 @@ public class GameController : MonoBehaviour
         orangeActive = false;
         mainTilemap.Swap(orangeActive);
         spikeTilemap.Swap(orangeActive);
+        if (currentLevel == 0)
+        {
+            for (int i = 0; i < levels.Count; i++)
+            {
+                if (levels[i].scene.SceneName == SceneManager.GetActiveScene().name)
+                {
+                    currentLevel = i;
+                }
+            }
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             //player.Jump();
         }
-        if(Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             SwapTilemaps();
         }
+        timer += Time.deltaTime;
 
     }
-    
+
 }

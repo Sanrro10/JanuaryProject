@@ -9,20 +9,22 @@ public class Level : ScriptableObject
 {
     public SceneReference scene;
     public int difficulty;
-    private int score;
+    private float timer;
+    private int collectibles;
+    [SerializeField] private int totalCollectibles;
     [SerializeField] private bool unlocked;
     
     public void LoadLevel()
     {
         SceneManager.LoadScene(scene.ScenePath);
     }
-    public void SetScore(int score)
+    public void SetTimer(float timer)
     {
-        this.score = score;
+        this.timer = timer;
     }
-    public int GetScore()
+    public float GetTimer()
     {
-        return score;
+        return timer;
     }
     public void SetUnlocked(bool unlocked)
     {
@@ -32,4 +34,13 @@ public class Level : ScriptableObject
     {
         return unlocked;
     }
+    public void SetCollectibles(int collectibles)
+    {
+        this.collectibles = collectibles;
+    }
+    public int GetCollectibles()
+    {
+        return collectibles;
+    }
+    
 }

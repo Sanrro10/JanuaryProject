@@ -58,7 +58,7 @@ public class Menu : MonoBehaviour
     private void UpdateLevelSelectMenu(){
         LevelName.text = levels[currentLevel].scene.SceneName;
         LevelDifficulty.text = "Difficulty: "+ levels[currentLevel].difficulty.ToString() + "/5";
-        LevelScore.text = "Score: " + levels[currentLevel].GetScore().ToString();
+        LevelScore.text = "Time: " + levels[currentLevel].GetTimer().ToString();
         if(levels[currentLevel].IsUnlocked())
         {
             SelectLevelButton.gameObject.SetActive(true);

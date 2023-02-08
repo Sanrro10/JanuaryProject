@@ -14,7 +14,6 @@ public class Player : MonoBehaviour
     [SerializeField] private CapsuleCollider2D leftColliderTrigger;
     [SerializeField] private CapsuleCollider2D rightColliderTrigger;
     private GameController gameController;
-    private List<Sprite> victorySprites;
     private Vector2 playerDirection;
 
     //JumpButton
@@ -71,11 +70,6 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         playerDirection = Vector2.right;
         gameController = GameObject.Find("GameController").GetComponent<GameController>();
-        victorySprites = new List<Sprite>();
-        foreach (Tile tile in gameController.GetVictoryTiles())
-        {
-            victorySprites.Add(tile.sprite);
-        }
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
@@ -91,7 +85,7 @@ public class Player : MonoBehaviour
                     {
                         gameController.Die();
                     }
-                    else if (victorySprites.Contains(map.GetSprite(map.layoutGrid.WorldToCell(contact.point))))
+                    else if (map == gameController.GetVictoryTilemap())
                     {
                         gameController.Win();
                     }
@@ -129,7 +123,7 @@ public class Player : MonoBehaviour
             isJumpingAudio = false;
         }
         */
-        if (jumpButtonHandler.GetIsPressed())
+        if (jumpButtonHandler.GetIsPressed() || Input.GetKey(KeyCode.Space))
         {
             if (rb.IsTouchingLayers(LayerMask.GetMask("Ground")))
             {

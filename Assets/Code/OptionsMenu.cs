@@ -2,28 +2,44 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class OptionsMenu : MonoBehaviour
 {
     [SerializeField] Slider volumeSlider;
     [SerializeField] Slider BrightnessSlider;
 
-    //Modo javi
-    public Slider soundSlider;
+    public AudioSource mainMenuMusic; 
 
+    
+    public Slider soundSlider;
+    /*
     public void ToggleMusic()
     {
+        
         AudioManager.Instance.ToggleSound();
-    }
+    }*/
 
     public void SoundVolume()
     {
-        AudioManager.Instance.SoundVolume(volumeSlider.value);
+        if (SceneManager.GetActiveScene().name == "MainMenu")
+        {
+        }
+        else
+        {
+            AudioManager.Instance.SoundVolume(volumeSlider.value);
+        }
+        
     }
 
-    //Fin modo javi
     public void VolumeChanged()
     {
+        
+        if (SceneManager.GetActiveScene().name == "MainMenu")
+        {
+            mainMenuMusic.volume = volumeSlider.value;
+        }
+        
         PlayerPrefs.SetFloat("volume", volumeSlider.value);
     }
     public void BrightnessChanged()
@@ -38,4 +54,6 @@ public class OptionsMenu : MonoBehaviour
         volumeSlider.onValueChanged.AddListener (delegate {VolumeChanged ();});
         BrightnessSlider.onValueChanged.AddListener (delegate {BrightnessChanged ();});
     }
+
+   
 }

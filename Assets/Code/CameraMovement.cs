@@ -8,10 +8,8 @@ public class CameraMovement : MonoBehaviour
     private Camera cam;
     private float verticalThreshold;
     private float horizontalThreshold;
-
-    public float cameraError = 1.5f;
-
-    public float catchUpSpeed = 2f;
+    private Vector3 velocity = Vector3.zero;
+    private float smoothTime = 0.2f;
     private Transform cameraTransform;
     private Transform playerTransform;
     // Start is called before the first frame update
@@ -20,38 +18,25 @@ public class CameraMovement : MonoBehaviour
         cam = GetComponent<Camera>();
         cameraTransform = transform;
         playerTransform = player.transform;
-        horizontalThreshold = cam.orthographicSize * (float) 0.5;
-        verticalThreshold = cam.orthographicSize * (float) 0.7;
+        horizontalThreshold = cam.orthographicSize * (float)0.7;
+        verticalThreshold = cam.orthographicSize * (float)0.7;
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-        if(player.GetPlayerDirection() == Vector2.right){
-            if(playerTransform.position.x >= cameraTransform.position.x -horizontalThreshold + cameraError 
-            && playerTransform.position.x <= cameraTransform.position.x -horizontalThreshold - cameraError){
-                transform.Translate(player.GetPlayerDirection() * player.playerSpeed * Time.deltaTime);
-            }else{
-                if(playerTransform.position.x > cameraTransform.position.x -horizontalThreshold){
-                    transform.Translate(player.GetPlayerDirection() * catchUpSpeed * player.playerSpeed * Time.deltaTime);
-                }
-            }
-        }else{
-            if(playerTransform.position.x >= cameraTransform.position.x + horizontalThreshold + cameraError  //Igual no hay que cambiar los signos
-            && playerTransform.position.x <= cameraTransform.position.x + horizontalThreshold - cameraError){
-                transform.Translate(player.GetPlayerDirection() * player.playerSpeed * Time.deltaTime);
-            }else{
-                if(playerTransform.position.x < cameraTransform.position.x + horizontalThreshold){
-                    transform.Translate(player.GetPlayerDirection() * catchUpSpeed * player.playerSpeed * Time.deltaTime);
-                }
-            }
+        if (player.GetPlayerDirection() == Vector2.right)
+        {
+           Vector3 targetposition = playerTransform.position + new Vector3(horizontalThreshold, 0, -10f);
+           targetposition.y = Mathf.Clamp(targetposition.y + (player.GetPlayerRigidbody().velocity.y * smoothTime), cameraTransform.position.y - verticalThreshold, cameraTransform.position.y + verticalThreshold);
+           cameraTransform.position = Vector3.SmoothDamp(cameraTransform.position, targetposition, ref velocity, smoothTime);
         }
-        
+        else
+        {
+            Vector3 targetposition = playerTransform.position + new Vector3(-horizontalThreshold, 0, -10f);
+            targetposition.y = Mathf.Clamp(targetposition.y + (player.GetPlayerRigidbody().velocity.y * smoothTime), cameraTransform.position.y - verticalThreshold, cameraTransform.position.y + verticalThreshold);
+            cameraTransform.position = Vector3.SmoothDamp(cameraTransform.position, targetposition, ref velocity, smoothTime);
+        }
 
-        if(cameraTransform.position.y - playerTransform.position.y > verticalThreshold){
-            cameraTransform.position = new Vector3(cameraTransform.position.x, playerTransform.position.y + verticalThreshold, cameraTransform.position.z);
-        }else if(playerTransform.position.y - cameraTransform.position.y > verticalThreshold){
-            cameraTransform.position = new Vector3(cameraTransform.position.x, playerTransform.position.y - verticalThreshold, cameraTransform.position.z);
-        }
     }
 }

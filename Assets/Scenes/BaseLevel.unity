@@ -36224,6 +36224,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DeathTrigger
       objectReference: {fileID: 0}
+    - target: {fileID: 4694205787836402892, guid: 20f0af28ebb837846b4bee66b151449b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5281024233300267675, guid: 20f0af28ebb837846b4bee66b151449b, type: 3}
       propertyPath: gameController
       value: 

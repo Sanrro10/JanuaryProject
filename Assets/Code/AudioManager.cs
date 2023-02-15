@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
@@ -27,7 +28,15 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
-        PlayMusic("level_music_1");
+        if (SceneManager.GetActiveScene().name == "MainMenu")
+        {
+            PlayMusic("menu_music");
+        }
+        else //esto tiene que cambiarse una vez tengamos los niveles
+        {
+            PlayMusic("level_music_1");
+        }
+        
     }
 
     public void PlayMusic(string name)

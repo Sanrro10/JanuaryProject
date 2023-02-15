@@ -18,9 +18,12 @@ public class Menu : MonoBehaviour
     public TextMeshProUGUI LevelName;
     public TextMeshProUGUI LevelDifficulty;
     public TextMeshProUGUI LevelScore;
+    public OptionsMenu optionsM;
 
+    
     public void ReturnButton()
     {
+        AudioManager.Instance.PlaySFX("button");
         MainMenu.SetActive(true);
         LevelSelectMenu.SetActive(false);
         OptionsMenu.SetActive(false);
@@ -39,12 +42,14 @@ public class Menu : MonoBehaviour
     }
     public void ShowOptionsMenu()
     {
+        AudioManager.Instance.PlaySFX("button");
         MainMenu.SetActive(false);
         OptionsMenu.SetActive(true);
     }
     public void ShowLevelSelectMenu()
     {
-        if(currentLevel == 0)
+        AudioManager.Instance.PlaySFX("button");
+        if (currentLevel == 0)
         {
             LeftArrow.gameObject.SetActive(false);
         }else if(currentLevel == levels.Count -1)
@@ -68,7 +73,8 @@ public class Menu : MonoBehaviour
     }
     public void NextLevel()
     {
-        if(currentLevel < levels.Count -1)
+        AudioManager.Instance.PlaySFX("button");
+        if (currentLevel < levels.Count -1)
         {
             currentLevel++;
             LeftArrow.gameObject.SetActive(true);
@@ -81,7 +87,8 @@ public class Menu : MonoBehaviour
     }
     public void PreviousLevel()
     {
-        if(currentLevel > 0)
+        AudioManager.Instance.PlaySFX("button");
+        if (currentLevel > 0)
         {
             currentLevel--;
             RightArrow.gameObject.SetActive(true);
@@ -96,18 +103,24 @@ public class Menu : MonoBehaviour
     {
         //Si descomento esta linea de codigo el nivel no carga lol
         //AudioManager.Instance.PlaySFX("button_start_level");
+        Debug.Log("voy a cargar un nivel");
+        AudioManager.Instance.PlaySFX("button_start");
         levels[currentLevel].LoadLevel();
     }
     public void Exit()
     {
+        AudioManager.Instance.PlaySFX("button");
         Application.Quit();
     }
     // Start is called before the first frame update
     void Start()
     {
+        optionsM.Inizialice();
         SetLastUnlockedLevel();
         currentLevel = lastUnlockedLevel;
-        ReturnButton();
+        MainMenu.SetActive(true);
+        LevelSelectMenu.SetActive(false);
+        OptionsMenu.SetActive(false);
     }
     
 }

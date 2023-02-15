@@ -22,6 +22,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject optionsUI;
     [SerializeField] private GameObject gameUI;
     [SerializeField] private GameObject pauseOptionsPanel;
+    public OptionsMenu optionsM;
 
 
     //Background
@@ -80,7 +81,7 @@ public class GameController : MonoBehaviour
     }
     public void Pause()
     {
-        AudioManager.Instance.PlaySFX("change_screen");
+        AudioManager.Instance.PlaySFX("button");
         AudioManager.Instance.musicSource.Pause();
         running = false;
         Time.timeScale = 0;
@@ -90,7 +91,7 @@ public class GameController : MonoBehaviour
     }
     public void Resume()
     {
-        AudioManager.Instance.PlaySFX("change_screen");
+        AudioManager.Instance.PlaySFX("button");
         AudioManager.Instance.musicSource.Play();
         running = true;
         Time.timeScale = 1;
@@ -100,17 +101,19 @@ public class GameController : MonoBehaviour
     }
     public void ReturnFromOptions()
     {
+        AudioManager.Instance.PlaySFX("button");
         pauseUI.SetActive(true);
         optionsUI.SetActive(false);
     }
     public void ShowOptionsMenu()
     {
+        AudioManager.Instance.PlaySFX("button");
         pauseUI.SetActive(false);
         optionsUI.SetActive(true);
     }
     public void ReturnToMenu()
     {
-        AudioManager.Instance.PlaySFX("change_screen");
+        AudioManager.Instance.PlaySFX("button");
         Time.timeScale = 1;
         SceneManager.LoadScene("MainMenu");
     }
@@ -123,6 +126,7 @@ public class GameController : MonoBehaviour
     }
     public void LoadNextlevel()
     {
+        Debug.Log("AAAAAAAAAAAAAAAA");
         AudioManager.Instance.PlaySFX("button_start_level");
         Time.timeScale = 1;
         levels[currentLevel+1].LoadLevel();
@@ -136,6 +140,7 @@ public class GameController : MonoBehaviour
     }
     public void SwapTilemaps()
     {
+        AudioManager.Instance.PlaySFX("change_screen");
         orangeActive = !orangeActive;
         mainTilemap.Swap(orangeActive);
         spikeTilemap.Swap(orangeActive);
@@ -163,6 +168,9 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        AudioManager.Instance.PlayMusic("level_music_1");
+        AudioManager.Instance.musicSource.Play();
+        optionsM.Inizialice();
         running = true;
         orangeActive = false;
         mainTilemap.Swap(orangeActive);

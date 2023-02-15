@@ -16,6 +16,7 @@ public class Level : ScriptableObject
     
     public void LoadLevel()
     {
+        AudioManager.Instance.musicSource.Stop();
         SceneManager.LoadScene(scene.ScenePath);
     }
     public void SetTimer(float timer)

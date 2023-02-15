@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
 
     //Sound
     private bool isJumpingAudio=false;
+    public OptionsMenu optionsM;
 
     //public void Jump()
     //{
@@ -67,6 +68,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        optionsM.Inizialice();
         rb = GetComponent<Rigidbody2D>();
         playerDirection = Vector2.right;
         gameController = GameObject.Find("GameController").GetComponent<GameController>();

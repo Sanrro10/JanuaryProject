@@ -12,6 +12,7 @@ public class Menu : MonoBehaviour
     public GameObject MainMenu;
     public GameObject LevelSelectMenu;
     public GameObject OptionsMenu;
+    public GameObject ExitConfirmation;
     public Button LeftArrow;
     public Button RightArrow;
     public Button SelectLevelButton;
@@ -107,7 +108,18 @@ public class Menu : MonoBehaviour
         AudioManager.Instance.PlaySFX("button_start");
         levels[currentLevel].LoadLevel();
     }
-    public void Exit()
+    public void OpenExitConfirmation()
+    {
+        ExitConfirmation.SetActive(true);
+        MainMenu.SetActive(false);
+        Application.Quit();
+    }
+    public void CloseExitConfirmation()
+    {
+        ExitConfirmation.SetActive(false);
+        MainMenu.SetActive(true);
+    }
+    public void ExitFromApp()
     {
         AudioManager.Instance.PlaySFX("button");
         Application.Quit();

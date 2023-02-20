@@ -200,6 +200,13 @@ public class GameController : MonoBehaviour
         }
         timer += Time.deltaTime;
 
+        //full window editor
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            UnityEditor.EditorWindow.focusedWindow.maximized = !UnityEditor.EditorWindow.focusedWindow.maximized;
+        }
     }
 
+    
+          
 }

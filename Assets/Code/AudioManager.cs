@@ -11,6 +11,7 @@ public class AudioManager : MonoBehaviour
 
     public AudioClip[] musicSounds, sfxSounds;
     public AudioSource musicSource, sfxSource;
+    private float timer;
 
 
     private void Awake()
@@ -79,6 +80,18 @@ public class AudioManager : MonoBehaviour
     {
         musicSource.volume = volume;
         sfxSource.volume = volume;
+    }
+    public float GetTimer()
+    {
+        return timer;
+    }
+    public void SetTimer(float time)
+    {
+        timer = time;
+    }
+    public void UpdateTimer()
+    {
+        timer -= Time.deltaTime;
     }
 
 }

@@ -17,4 +17,6 @@ MonoBehaviour:
     m_IsDirty: 0
     m_ScenePath: Assets/Scenes/BaseLevel.unity
   difficulty: 0
+  timeLimit: 300
+  totalCollectibles: 0
   unlocked: 1

@@ -17,6 +17,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI victoryLevelName;
     [SerializeField] private TextMeshProUGUI victoryTimer;
     [SerializeField] private TextMeshProUGUI victoryCollectibles;
+    [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private GameObject nextlevelButton;
     [SerializeField] private GameObject pauseUI;
     [SerializeField] private GameObject optionsUI;
@@ -33,7 +34,6 @@ public class GameController : MonoBehaviour
     private bool running;
 
     private int currentLevel = 0;
-    private float timer;
     private int collectibles;
 
     public bool IsRunning()
@@ -68,7 +68,7 @@ public class GameController : MonoBehaviour
         AudioManager.Instance.musicSource.Stop();
         running = false;
         Time.timeScale = 0;
-        levels[currentLevel].SetTimer(timer);
+        levels[currentLevel].SetTimer(AudioManager.Instance.GetTimer());
         levels[currentLevel].SetCollectibles(collectibles);
         UpdateVictoryUI();
         if (currentLevel < levels.Count - 1)
@@ -76,6 +76,17 @@ public class GameController : MonoBehaviour
             levels[currentLevel + 1].SetUnlocked(true);
             nextlevelButton.SetActive(true);
         }
+        victoryUI.SetActive(true);
+        gameUI.SetActive(false);
+    }
+    public void DieByTimer()
+    {
+        AudioManager.Instance.PlaySFX("player_death");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        AudioManager.Instance.musicSource.Stop();
+        running = false;
+        Time.timeScale = 0;
+        UpdateVictoryUI();
         victoryUI.SetActive(true);
         gameUI.SetActive(false);
     }
@@ -122,6 +133,7 @@ public class GameController : MonoBehaviour
         AudioManager.Instance.PlaySFX("button_start_level");
         AudioManager.Instance.PlayMusic("menu_music");
         Time.timeScale = 1;
+        AudioManager.Instance.SetTimer(levels[currentLevel].GetTimeLimit());
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public void LoadNextlevel()
@@ -135,8 +147,14 @@ public class GameController : MonoBehaviour
     private void UpdateVictoryUI()
     {
         victoryLevelName.text = "Level " + currentLevel + ":" + levels[currentLevel].name + " Completed!";
-        victoryTimer.text = "Time: " + timer.ToString("F2") + "s";
+        victoryTimer.text = "Time: " + AudioManager.Instance.GetTimer().ToString("F2") + "s";
         victoryCollectibles.text = "Collectibles: " + collectibles + "/" + levels[currentLevel].GetCollectibles();
+    }
+    private void UpdateDefeatUI()
+    {
+        victoryLevelName.text = "Level " + currentLevel + ":" + levels[currentLevel].name + " Failed!";
+        victoryTimer.text.Remove(0);
+        victoryCollectibles.text.Remove(0);
     }
     public void SwapTilemaps()
     {
@@ -184,6 +202,9 @@ public class GameController : MonoBehaviour
                     currentLevel = i;
                 }
             }
+        } if(AudioManager.Instance.GetTimer() <= 0)
+        {
+            AudioManager.Instance.SetTimer(levels[currentLevel].GetTimeLimit());
         }
     }
 
@@ -198,7 +219,12 @@ public class GameController : MonoBehaviour
         {
             SwapTilemaps();
         }
-        timer += Time.deltaTime;
+        AudioManager.Instance.UpdateTimer();
+        if(AudioManager.Instance.GetTimer() <= 0)
+        {
+            DieByTimer();
+        }
+        timerText.text = "Time: " + AudioManager.Instance.GetTimer().ToString("F2") + "s";
 
         //full window editor
         if (Input.GetKeyDown(KeyCode.Escape))

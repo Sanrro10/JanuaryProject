@@ -8,7 +8,8 @@ using DevLocker.Utils;
 public class Level : ScriptableObject
 {
     public SceneReference scene;
-    public int difficulty;
+    [SerializeField] private int difficulty;
+    [SerializeField] private float timeLimit;
     private float timer;
     private int collectibles;
     [SerializeField] private int totalCollectibles;
@@ -42,6 +43,14 @@ public class Level : ScriptableObject
     public int GetCollectibles()
     {
         return collectibles;
+    }
+    public float GetTimeLimit()
+    {
+        return timeLimit;
+    }
+    public int GetDifficulty()
+    {
+        return difficulty;
     }
     
 }

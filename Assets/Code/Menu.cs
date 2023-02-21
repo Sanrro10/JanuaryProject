@@ -19,6 +19,7 @@ public class Menu : MonoBehaviour
     public TextMeshProUGUI LevelName;
     public TextMeshProUGUI LevelDifficulty;
     public TextMeshProUGUI LevelScore;
+    public TextMeshProUGUI LevelTimeLimitText;
     public OptionsMenu optionsM;
 
     
@@ -63,7 +64,8 @@ public class Menu : MonoBehaviour
     }
     private void UpdateLevelSelectMenu(){
         LevelName.text = levels[currentLevel].scene.SceneName;
-        LevelDifficulty.text = "Difficulty: "+ levels[currentLevel].difficulty.ToString() + "/5";
+        LevelDifficulty.text = "Difficulty: "+ levels[currentLevel].GetDifficulty().ToString() + "/5";
+        LevelTimeLimitText.text = "Time Limit: " + levels[currentLevel].GetTimeLimit().ToString();
         LevelScore.text = "Time: " + levels[currentLevel].GetTimer().ToString();
         if(levels[currentLevel].IsUnlocked())
         {

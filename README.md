@@ -15,7 +15,7 @@ As an autorunner, the main character will move on their own, thus, leaving the p
 Reaching the goal won't be a piece of cake. The player must evade triangular enemies and spikes present in the levels while taking care of not falling into the abyss. The player can find three types of enemies in the game:
 - **X Enemies**: These enemies can only move themselves horizontally, only when the player is near them. When thy reach at the end of their paths (at the end of a carril in which they are attached), they turn around and walk in the invert direction. This can be seeing in the bright part of the enemy. When they change the direction, the bright part also change when the enemy is stopped (a very short time). This enemies can only stop at the end of the carril, so if the player is enough far from the enemy to be stopped, this will stop in an extreme of the carril.
 - **Y Enemies**: These enemies can only move themselves vertically. They have the same logic that the **X Enemies**, but with vertical movement.
-- 
+
 ![](https://github.com/Sanrro10/JanuaryProject/blob/main/Assets/Art/Sprites/horizontal_enemy_leftActive.png)
 ![](https://github.com/Sanrro10/JanuaryProject/blob/main/Assets/Art/Sprites/horizontal_enemy_rightActive.png)
 

@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
     private bool isJumping;
 
     //Sound
-    private bool isJumpingAudio=false;
+    private bool isJumpingAudio = false;
     public OptionsMenu optionsM;
 
     //public void Jump()
@@ -137,13 +137,11 @@ public class Player : MonoBehaviour
                     AudioManager.Instance.PlaySFX("player_jump");
                     isJumpingAudio = true;
                 }
-                
             }
             else
             {
                 if (leftColliderTrigger.IsTouchingLayers(LayerMask.GetMask("Ground")) && playerDirection == Vector2.left)
                 {
-                    
                     rb.velocity = Vector2.up * jumpForce;
                     if (playerDirection == Vector2.right)
                     {
@@ -152,7 +150,6 @@ public class Player : MonoBehaviour
                 }
                 else if (rightColliderTrigger.IsTouchingLayers(LayerMask.GetMask("Ground")) && playerDirection == Vector2.right)
                 {
-                    
                     rb.velocity = Vector2.up * jumpForce;
                     if (playerDirection == Vector2.left)
                     {
@@ -161,9 +158,7 @@ public class Player : MonoBehaviour
                 }
             }
         }
-        
-        
-        if(jumpButtonHandler.GetIsHold() && isJumping)
+        if (jumpButtonHandler.GetIsHold() && isJumping)
         {
             if (jumpTimeCounter > 0)
             {
@@ -182,6 +177,5 @@ public class Player : MonoBehaviour
             isJumping = false;
             isJumpingAudio = false;
         }
-
     }
 }

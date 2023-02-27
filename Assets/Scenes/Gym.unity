@@ -45830,6 +45830,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf89eb4649f539d489491dcba8f41e3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1839735485 &2003990748 stripped
+Tilemap:
+  m_CorrespondingSourceObject: {fileID: 7547232128679607016, guid: 942b07edb3b859a49bf049c59dd6f3ab, type: 3}
+  m_PrefabInstance: {fileID: 2003990728}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2124973426 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 601132699, guid: 942b07edb3b859a49bf049c59dd6f3ab, type: 3}
@@ -45952,6 +45957,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4906727624847241212, guid: fb7d6703cebdd7f47b2dcb4b86baa0f7, type: 3}
+      propertyPath: size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4906727624847241212, guid: fb7d6703cebdd7f47b2dcb4b86baa0f7, type: 3}
+      propertyPath: tilemap
+      value: 
+      objectReference: {fileID: 2003990748}
+    - target: {fileID: 4906727624847241212, guid: fb7d6703cebdd7f47b2dcb4b86baa0f7, type: 3}
+      propertyPath: centralTile
+      value: 
+      objectReference: {fileID: 11400000, guid: 8ce05ef20fd224b4e94703a4e7eddcce, type: 2}
+    - target: {fileID: 4906727624847241212, guid: fb7d6703cebdd7f47b2dcb4b86baa0f7, type: 3}
+      propertyPath: leftLimitTile
+      value: 
+      objectReference: {fileID: 11400000, guid: adc974e1b5630b74e9bc7d726d8d8c14, type: 2}
+    - target: {fileID: 4906727624847241212, guid: fb7d6703cebdd7f47b2dcb4b86baa0f7, type: 3}
+      propertyPath: rightLimitTile
+      value: 
+      objectReference: {fileID: 11400000, guid: a5661eefe71597f4b879c78c37e72962, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb7d6703cebdd7f47b2dcb4b86baa0f7, type: 3}
 --- !u!1001 &5868631863517812299

@@ -8,7 +8,10 @@ using UnityEngine.Tilemaps;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private float speed;
-    [SerializeField]
+    [SerializeField] private Tile leftLimitTile;
+    [SerializeField] private Tile rightLimitTile;
+    [SerializeField] private Tile centralTile;
+    [SerializeField] private Tilemap tilemap;
     private enum StartingPosition
     {
         Left,
@@ -38,9 +41,15 @@ public class Enemy : MonoBehaviour
         player = gameController.GetPlayer();
         center = transform.position;
         leftlimit = new Vector3(center.x - size, center.y, center.z);
-        Debug.Log(leftlimit);
         rightlimit = new Vector3(center.x + size, center.y, center.z);
-        Debug.Log(rightlimit);
+        tilemap.SetTile(tilemap.WorldToCell(leftlimit), leftLimitTile);
+        tilemap.SetTile(tilemap.WorldToCell(rightlimit), rightLimitTile);
+        tilemap.SetTile(tilemap.WorldToCell(center), centralTile);
+        for(int i = 1; i < size; i++)
+        {
+            tilemap.SetTile(tilemap.WorldToCell(new Vector3(center.x - i, center.y, center.z)), centralTile);
+            tilemap.SetTile(tilemap.WorldToCell(new Vector3(center.x + i, center.y, center.z)), centralTile);
+        }
         if (startingPosition == StartingPosition.Left)
         {
             transform.position = leftlimit;

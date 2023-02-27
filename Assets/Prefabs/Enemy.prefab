@@ -118,7 +118,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4906727624847241189}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.55, y: 1.55, z: 1}
   m_ConstrainProportionsScale: 0
@@ -145,8 +145,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  startingPosition: 1
-  size: 5
+  leftLimitTile: {fileID: 11400000, guid: fc706055a14b0ef4193a0116f8e98d94, type: 2}
+  rightLimitTile: {fileID: 11400000, guid: 14b7388b14c51014594cfc6d69ba56e6, type: 2}
+  oddRightRightTile: {fileID: 11400000, guid: f91702cbf6dfe774fac7304ea1f34e01, type: 2}
+  oddRightLeftTile: {fileID: 11400000, guid: c7ba184c5b1b2924296dd95d35d67be2, type: 2}
+  oddLeftRightTile: {fileID: 11400000, guid: 56140673de6f2df4da0b292bb7a126c1, type: 2}
+  oddLeftLeftTile: {fileID: 11400000, guid: a0fdcea19a22c704cb275c3de2a0a0f7, type: 2}
+  centralTile: {fileID: 11400000, guid: ae24f15d8b536914fa676c8d00f27aff, type: 2}
+  tilemap: {fileID: 0}
+  startingPosition: 0
+  size: 13
   spriteRenderer: {fileID: 4906727624847241213}
   leftCollider: {fileID: 4906727624847241185}
   rightCollider: {fileID: 4906727624847241186}

@@ -10,6 +10,10 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private Tile leftLimitTile;
     [SerializeField] private Tile rightLimitTile;
+    [SerializeField] private Tile oddRightRightTile;
+    [SerializeField] private Tile oddRightLeftTile;
+    [SerializeField] private Tile oddLeftRightTile;
+    [SerializeField] private Tile oddLeftLeftTile;
     [SerializeField] private Tile centralTile;
     [SerializeField] private Tilemap tilemap;
     private enum StartingPosition
@@ -40,15 +44,34 @@ public class Enemy : MonoBehaviour
         gameController = GameObject.Find("GameController").GetComponent<GameController>();
         player = gameController.GetPlayer();
         center = transform.position;
-        leftlimit = new Vector3(center.x - size, center.y, center.z);
-        rightlimit = new Vector3(center.x + size, center.y, center.z);
-        tilemap.SetTile(tilemap.WorldToCell(leftlimit), leftLimitTile);
-        tilemap.SetTile(tilemap.WorldToCell(rightlimit), rightLimitTile);
+        leftlimit = new Vector3(center.x - size / 2, center.y, center.z);
+        rightlimit = new Vector3(center.x + size / 2, center.y, center.z);
         tilemap.SetTile(tilemap.WorldToCell(center), centralTile);
-        for(int i = 1; i < size; i++)
+        if (size % 2 == 1)
         {
-            tilemap.SetTile(tilemap.WorldToCell(new Vector3(center.x - i, center.y, center.z)), centralTile);
-            tilemap.SetTile(tilemap.WorldToCell(new Vector3(center.x + i, center.y, center.z)), centralTile);
+            tilemap.SetTile(tilemap.WorldToCell(new Vector3(leftlimit.x - 1, center.y, leftlimit.z)), oddLeftLeftTile);
+            tilemap.SetTile(tilemap.WorldToCell(new Vector3(leftlimit.x, center.y, leftlimit.z)), oddLeftRightTile);
+            tilemap.SetTile(tilemap.WorldToCell(new Vector3(rightlimit.x - 1, rightlimit.y, center.z)), oddRightLeftTile);
+            tilemap.SetTile(tilemap.WorldToCell(new Vector3(rightlimit.x, rightlimit.y, center.z)), oddRightRightTile);
+            for (int i = 1; i < (size/2) - 1; i++)
+            {
+                tilemap.SetTile(tilemap.WorldToCell(new Vector3(center.x - i, center.y, center.z)), centralTile);
+                tilemap.SetTile(tilemap.WorldToCell(new Vector3(center.x + i, center.y, center.z)), centralTile);
+            }
+            if(size>=5){
+                tilemap.SetTile(tilemap.WorldToCell(new Vector3(leftlimit.x + 1, center.y, leftlimit.z)), centralTile);
+            }
+        }
+        else
+        {
+            tilemap.SetTile(tilemap.WorldToCell(leftlimit), leftLimitTile);
+            tilemap.SetTile(tilemap.WorldToCell(rightlimit), rightLimitTile);
+            for (int i = 1; i < size/2; i++)
+            {
+                tilemap.SetTile(tilemap.WorldToCell(new Vector3(center.x - i, center.y, center.z)), centralTile);
+                tilemap.SetTile(tilemap.WorldToCell(new Vector3(center.x + i, center.y, center.z)), centralTile);
+            }
+
         }
         if (startingPosition == StartingPosition.Left)
         {
@@ -132,7 +155,7 @@ public class Enemy : MonoBehaviour
         }
         if (!moving && !changingColor)
         {
-            if (Vector2.Distance(center, player.transform.position) <= (size + 1))
+            if (Vector2.Distance(center, player.transform.position) <= ((size/2) + 1))
             {
                 if (Physics2D.Raycast(transform.position, -transform.position + player.transform.position).rigidbody == player.GetPlayerRigidbody())
                 {

@@ -44,16 +44,17 @@ public class Enemy : MonoBehaviour
         gameController = GameObject.Find("GameController").GetComponent<GameController>();
         player = gameController.GetPlayer();
         center = transform.position;
-        leftlimit = new Vector3(center.x - size / 2, center.y, center.z);
-        rightlimit = new Vector3(center.x + size / 2, center.y, center.z);
+        float halfSize = (float) size / (float) 2;
+        leftlimit = new Vector3(center.x - halfSize, center.y, center.z);
+        rightlimit = new Vector3(center.x + halfSize, center.y, center.z);
         tilemap.SetTile(tilemap.WorldToCell(center), centralTile);
-        if (size % 2 == 1)
+        if (size % 2 == 0)
         {
             tilemap.SetTile(tilemap.WorldToCell(new Vector3(leftlimit.x - 1, center.y, leftlimit.z)), oddLeftLeftTile);
             tilemap.SetTile(tilemap.WorldToCell(new Vector3(leftlimit.x, center.y, leftlimit.z)), oddLeftRightTile);
             tilemap.SetTile(tilemap.WorldToCell(new Vector3(rightlimit.x - 1, rightlimit.y, center.z)), oddRightLeftTile);
             tilemap.SetTile(tilemap.WorldToCell(new Vector3(rightlimit.x, rightlimit.y, center.z)), oddRightRightTile);
-            for (int i = 1; i < (size/2) - 1; i++)
+            for (int i = 1; i < (halfSize) - 1; i++)
             {
                 tilemap.SetTile(tilemap.WorldToCell(new Vector3(center.x - i, center.y, center.z)), centralTile);
                 tilemap.SetTile(tilemap.WorldToCell(new Vector3(center.x + i, center.y, center.z)), centralTile);
@@ -66,10 +67,14 @@ public class Enemy : MonoBehaviour
         {
             tilemap.SetTile(tilemap.WorldToCell(leftlimit), leftLimitTile);
             tilemap.SetTile(tilemap.WorldToCell(rightlimit), rightLimitTile);
-            for (int i = 1; i < size/2; i++)
+            for (int i = 1; i < halfSize -1; i++)
             {
                 tilemap.SetTile(tilemap.WorldToCell(new Vector3(center.x - i, center.y, center.z)), centralTile);
                 tilemap.SetTile(tilemap.WorldToCell(new Vector3(center.x + i, center.y, center.z)), centralTile);
+            }
+            if (size >= 5)
+            {
+                tilemap.SetTile(tilemap.WorldToCell(new Vector3(leftlimit.x + 1, center.y, leftlimit.z)), centralTile);
             }
 
         }

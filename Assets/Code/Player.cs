@@ -75,7 +75,6 @@ public class Player : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Collision");
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             foreach (ContactPoint2D contact in collision.contacts)

@@ -224,7 +224,7 @@ public class GameController : MonoBehaviour
         {
             DieByTimer();
         }
-        timerText.text = "Time: " + AudioManager.Instance.GetTimer().ToString("F2") + "s";
+        timerText.text = "Time: " + AudioManager.Instance.GetTimer().ToString("F0") + "s";
 
         //full window editor
         if (Input.GetKeyDown(KeyCode.Escape))

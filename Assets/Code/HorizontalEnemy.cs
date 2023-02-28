@@ -5,8 +5,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Tilemaps;
 
-public class Enemy : MonoBehaviour
+public class HorizontalEnemy : MonoBehaviour
 {
+    [SerializeField] private StartingPosition startingPosition;
+    [SerializeField] private int size;
     [SerializeField] private float speed;
     [SerializeField] private Tile leftLimitTile;
     [SerializeField] private Tile rightLimitTile;
@@ -15,34 +17,35 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Tile oddLeftRightTile;
     [SerializeField] private Tile oddLeftLeftTile;
     [SerializeField] private Tile centralTile;
-    [SerializeField] private Tilemap tilemap;
+    private Tilemap tilemap;
     private enum StartingPosition
     {
         Left,
         Right
     }
-    [SerializeField] private StartingPosition startingPosition;
-    [SerializeField] private int size;
-    [SerializeField] private SpriteRenderer spriteRenderer;
+    private SpriteRenderer spriteRenderer;
     private Vector3 center;
     private Vector3 leftlimit;
     private Vector3 rightlimit;
-    public EdgeCollider2D leftCollider;
-    public EdgeCollider2D rightCollider;
-    public Rigidbody2D rb;
+    [SerializeField] private EdgeCollider2D leftCollider;
+    [SerializeField] private EdgeCollider2D rightCollider;
+    private Rigidbody2D rb;
 
     private GameController gameController;
     private Player player;
     private bool moving;
     private bool changingColor;
     private bool isLeft;
-    public float fadeOutTime;
+    [SerializeField] private float fadeOutTime;
 
     // Start is called before the first frame update
     void Start()
     {
         gameController = GameObject.Find("GameController").GetComponent<GameController>();
         player = gameController.GetPlayer();
+        tilemap = GameObject.Find("MainTilemap").GetComponent<Tilemap>();
+        rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         center = transform.position;
         float halfSize = (float) size / (float) 2;
         leftlimit = new Vector3(center.x - halfSize, center.y, center.z);

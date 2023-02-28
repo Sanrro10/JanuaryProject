@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 4906727624847241185}
   - component: {fileID: 4906727624847241184}
   m_Layer: 2
-  m_Name: Enemy
+  m_Name: HorizontalEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -154,7 +154,7 @@ MonoBehaviour:
   centralTile: {fileID: 11400000, guid: ae24f15d8b536914fa676c8d00f27aff, type: 2}
   tilemap: {fileID: 0}
   startingPosition: 0
-  size: 13
+  size: 11
   spriteRenderer: {fileID: 4906727624847241213}
   leftCollider: {fileID: 4906727624847241185}
   rightCollider: {fileID: 4906727624847241186}
@@ -232,7 +232,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 6
 --- !u!68 &4906727624847241186
 EdgeCollider2D:
   m_ObjectHideFlags: 0

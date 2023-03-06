@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     [SerializeField] private CapsuleCollider2D rightCollider;
     [SerializeField] private CapsuleCollider2D leftColliderTrigger;
     [SerializeField] private CapsuleCollider2D rightColliderTrigger;
+    [SerializeField] private CapsuleCollider2D upperCollider;
     private GameController gameController;
     private Vector2 playerDirection;
 
@@ -71,6 +72,8 @@ public class Player : MonoBehaviour
         optionsM.Inizialice();
         rb = GetComponent<Rigidbody2D>();
         playerDirection = Vector2.right;
+        rightColliderTrigger.enabled = true;
+        leftColliderTrigger.enabled = false;
         gameController = GameObject.Find("GameController").GetComponent<GameController>();
     }
     void OnCollisionEnter2D(Collision2D collision)
@@ -106,10 +109,14 @@ public class Player : MonoBehaviour
             if (rightCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
             {
                 playerDirection = Vector2.left;
+                rightColliderTrigger.enabled = false;
+                leftColliderTrigger.enabled = true;
             }
             else if (leftCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
             {
                 playerDirection = Vector2.right;
+                leftColliderTrigger.enabled = false;
+                rightColliderTrigger.enabled = true;
             }
         }
     }
@@ -126,7 +133,7 @@ public class Player : MonoBehaviour
         */
         if (jumpButtonHandler.GetIsPressed() || Input.GetKey(KeyCode.Space))
         {
-            if (rb.IsTouchingLayers(LayerMask.GetMask("Ground")))
+            if (rb.IsTouchingLayers(LayerMask.GetMask("Ground")) && !upperCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
             {
                 isJumping = true;
                 jumpTimeCounter = jumpTime;
@@ -145,6 +152,8 @@ public class Player : MonoBehaviour
                     if (playerDirection == Vector2.right)
                     {
                         playerDirection = Vector2.left;
+                        leftColliderTrigger.enabled = false;
+                        rightColliderTrigger.enabled = true;
                     }
                 }
                 else if (rightColliderTrigger.IsTouchingLayers(LayerMask.GetMask("Ground")) && playerDirection == Vector2.right)
@@ -153,6 +162,8 @@ public class Player : MonoBehaviour
                     if (playerDirection == Vector2.left)
                     {
                         playerDirection = Vector2.right;
+                        rightColliderTrigger.enabled = false;
+                        leftColliderTrigger.enabled = true;
                     }
                 }
             }

@@ -90,7 +90,7 @@ public class VerticalEnemy : MonoBehaviour
             }
             else
             {
-                transform.position = upperLimit;
+                transform.position = lowerLimit;
                 lowerCollider.enabled = false;
                 spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0);
                 isUp = false;

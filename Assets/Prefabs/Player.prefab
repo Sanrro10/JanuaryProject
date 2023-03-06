@@ -79,6 +79,7 @@ GameObject:
   - component: {fileID: 1056903964170598189}
   - component: {fileID: 1056903964170598190}
   - component: {fileID: 574956604}
+  - component: {fileID: 8133460076454607839}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -121,6 +122,7 @@ MonoBehaviour:
   rightCollider: {fileID: 1056903964170598190}
   leftColliderTrigger: {fileID: 1056903964170598176}
   rightColliderTrigger: {fileID: 1056903964170598191}
+  upperCollider: {fileID: 8133460076454607839}
   jumpButtonHandler: {fileID: 0}
   jumpTime: 0.2
   optionsM: {fileID: 0}
@@ -293,3 +295,19 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.29
+--- !u!70 &8133460076454607839
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1056903964170598181}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.21}
+  m_Size: {x: 0.5, y: 0.2}
+  m_Direction: 1

@@ -89,7 +89,32 @@ public class Player : MonoBehaviour
                     {
                         gameController.Die();
                     }
-                    else if (map == gameController.GetVictoryTilemap())
+                    else if (map == gameController.GetVictoryTilemap() && !upperCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+                    {
+                        gameController.Win();
+                    }
+                }
+                catch (System.Exception e)
+                {
+                    Debug.Log(e);
+                }
+            }
+        }
+    }
+    void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            foreach (ContactPoint contact in collision.contacts)
+            {
+                try
+                {
+                    Tilemap map = contact.otherCollider.GetComponent<Tilemap>();
+                    if (map == gameController.GetSpikeTilemap())
+                    {
+                        gameController.Die();
+                    }
+                    else if (map == gameController.GetVictoryTilemap() && !upperCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
                     {
                         gameController.Win();
                     }

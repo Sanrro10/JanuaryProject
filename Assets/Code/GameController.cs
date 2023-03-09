@@ -227,10 +227,10 @@ public class GameController : MonoBehaviour
         timerText.text = "Time: " + AudioManager.Instance.GetTimer().ToString("F0") + "s";
 
         //full window editor
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            UnityEditor.EditorWindow.focusedWindow.maximized = !UnityEditor.EditorWindow.focusedWindow.maximized;
-        }
+        //if (Input.GetKeyDown(KeyCode.Escape))
+        //{
+            //UnityEditor.EditorWindow.focusedWindow.maximized = !UnityEditor.EditorWindow.focusedWindow.maximized;
+        //}
     }
 
     

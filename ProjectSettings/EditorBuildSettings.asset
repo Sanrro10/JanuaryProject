@@ -6,11 +6,32 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: db610d177bf18c845a11b9b9fb0df32b
+  - enabled: 1
     path: Assets/Scenes/BaseLevel.unity
     guid: 7442ca259e303ff4cad2c1f2ea796266
   - enabled: 1
-    path: Assets/Scenes/MainMenu.unity
-    guid: db610d177bf18c845a11b9b9fb0df32b
+    path: Assets/Scenes/Javi_Easy_Level.unity
+    guid: e1928d6f614760740a414763090ad1d5
+  - enabled: 1
+    path: Assets/Scenes/Javi_Medium_Level.unity
+    guid: bed2f7822614bce4da906c7d1b13421d
+  - enabled: 1
+    path: Assets/Scenes/Javi_Hard_Level.unity
+    guid: 1dc570f60fe30d741ae71df899335e65
+  - enabled: 1
+    path: Assets/Scenes/Sergio_Easy_Level.unity
+    guid: 55a100b068db0794c816bb676e666ca2
+  - enabled: 1
+    path: Assets/Scenes/Sergio_Medium_Level.unity
+    guid: 698c508c9bc2afc46a6f02469c4b2863
+  - enabled: 1
+    path: Assets/Scenes/Sergio_Hard_level.unity
+    guid: 0065937c9764f3647acdb2c6970eb0df
+  - enabled: 1
+    path: "Assets/Scenes/I\xF1igo_Hard_Level.unity"
+    guid: 49e039b0271728440818da2ed3524323
   m_configObjects:
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 21fe5dc5dbf20cc4496b0a839193e410, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: a215ad607c28a244199a8dfcc314a2cb, type: 2}

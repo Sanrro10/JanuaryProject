@@ -62,7 +62,7 @@ public class VerticalEnemy : MonoBehaviour
                     tilemap.SetTile(tilemap.WorldToCell(new Vector3(center.x, center.y - i, center.z)), centralTile);
                     tilemap.SetTile(tilemap.WorldToCell(new Vector3(center.x, center.y + i, center.z)), centralTile);
                 }
-                if (size >= 5)
+                if (size > 3)
                 {
                     tilemap.SetTile(tilemap.WorldToCell(new Vector3(center.x, lowerLimit.y + 1, upperLimit.z)), centralTile);
                 }
@@ -79,6 +79,7 @@ public class VerticalEnemy : MonoBehaviour
                 if (size >= 5)
                 {
                     tilemap.SetTile(tilemap.WorldToCell(new Vector3(center.x, lowerLimit.y + 1, upperLimit.z)), centralTile);
+                    tilemap.SetTile(tilemap.WorldToCell(new Vector3(center.x, upperLimit.y - 1, upperLimit.z)), centralTile);
                 }
             }
             if(startingPosition == StartingPosition.Up)
@@ -164,9 +165,10 @@ public class VerticalEnemy : MonoBehaviour
             gameController.Die();
         }
         if (!moving && !changingColor)
-        {
-            if (Vector2.Distance(center, player.transform.position) <= ((size / 2) + 1))
+        {           
+            if (Vector2.Distance(center, player.transform.position) <= (((float) size / 2) + 1))
             {
+                Debug.Log(Vector2.Distance(center, player.transform.position));
                 if (Physics2D.Raycast(transform.position, -transform.position + player.transform.position).rigidbody == player.GetPlayerRigidbody())
                 {
                     moving = true;

@@ -163,7 +163,7 @@ public class HorizontalEnemy : MonoBehaviour
         }
         if (!moving && !changingColor)
         {
-            if (Vector2.Distance(center, player.transform.position) <= ((size/2) + 1))
+            if (Vector2.Distance(center, player.transform.position) <= (((float) size / 2) + 1))
             {
                 if (Physics2D.Raycast(transform.position, -transform.position + player.transform.position).rigidbody == player.GetPlayerRigidbody())
                 {

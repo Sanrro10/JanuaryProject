@@ -131,7 +131,7 @@ public class GameController : MonoBehaviour
     public void Restart()
     {
         AudioManager.Instance.PlaySFX("button_start_level");
-        AudioManager.Instance.PlayMusic("menu_music");
+        AudioManager.Instance.SelectMusic();
         Time.timeScale = 1;
         AudioManager.Instance.SetTimer(levels[currentLevel].GetTimeLimit());
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -186,7 +186,7 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        AudioManager.Instance.PlayMusic("level_music_1");
+        AudioManager.Instance.SelectMusic();
         AudioManager.Instance.musicSource.Play();
         optionsM.Inizialice();
         running = true;

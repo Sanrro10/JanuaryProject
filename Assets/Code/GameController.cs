@@ -18,11 +18,14 @@ public class GameController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI victoryTimer;
     [SerializeField] private TextMeshProUGUI victoryCollectibles;
     [SerializeField] private TextMeshProUGUI timerText;
+    [SerializeField] private TextMeshProUGUI countdownText;
     [SerializeField] private GameObject nextlevelButton;
     [SerializeField] private GameObject pauseUI;
     [SerializeField] private GameObject optionsUI;
     [SerializeField] private GameObject gameUI;
     [SerializeField] private GameObject pauseOptionsPanel;
+    [SerializeField] private Button jumpButton;
+    [SerializeField] private Button switchButton;
     public OptionsMenu optionsM;
 
 
@@ -35,6 +38,16 @@ public class GameController : MonoBehaviour
 
     private int currentLevel = 0;
     private int collectibles;
+
+    //Countdown
+    private int countdownMax = 3;
+    private float countdownTime = 0;
+    private bool resumeGame = false;
+
+    public bool GetResumeGame()
+    {
+        return resumeGame;
+    }
 
     public bool IsRunning()
     {
@@ -92,6 +105,7 @@ public class GameController : MonoBehaviour
     }
     public void Pause()
     {
+        countdownTime = countdownMax;
         AudioManager.Instance.PlaySFX("button");
         AudioManager.Instance.musicSource.Pause();
         running = false;
@@ -109,6 +123,7 @@ public class GameController : MonoBehaviour
         pauseOptionsPanel.SetActive(false);
         pauseUI.SetActive(false);
         gameUI.SetActive(true);
+        resumeGame = true;
     }
     public void ReturnFromOptions()
     {
@@ -141,8 +156,8 @@ public class GameController : MonoBehaviour
         Debug.Log("AAAAAAAAAAAAAAAA");
         AudioManager.Instance.PlaySFX("button_start_level");
         Time.timeScale = 1;
-        levels[currentLevel+1].LoadLevel();
-        
+        levels[currentLevel + 1].LoadLevel();
+
     }
     private void UpdateVictoryUI()
     {
@@ -202,10 +217,13 @@ public class GameController : MonoBehaviour
                     currentLevel = i;
                 }
             }
-        } if(AudioManager.Instance.GetTimer() <= 0)
+        }
+        if (AudioManager.Instance.GetTimer() <= 0)
         {
             AudioManager.Instance.SetTimer(levels[currentLevel].GetTimeLimit());
         }
+        countdownTime = countdownMax;
+        resumeGame = true;
     }
 
     // Update is called once per frame
@@ -220,7 +238,7 @@ public class GameController : MonoBehaviour
             SwapTilemaps();
         }
         AudioManager.Instance.UpdateTimer();
-        if(AudioManager.Instance.GetTimer() <= 0)
+        if (AudioManager.Instance.GetTimer() <= 0)
         {
             DieByTimer();
         }
@@ -229,10 +247,25 @@ public class GameController : MonoBehaviour
         //full window editor
         //if (Input.GetKeyDown(KeyCode.Escape))
         //{
-            //UnityEditor.EditorWindow.focusedWindow.maximized = !UnityEditor.EditorWindow.focusedWindow.maximized;
+        //UnityEditor.EditorWindow.focusedWindow.maximized = !UnityEditor.EditorWindow.focusedWindow.maximized;
         //}
-    }
 
-    
-          
+        if (resumeGame)
+        {
+            player.GetPlayerRigidbody().constraints = RigidbodyConstraints2D.FreezePosition;
+            jumpButton.enabled = false;
+            switchButton.enabled = false;
+            countdownText.text = countdownTime.ToString("F0");
+            countdownTime -= Time.deltaTime;
+            if(countdownTime <= 0)
+            {
+                player.GetPlayerRigidbody().constraints = RigidbodyConstraints2D.None;
+                jumpButton.enabled = true;
+                switchButton.enabled = true;
+                countdownTime = 3;
+                countdownText.text = "";
+                resumeGame = false;
+            }
+        }
+    }
 }

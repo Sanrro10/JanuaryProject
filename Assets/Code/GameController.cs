@@ -141,8 +141,8 @@ public class GameController : MonoBehaviour
         Debug.Log("AAAAAAAAAAAAAAAA");
         AudioManager.Instance.PlaySFX("button_start_level");
         Time.timeScale = 1;
-        levels[currentLevel+1].LoadLevel();
-        
+        levels[currentLevel + 1].LoadLevel();
+
     }
     private void UpdateVictoryUI()
     {
@@ -186,6 +186,10 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (AudioManager.Instance.currentMusic != SceneManager.GetActiveScene().name)
+        {
+            AudioManager.Instance.SelectMusic();
+        }
         optionsM.Inizialice();
         running = true;
         orangeActive = false;
@@ -200,7 +204,8 @@ public class GameController : MonoBehaviour
                     currentLevel = i;
                 }
             }
-        } if(AudioManager.Instance.GetTimer() <= 0)
+        }
+        if (AudioManager.Instance.GetTimer() <= 0)
         {
             AudioManager.Instance.SetTimer(levels[currentLevel].GetTimeLimit());
         }
@@ -218,7 +223,7 @@ public class GameController : MonoBehaviour
             SwapTilemaps();
         }
         AudioManager.Instance.UpdateTimer();
-        if(AudioManager.Instance.GetTimer() <= 0)
+        if (AudioManager.Instance.GetTimer() <= 0)
         {
             DieByTimer();
         }
@@ -227,10 +232,10 @@ public class GameController : MonoBehaviour
         //full window editor
         //if (Input.GetKeyDown(KeyCode.Escape))
         //{
-            //UnityEditor.EditorWindow.focusedWindow.maximized = !UnityEditor.EditorWindow.focusedWindow.maximized;
+        //UnityEditor.EditorWindow.focusedWindow.maximized = !UnityEditor.EditorWindow.focusedWindow.maximized;
         //}
     }
 
-    
-          
+
+
 }

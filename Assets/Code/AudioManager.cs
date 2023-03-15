@@ -12,6 +12,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip[] musicSounds, sfxSounds;
     public AudioSource musicSource, sfxSource;
     private float timer;
+    public String currentMusic;
 
 
     private void Awake()
@@ -36,6 +37,7 @@ public class AudioManager : MonoBehaviour
 
     public void PlayMusic(string name)
     {
+        Debug.Log("Searching for " + name);
         AudioClip s = Array.Find(musicSounds, x => x.name == name);
 
         if (s == null)
@@ -53,6 +55,7 @@ public class AudioManager : MonoBehaviour
             // else
             // {
                 musicSource.clip = s;
+                currentMusic = SceneManager.GetActiveScene().name;
                 Debug.Log("Playing " + name);
                 musicSource.Play();
             // }

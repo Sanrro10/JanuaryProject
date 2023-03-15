@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Menu : MonoBehaviour
@@ -129,6 +130,10 @@ public class Menu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (AudioManager.Instance.currentMusic != SceneManager.GetActiveScene().name)
+        {
+            AudioManager.Instance.SelectMusic();
+        }
         optionsM.Inizialice();
         SetLastUnlockedLevel();
         currentLevel = lastUnlockedLevel;

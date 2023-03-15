@@ -44,23 +44,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84433b55f3f3e3a459f1109b56c1530c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levels:
+  - {fileID: 11400000, guid: cd56b196cd6be0b489b47dcecbd462a4, type: 2}
+  - {fileID: 11400000, guid: fd87e9706a03c3643b844c548bd4195a, type: 2}
   player: {fileID: 0}
   spikeTilemap: {fileID: 0}
   mainTilemap: {fileID: 0}
-  victoryTiles:
-  - {fileID: 11400000, guid: ae1376d7efcd24a4fa29eff6d94b414e, type: 2}
-  - {fileID: 11400000, guid: 027cea4b8b2d7424b8abb02581357463, type: 2}
-  - {fileID: 11400000, guid: 043c89314e219c141a1319164a7be677, type: 2}
-  - {fileID: 11400000, guid: 8d816201101ce3044be6bc8e1c78910d, type: 2}
-  - {fileID: 11400000, guid: 9538bfe53379d9c469ab28e34bdac8f9, type: 2}
-  - {fileID: 11400000, guid: f2af3ce836d3755438f4fcc95f5220ac, type: 2}
-  - {fileID: 11400000, guid: 2e5e312ea24f970488b60bdd4608e2aa, type: 2}
-  - {fileID: 11400000, guid: 6c62a8c04bf17774b981fd438a70f7e2, type: 2}
-  - {fileID: 11400000, guid: b549b5cb1d16d4c43955cf896ddab5da, type: 2}
-  - {fileID: 11400000, guid: f769f9a5b4bfb7544b096bb3e5081096, type: 2}
-  - {fileID: 11400000, guid: ac5744c11905cff4fbc0610baa885d9a, type: 2}
-  - {fileID: 11400000, guid: f9b4aa88cfcbab04a94327c9f103d687, type: 2}
-  - {fileID: 11400000, guid: f0e7f361545f6844fb08ec1865d7e7c5, type: 2}
-  - {fileID: 11400000, guid: 57e5707579a29aa45a9819740d73fd8e, type: 2}
-  - {fileID: 11400000, guid: 83924a592fa92c24dbc055bf61997830, type: 2}
+  victoryTilemap: {fileID: 0}
+  victoryUI: {fileID: 0}
+  victoryLevelName: {fileID: 0}
+  victoryTimer: {fileID: 0}
+  victoryCollectibles: {fileID: 0}
+  timerText: {fileID: 0}
+  countdownText: {fileID: 0}
+  nextlevelButton: {fileID: 0}
+  pauseUI: {fileID: 0}
+  optionsUI: {fileID: 0}
+  gameUI: {fileID: 0}
+  pauseOptionsPanel: {fileID: 0}
+  jumpButton: {fileID: 0}
+  switchButton: {fileID: 0}
+  optionsM: {fileID: 0}
   BgImg: {fileID: 0}

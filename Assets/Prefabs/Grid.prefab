@@ -206,6 +206,7 @@ GameObject:
   - component: {fileID: 952092682659367018}
   - component: {fileID: 2529721841022934215}
   - component: {fileID: 601132699}
+  - component: {fileID: 4339067047846820936}
   m_Layer: 3
   m_Name: SpikeTilemap
   m_TagString: Untagged
@@ -477,6 +478,18 @@ MonoBehaviour:
   orangeLeftSpikesAlt: {fileID: 11400000, guid: b2f73ac888a234648b04a83e91a8df85, type: 2}
   orangeRightSpikesAlt: {fileID: 11400000, guid: d6755544f3f5ec54f9bf641a91f8d94a, type: 2}
   orangeBottomSpikesAlt: {fileID: 11400000, guid: a89cfcb0b8cbef446a961378564eacbf, type: 2}
+--- !u!114 &4339067047846820936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4134976328678357144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51d7edea2fa65db4896f1760eda65893, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7547232127365453790
 GameObject:
   m_ObjectHideFlags: 0

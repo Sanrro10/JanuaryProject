@@ -76,56 +76,31 @@ public class Player : MonoBehaviour
         leftColliderTrigger.enabled = false;
         gameController = GameObject.Find("GameController").GetComponent<GameController>();
     }
-    void OnCollisionEnter2D(Collision2D collision)
+    public void Die()
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
-        {
-            foreach (ContactPoint2D contact in collision.contacts)
-            {
-                try
-                {
-                    Tilemap map = contact.collider.GetComponent<Tilemap>();
-                    if (map == gameController.GetSpikeTilemap())
-                    {
-                        gameController.Die();
-                    }
-                    else if (map == gameController.GetVictoryTilemap() && !upperCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
-                    {
-                        gameController.Win();
-                    }
-                }
-                catch (System.Exception e)
-                {
-                    Debug.Log(e);
-                }
-            }
-        }
+        gameController.Die();
     }
-    void OnCollisionStay(Collision collision)
-    {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
-        {
-            foreach (ContactPoint contact in collision.contacts)
-            {
-                try
-                {
-                    Tilemap map = contact.otherCollider.GetComponent<Tilemap>();
-                    if (map == gameController.GetSpikeTilemap())
-                    {
-                        gameController.Die();
-                    }
-                    else if (map == gameController.GetVictoryTilemap() && !upperCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
-                    {
-                        gameController.Win();
-                    }
-                }
-                catch (System.Exception e)
-                {
-                    Debug.Log(e);
-                }
-            }
-        }
-    }
+    // void OnCollisionEnter2D(Collision2D collision)
+    // {
+    //     if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+    //     {
+    //         foreach (ContactPoint2D contact in collision.contacts)
+    //         {
+    //             try
+    //             {
+    //                 Tilemap map = contact.collider.GetComponent<Tilemap>();
+    //                 if (map == gameController.GetVictoryTilemap() && !upperCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+    //                 {
+    //                     gameController.Win();
+    //                 }
+    //             }
+    //             catch (System.Exception e)
+    //             {
+    //                 Debug.Log(e);
+    //             }
+    //         }
+    //     }
+    // }
 
     void OnTriggerEnter2D(Collider2D collision)
     {

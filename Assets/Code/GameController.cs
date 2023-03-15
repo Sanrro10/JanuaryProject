@@ -186,8 +186,6 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        AudioManager.Instance.SelectMusic();
-        AudioManager.Instance.musicSource.Play();
         optionsM.Inizialice();
         running = true;
         orangeActive = false;

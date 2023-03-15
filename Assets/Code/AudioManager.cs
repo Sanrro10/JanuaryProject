@@ -13,20 +13,21 @@ public class AudioManager : MonoBehaviour
     public AudioSource musicSource, sfxSource;
     private float timer;
 
-    
+
     private void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(transform.gameObject);
         }
         else
         {
+            Debug.Log("Destroying");
             Destroy(gameObject);
         }
     }
-    
+
 
     private void Start()
     {
@@ -37,14 +38,25 @@ public class AudioManager : MonoBehaviour
     {
         AudioClip s = Array.Find(musicSounds, x => x.name == name);
 
-        if(s == null)
+        if (s == null)
         {
             Debug.Log("Sound Not Found");
         }
         else
         {
-            musicSource.clip = s;
-            musicSource.Play();
+            Debug.Log(musicSource.clip);
+            // Debug.Log("Previous clip: " + musicSource.clip.name + " Current clip: " + s.name);
+            // if (musicSource.clip.name == s.name)
+            // {
+            //     Debug.Log("Already playing " + name);
+            // }
+            // else
+            // {
+                musicSource.clip = s;
+                Debug.Log("Playing " + name);
+                musicSource.Play();
+            // }
+
         }
 
     }
@@ -88,30 +100,31 @@ public class AudioManager : MonoBehaviour
     }
     public void SelectMusic()
     {
+        Debug.Log("Selecting music");
         if (SceneManager.GetActiveScene().name == "MainMenu")
         {
             Debug.Log("SEstoy en el main menu");
             PlayMusic("menu_music");
         }
-        else if (SceneManager.GetActiveScene().name == "Javi_Easy_level" || SceneManager.GetActiveScene().name == "Sergio_Easy_level")
+        else if (SceneManager.GetActiveScene().name == "Javi_Easy_Level" || SceneManager.GetActiveScene().name == "Sergio_Easy_Level")
         {
             Debug.Log("estoy en el nivel 1");
             PlayMusic("level_music_1");
         }
-        else if (SceneManager.GetActiveScene().name == "Javi_Medium_level" || SceneManager.GetActiveScene().name == "Sergio_Medium_level")
+        else if (SceneManager.GetActiveScene().name == "Javi_Medium_Level" || SceneManager.GetActiveScene().name == "Sergio_Medium_Level")
         {
             Debug.Log("estoy en el nivel 2");
             PlayMusic("level_music_2");
         }
-        else if (SceneManager.GetActiveScene().name == "Iñigo_Medium_level" || SceneManager.GetActiveScene().name == "Javi_Hard_level")
+        else if (SceneManager.GetActiveScene().name == "Iï¿½igo_Medium_Level" || SceneManager.GetActiveScene().name == "Javi_Hard_Level")
         {
             PlayMusic("level_music_3");
         }
-        else if (SceneManager.GetActiveScene().name == "Sergio_Hard_level")
+        else if (SceneManager.GetActiveScene().name == "Sergio_Hard_Level")
         {
             PlayMusic("level_music_4");
         }
-        else if (SceneManager.GetActiveScene().name == "Iñigo_Hard_level")
+        else if (SceneManager.GetActiveScene().name == "Iï¿½igo_Hard_Level")
         {
             PlayMusic("level_music_5");
         }

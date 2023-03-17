@@ -80,27 +80,27 @@ public class Player : MonoBehaviour
     {
         gameController.Die();
     }
-    // void OnCollisionEnter2D(Collision2D collision)
-    // {
-    //     if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
-    //     {
-    //         foreach (ContactPoint2D contact in collision.contacts)
-    //         {
-    //             try
-    //             {
-    //                 Tilemap map = contact.collider.GetComponent<Tilemap>();
-    //                 if (map == gameController.GetVictoryTilemap() && !upperCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
-    //                 {
-    //                     gameController.Win();
-    //                 }
-    //             }
-    //             catch (System.Exception e)
-    //             {
-    //                 Debug.Log(e);
-    //             }
-    //         }
-    //     }
-    // }
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            foreach (ContactPoint2D contact in collision.contacts)
+            {
+                try
+                {
+                    Tilemap map = contact.collider.GetComponent<Tilemap>();
+                    if (map == gameController.GetVictoryTilemap() && !upperCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+                    {
+                        gameController.Win();
+                    }
+                }
+                catch (System.Exception e)
+                {
+                    Debug.Log(e);
+                }
+            }
+        }
+    }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -124,72 +124,72 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!gameController.GetResumeGame())
+        //if (!gameController.GetResumeGame())
+        //{
+        transform.Translate(playerDirection * playerSpeed * Time.deltaTime);
+        /*
+        if (rb.IsTouchingLayers(LayerMask.GetMask("Ground")) && isJumping==false)
         {
-            transform.Translate(playerDirection * playerSpeed * Time.deltaTime);
-            /*
-            if (rb.IsTouchingLayers(LayerMask.GetMask("Ground")) && isJumping==false)
+            isJumpingAudio = false;
+        }
+        */
+        if (jumpButtonHandler.GetIsPressed() || Input.GetKey(KeyCode.Space))
+        {
+            if (rb.IsTouchingLayers(LayerMask.GetMask("Ground")) && !upperCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
             {
-                isJumpingAudio = false;
-            }
-            */
-            if (jumpButtonHandler.GetIsPressed() || Input.GetKey(KeyCode.Space))
-            {
-                if (rb.IsTouchingLayers(LayerMask.GetMask("Ground")) && !upperCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+                isJumping = true;
+                jumpTimeCounter = jumpTime;
+                rb.velocity = Vector2.up * jumpForce;
+                if (isJumpingAudio == false)
                 {
-                    isJumping = true;
-                    jumpTimeCounter = jumpTime;
-                    rb.velocity = Vector2.up * jumpForce;
-                    if (isJumpingAudio == false)
-                    {
-                        AudioManager.Instance.PlaySFX("player_jump");
-                        isJumpingAudio = true;
-                    }
-                }
-                else
-                {
-                    if (leftColliderTrigger.IsTouchingLayers(LayerMask.GetMask("Ground")) && playerDirection == Vector2.left)
-                    {
-                        rb.velocity = Vector2.up * jumpForce;
-                        if (playerDirection == Vector2.right)
-                        {
-                            playerDirection = Vector2.left;
-                            leftColliderTrigger.enabled = false;
-                            rightColliderTrigger.enabled = true;
-                        }
-                    }
-                    else if (rightColliderTrigger.IsTouchingLayers(LayerMask.GetMask("Ground")) && playerDirection == Vector2.right)
-                    {
-                        rb.velocity = Vector2.up * jumpForce;
-                        if (playerDirection == Vector2.left)
-                        {
-                            playerDirection = Vector2.right;
-                            rightColliderTrigger.enabled = false;
-                            leftColliderTrigger.enabled = true;
-                        }
-                    }
+                    AudioManager.Instance.PlaySFX("player_jump");
+                    isJumpingAudio = true;
                 }
             }
-            if (jumpButtonHandler.GetIsHold() && isJumping)
+            else
             {
-                if (jumpTimeCounter > 0)
+                if (leftColliderTrigger.IsTouchingLayers(LayerMask.GetMask("Ground")) && playerDirection == Vector2.left)
                 {
                     rb.velocity = Vector2.up * jumpForce;
-                    jumpTimeCounter -= Time.deltaTime;
+                    if (playerDirection == Vector2.right)
+                    {
+                        playerDirection = Vector2.left;
+                        leftColliderTrigger.enabled = false;
+                        rightColliderTrigger.enabled = true;
+                    }
                 }
-                else
+                else if (rightColliderTrigger.IsTouchingLayers(LayerMask.GetMask("Ground")) && playerDirection == Vector2.right)
                 {
-                    isJumping = false;
-                    isJumpingAudio = false;
+                    rb.velocity = Vector2.up * jumpForce;
+                    if (playerDirection == Vector2.left)
+                    {
+                        playerDirection = Vector2.right;
+                        rightColliderTrigger.enabled = false;
+                        leftColliderTrigger.enabled = true;
+                    }
                 }
             }
-
-            if (!jumpButtonHandler.GetIsPressed())
+        }
+        if (jumpButtonHandler.GetIsHold() && isJumping)
+        {
+            if (jumpTimeCounter > 0)
+            {
+                rb.velocity = Vector2.up * jumpForce;
+                jumpTimeCounter -= Time.deltaTime;
+            }
+            else
             {
                 isJumping = false;
                 isJumpingAudio = false;
             }
-
         }
+
+        if (!jumpButtonHandler.GetIsPressed())
+        {
+            isJumping = false;
+            isJumpingAudio = false;
+        }
+
+        //}
     }
 }

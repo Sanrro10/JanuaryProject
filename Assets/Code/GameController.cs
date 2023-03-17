@@ -253,7 +253,7 @@ public class GameController : MonoBehaviour
         //}
 
 
-
+        /*
         if (resumeGame)
         {
             player.GetPlayerRigidbody().constraints = RigidbodyConstraints2D.FreezePosition;
@@ -271,5 +271,6 @@ public class GameController : MonoBehaviour
                 resumeGame = false;
             }
         }
+        */
     }
 }

@@ -40,6 +40,7 @@ public class Player : MonoBehaviour
     {
         optionsM.Initialize();
         rb = GetComponent<Rigidbody2D>();
+        rb.interpolation = RigidbodyInterpolation2D.Interpolate;
         rightColliderTrigger.enabled = true;
         leftColliderTrigger.enabled = false;
         gameController = FindObjectOfType<GameController>();
@@ -59,15 +60,22 @@ public class Player : MonoBehaviour
     {
         rb.velocity = new Vector2(playerDirection.x * playerSpeed, rb.velocity.y);
     }
+    
+    private float holdDelay = 0.1f;  // Add this delay variable
+    private float timeSinceJumpPressed = 0;  // To track the time since the jump button was pressed.
 
     private void HandleJump()
     {
         if (jumpButtonHandler.GetIsPressed() && !isJumping)
         {
             StartJump();
+            timeSinceJumpPressed = 0;  // Reset the timer when the jump is pressed.
         }
 
-        if (jumpButtonHandler.GetIsHold() && isJumping)
+        timeSinceJumpPressed += Time.deltaTime;  // Increment the timer.
+    
+        // Only allow continuous jump if the hold delay has passed.
+        if (jumpButtonHandler.GetIsHold() && isJumping && timeSinceJumpPressed > holdDelay)
         {
             ContinueJump();
         }
@@ -78,6 +86,7 @@ public class Player : MonoBehaviour
             isJumpingAudio = false;
         }
     }
+
 
     private void StartJump()
     {

@@ -157,7 +157,7 @@ public class HorizontalEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (leftCollider.IsTouching(player.GetPLayerCollider()) || rightCollider.IsTouching(player.GetPLayerCollider()))
+        if (leftCollider.IsTouching(player.GetPlayerCollider()) || rightCollider.IsTouching(player.GetPlayerCollider()))
         {
             gameController.Die();
         }

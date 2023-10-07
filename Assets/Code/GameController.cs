@@ -1,18 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 using TMPro;
 
 public class GameController : MonoBehaviour
 {
-    [SerializeField] List<Level> levels = new List<Level>();
+    #region Variables
+    [Header("Level References")]
+    [SerializeField] private List<Level> levels = new List<Level>();
+
+    [Header("Player References")]
     [SerializeField] private Player player;
+
+    [Header("Tilemap References")]
     [SerializeField] private TilemapSwitch spikeTilemap;
     [SerializeField] private TilemapSwitch mainTilemap;
     [SerializeField] private Tilemap victoryTilemap;
+
+    [Header("UI References")]
     [SerializeField] private GameObject victoryUI;
     [SerializeField] private TextMeshProUGUI victoryLevelName;
     [SerializeField] private TextMeshProUGUI victoryTimer;
@@ -26,50 +34,81 @@ public class GameController : MonoBehaviour
     [SerializeField] private GameObject pauseOptionsPanel;
     [SerializeField] private Button jumpButton;
     [SerializeField] private Button switchButton;
+
+    [Header("Options Menu")]
     public OptionsMenu optionsM;
 
-
-    //Background
+    [Header("Background")]
     [SerializeField] private RawImage BgImg;
 
     private bool orangeActive;
-
     private bool running;
-
     private int currentLevel = 0;
     private int collectibles;
 
-    //Countdown
+    // Countdown variables
     private int countdownMax = 3;
     private float countdownTime = 0;
     private bool resumeGame = false;
+    #endregion
 
-    public bool GetResumeGame()
+    #region UnityMethods
+    void Start()
     {
-        return resumeGame;
+        if (AudioManager.Instance.currentMusic != SceneManager.GetActiveScene().name)
+        {
+            AudioManager.Instance.SelectMusic();
+        }
+        optionsM.Initialize();
+        running = true;
+        orangeActive = false;
+        mainTilemap.Swap(orangeActive);
+        spikeTilemap.Swap(orangeActive);
+        if (currentLevel == 0)
+        {
+            for (int i = 0; i < levels.Count; i++)
+            {
+                if (levels[i].scene.SceneName == SceneManager.GetActiveScene().name)
+                {
+                    currentLevel = i;
+                }
+            }
+        }
+        if (AudioManager.Instance.GetTimer() <= 0)
+        {
+            AudioManager.Instance.SetTimer(levels[currentLevel].GetTimeLimit());
+        }
+        countdownTime = countdownMax;
+        resumeGame = true;
     }
 
-    public bool IsRunning()
+    void Update()
     {
-        return running;
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            //player.Jump();
+        }
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            SwapTilemaps();
+        }
+        AudioManager.Instance.UpdateTimer();
+        if (AudioManager.Instance.GetTimer() <= 0)
+        {
+            DieByTimer();
+        }
+        timerText.text = "Time: " + AudioManager.Instance.GetTimer().ToString("F0") + "s";
     }
+    #endregion
 
-    public Player GetPlayer()
-    {
-        return player;
-    }
-    public Tilemap GetMainTilemap()
-    {
-        return mainTilemap.GetTilemap();
-    }
-    public Tilemap GetSpikeTilemap()
-    {
-        return spikeTilemap.GetTilemap();
-    }
-    public Tilemap GetVictoryTilemap()
-    {
-        return victoryTilemap;
-    }
+    #region PublicMethods
+    public bool GetResumeGame() => resumeGame;
+    public bool IsRunning() => running;
+    public Player GetPlayer() => player;
+    public Tilemap GetMainTilemap() => mainTilemap.GetTilemap();
+    public Tilemap GetSpikeTilemap() => spikeTilemap.GetTilemap();
+    public Tilemap GetVictoryTilemap() => victoryTilemap;
+    
     public void Die()
     {
         AudioManager.Instance.PlaySFX("player_death");
@@ -159,18 +198,6 @@ public class GameController : MonoBehaviour
         levels[currentLevel + 1].LoadLevel();
 
     }
-    private void UpdateVictoryUI()
-    {
-        victoryLevelName.text = "Level " + currentLevel + ":" + levels[currentLevel].name + " Completed!";
-        victoryTimer.text = "Time: " + AudioManager.Instance.GetTimer().ToString("F2") + "s";
-        victoryCollectibles.text = "Collectibles: " + collectibles + "/" + levels[currentLevel].GetCollectibles();
-    }
-    private void UpdateDefeatUI()
-    {
-        victoryLevelName.text = "Level " + currentLevel + ":" + levels[currentLevel].name + " Failed!";
-        victoryTimer.text.Remove(0);
-        victoryCollectibles.text.Remove(0);
-    }
     public void SwapTilemaps()
     {
         AudioManager.Instance.PlaySFX("change_screen");
@@ -183,7 +210,24 @@ public class GameController : MonoBehaviour
     {
         collectibles++;
     }
+    
+    #endregion
 
+    #region PrivateMethods
+    
+    private void UpdateVictoryUI()
+    {
+        victoryLevelName.text = "Level " + currentLevel + ":" + levels[currentLevel].name + " Completed!";
+        victoryTimer.text = "Time: " + AudioManager.Instance.GetTimer().ToString("F2") + "s";
+        victoryCollectibles.text = "Collectibles: " + collectibles + "/" + levels[currentLevel].GetCollectibles();
+    }
+    private void UpdateDefeatUI()
+    {
+        victoryLevelName.text = "Level " + currentLevel + ":" + levels[currentLevel].name + " Failed!";
+        victoryTimer.text.Remove(0);
+        victoryCollectibles.text.Remove(0);
+    }
+    
     private void ChangeBackground(RawImage img, bool orangeActive)
     {
         if (orangeActive)
@@ -195,82 +239,6 @@ public class GameController : MonoBehaviour
             img.CrossFadeAlpha(1, 0.2f, false);
         }
     }
-
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        if (AudioManager.Instance.currentMusic != SceneManager.GetActiveScene().name)
-        {
-            AudioManager.Instance.SelectMusic();
-        }
-        optionsM.Inizialice();
-        running = true;
-        orangeActive = false;
-        mainTilemap.Swap(orangeActive);
-        spikeTilemap.Swap(orangeActive);
-        if (currentLevel == 0)
-        {
-            for (int i = 0; i < levels.Count; i++)
-            {
-                if (levels[i].scene.SceneName == SceneManager.GetActiveScene().name)
-                {
-                    currentLevel = i;
-                }
-            }
-        }
-        if (AudioManager.Instance.GetTimer() <= 0)
-        {
-            AudioManager.Instance.SetTimer(levels[currentLevel].GetTimeLimit());
-        }
-        countdownTime = countdownMax;
-        resumeGame = true;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            //player.Jump();
-        }
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            SwapTilemaps();
-        }
-        AudioManager.Instance.UpdateTimer();
-        if (AudioManager.Instance.GetTimer() <= 0)
-        {
-            DieByTimer();
-        }
-        timerText.text = "Time: " + AudioManager.Instance.GetTimer().ToString("F0") + "s";
-
-        //full window editor
-        //if (Input.GetKeyDown(KeyCode.Escape))
-        //{
-        //UnityEditor.EditorWindow.focusedWindow.maximized = !UnityEditor.EditorWindow.focusedWindow.maximized;
-        //}
-
-
-        /*
-        if (resumeGame)
-        {
-            player.GetPlayerRigidbody().constraints = RigidbodyConstraints2D.FreezePosition;
-            jumpButton.enabled = false;
-            switchButton.enabled = false;
-            countdownText.text = countdownTime.ToString("F0");
-            countdownTime -= Time.deltaTime;
-            if(countdownTime <= 0)
-            {
-                player.GetPlayerRigidbody().constraints = RigidbodyConstraints2D.None;
-                jumpButton.enabled = true;
-                switchButton.enabled = true;
-                countdownTime = 3;
-                countdownText.text = "";
-                resumeGame = false;
-            }
-        }
-        */
-    }
+    #endregion
 }
+

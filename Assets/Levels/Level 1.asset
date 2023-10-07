@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   scene:
-    m_SceneAsset: {fileID: 102900000, guid: 7442ca259e303ff4cad2c1f2ea796266, type: 3}
+    m_SceneAsset: {fileID: 102900000, guid: 97056fd456cfd4c4694c9f16d3fa17d4, type: 3}
     m_IsDirty: 0
-    m_ScenePath: Assets/Scenes/BaseLevel.unity
+    m_ScenePath: Assets/Scenes/Navigation_Tutorial.unity
   difficulty: 0
   timeLimit: 300
   totalCollectibles: 0

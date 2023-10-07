@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Level 7
   m_EditorClassIdentifier: 
   scene:
-    m_SceneAsset: {fileID: 102900000, guid: 55a100b068db0794c816bb676e666ca2, type: 3}
+    m_SceneAsset: {fileID: 102900000, guid: 698c508c9bc2afc46a6f02469c4b2863, type: 3}
     m_IsDirty: 0
-    m_ScenePath: Assets/Scenes/Sergio_Easy_Level.unity
-  difficulty: 0
+    m_ScenePath: Assets/Scenes/Sergio_Medium_Level.unity
+  difficulty: 3
   timeLimit: 300
   totalCollectibles: 0
-  unlocked: 1
+  unlocked: 0

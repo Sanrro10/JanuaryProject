@@ -160,7 +160,7 @@ public class VerticalEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (upperCollider.IsTouching(player.GetPLayerCollider()) || lowerCollider.IsTouching(player.GetPLayerCollider()))
+        if (upperCollider.IsTouching(player.GetPlayerCollider()) || lowerCollider.IsTouching(player.GetPlayerCollider()))
         {
             gameController.Die();
         }

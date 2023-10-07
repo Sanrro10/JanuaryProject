@@ -5,191 +5,208 @@ using UnityEngine.Tilemaps;
 
 public class Player : MonoBehaviour
 {
+    // Player properties
     public float playerSpeed;
     public float jumpForce;
+    private Vector2 playerDirection = Vector2.right;
+
+    // References
     private Rigidbody2D rb;
+    private GameController gameController;
+
+    [Header("Colliders")]
     [SerializeField] private CircleCollider2D circleCollider;
     [SerializeField] private CapsuleCollider2D leftCollider;
     [SerializeField] private CapsuleCollider2D rightCollider;
     [SerializeField] private CapsuleCollider2D leftColliderTrigger;
     [SerializeField] private CapsuleCollider2D rightColliderTrigger;
     [SerializeField] private CapsuleCollider2D upperCollider;
-    private GameController gameController;
-    private Vector2 playerDirection;
 
-    //JumpButton
+    [Header("Jump Handling")]
     [SerializeField] private JumpButtonHandler jumpButtonHandler;
     [SerializeField] private float jumpTime;
     private float jumpTimeCounter;
     private bool isJumping;
 
-    //Sound
-    private bool isJumpingAudio = false;
+    [Header("Sound")]
     public OptionsMenu optionsM;
+    private bool isJumpingAudio = false;
 
-    //public void Jump()
-    //{
-    //    if (rb.IsTouchingLayers(LayerMask.GetMask("Ground")))
-    //    {
-    //        rb.AddForce(Vector2.up * jumpForce);
-    //    }
-    //    else
-    //    {
-    //        if (leftColliderTrigger.IsTouchingLayers(LayerMask.GetMask("Ground")))
-    //        {
-    //            rb.AddForce(Vector2.up * jumpForce);
-    //            if (playerDirection == Vector2.right)
-    //            {
-    //                playerDirection = Vector2.left;
-    //            }
-    //        }
-    //        else if (rightColliderTrigger.IsTouchingLayers(LayerMask.GetMask("Ground")))
-    //        {
-    //            rb.AddForce(Vector2.up * jumpForce);
-    //            if (playerDirection == Vector2.left)
-    //            {
-    //                playerDirection = Vector2.right;
-    //            }
-    //        }
+    // Constants
+    private const string GroundLayer = "Ground";
+    private const string PlayerJumpSound = "player_jump";
 
-    //    }
-    //}
-    public Vector2 GetPlayerDirection()
+    private void Start()
     {
-        return playerDirection;
-    }
-    public CircleCollider2D GetPLayerCollider()
-    {
-        return circleCollider;
-    }
-    public Rigidbody2D GetPlayerRigidbody()
-    {
-        return rb;
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        optionsM.Inizialice();
+        optionsM.Initialize();
         rb = GetComponent<Rigidbody2D>();
-        playerDirection = Vector2.right;
         rightColliderTrigger.enabled = true;
         leftColliderTrigger.enabled = false;
-        gameController = GameObject.Find("GameController").GetComponent<GameController>();
-    }
-    public void Die()
-    {
-        gameController.Die();
-    }
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
-        {
-            foreach (ContactPoint2D contact in collision.contacts)
-            {
-                try
-                {
-                    Tilemap map = contact.collider.GetComponent<Tilemap>();
-                    if (map == gameController.GetVictoryTilemap() && !upperCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
-                    {
-                        gameController.Win();
-                    }
-                }
-                catch (System.Exception e)
-                {
-                    Debug.Log(e);
-                }
-            }
-        }
+        gameController = FindObjectOfType<GameController>();
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    private void Update()
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
-        {
-            if (rightCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
-            {
-                playerDirection = Vector2.left;
-                rightColliderTrigger.enabled = false;
-                leftColliderTrigger.enabled = true;
-            }
-            else if (leftCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
-            {
-                playerDirection = Vector2.right;
-                leftColliderTrigger.enabled = false;
-                rightColliderTrigger.enabled = true;
-            }
-        }
+        HandleJump();
+    }
+    
+    private void FixedUpdate()
+    {
+        HandleMovement();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void HandleMovement()
     {
-        //if (!gameController.GetResumeGame())
-        //{
-        transform.Translate(playerDirection * playerSpeed * Time.deltaTime);
-        /*
-        if (rb.IsTouchingLayers(LayerMask.GetMask("Ground")) && isJumping==false)
+        rb.velocity = new Vector2(playerDirection.x * playerSpeed, rb.velocity.y);
+    }
+
+    private void HandleJump()
+    {
+        if (jumpButtonHandler.GetIsPressed() && !isJumping)
         {
-            isJumpingAudio = false;
+            StartJump();
         }
-        */
-        if (jumpButtonHandler.GetIsPressed() || Input.GetKey(KeyCode.Space))
-        {
-            if (rb.IsTouchingLayers(LayerMask.GetMask("Ground")) && !upperCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
-            {
-                isJumping = true;
-                jumpTimeCounter = jumpTime;
-                rb.velocity = Vector2.up * jumpForce;
-                if (isJumpingAudio == false)
-                {
-                    AudioManager.Instance.PlaySFX("player_jump");
-                    isJumpingAudio = true;
-                }
-            }
-            else
-            {
-                if (leftColliderTrigger.IsTouchingLayers(LayerMask.GetMask("Ground")) && playerDirection == Vector2.left)
-                {
-                    rb.velocity = Vector2.up * jumpForce;
-                    if (playerDirection == Vector2.right)
-                    {
-                        playerDirection = Vector2.left;
-                        leftColliderTrigger.enabled = false;
-                        rightColliderTrigger.enabled = true;
-                    }
-                }
-                else if (rightColliderTrigger.IsTouchingLayers(LayerMask.GetMask("Ground")) && playerDirection == Vector2.right)
-                {
-                    rb.velocity = Vector2.up * jumpForce;
-                    if (playerDirection == Vector2.left)
-                    {
-                        playerDirection = Vector2.right;
-                        rightColliderTrigger.enabled = false;
-                        leftColliderTrigger.enabled = true;
-                    }
-                }
-            }
-        }
+
         if (jumpButtonHandler.GetIsHold() && isJumping)
         {
-            if (jumpTimeCounter > 0)
-            {
-                rb.velocity = Vector2.up * jumpForce;
-                jumpTimeCounter -= Time.deltaTime;
-            }
-            else
-            {
-                isJumping = false;
-                isJumpingAudio = false;
-            }
+            ContinueJump();
         }
 
-        if (!jumpButtonHandler.GetIsPressed())
+        if (!jumpButtonHandler.GetIsHold())
         {
             isJumping = false;
             isJumpingAudio = false;
         }
-
-        //}
     }
+
+    private void StartJump()
+    {
+        if (CanJumpFromGround() || CanJumpFromSide())
+        {
+            isJumping = true;
+            jumpTimeCounter = jumpTime;
+            rb.velocity = Vector2.up * jumpForce;
+            if (!isJumpingAudio)
+            {
+                AudioManager.Instance.PlaySFX(PlayerJumpSound);
+                isJumpingAudio = true;
+            }
+        }
+    }
+
+    private void ContinueJump()
+    {
+        if (jumpTimeCounter > 0)
+        {
+            rb.velocity = Vector2.up * jumpForce;
+            jumpTimeCounter -= Time.deltaTime;
+        }
+        else
+        {
+            isJumping = false;
+            isJumpingAudio = false;
+        }
+    }
+
+    private bool CanJumpFromGround()
+    {
+        return rb.IsTouchingLayers(LayerMask.GetMask(GroundLayer)) && !upperCollider.IsTouchingLayers(LayerMask.GetMask(GroundLayer));
+    }
+
+    private bool CanJumpFromSide()
+    {
+        if (leftColliderTrigger.IsTouchingLayers(LayerMask.GetMask(GroundLayer)) && playerDirection == Vector2.left)
+        {
+            SwitchDirectionToLeft();
+            return true;
+        }
+        else if (rightColliderTrigger.IsTouchingLayers(LayerMask.GetMask(GroundLayer)) && playerDirection == Vector2.right)
+        {
+            SwitchDirectionToRight();
+            return true;
+        }
+        return false;
+    }
+
+    private void SwitchDirectionToLeft()
+    {
+        playerDirection = Vector2.left;
+        leftColliderTrigger.enabled = false;
+        rightColliderTrigger.enabled = true;
+    }
+
+    private void SwitchDirectionToRight()
+    {
+        playerDirection = Vector2.right;
+        rightColliderTrigger.enabled = false;
+        leftColliderTrigger.enabled = true;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer(GroundLayer))
+        {
+            foreach (ContactPoint2D contact in collision.contacts)
+            {
+                Tilemap map = contact.collider.GetComponent<Tilemap>();
+                if(map == null) continue;
+                if (map == gameController.GetVictoryTilemap() && !upperCollider.IsTouchingLayers(LayerMask.GetMask(GroundLayer)))
+                {
+                    gameController.Win();
+                }
+                else if(map == gameController.GetSpikeTilemap())
+                {
+                    Die();
+                }
+            }
+        }
+    }
+    
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer(GroundLayer))
+        {
+            Tilemap map = collision.GetComponent<Tilemap>();
+            if(map != null)
+            {
+                if (map == gameController.GetSpikeTilemap())
+                {
+                    Die();
+                }
+            }
+
+            if (rightCollider.IsTouchingLayers(LayerMask.GetMask(GroundLayer)))
+            {
+                SwitchDirectionToLeft();
+            }
+            else if (leftCollider.IsTouchingLayers(LayerMask.GetMask(GroundLayer)))
+            {
+                SwitchDirectionToRight();
+            }
+        }
+    }
+
+
+
+    public void Die()
+    {
+        gameController.Die();
+    }
+
+    // Utility methods
+    public Vector2 GetPlayerDirection()
+    {
+        return playerDirection;
+    }
+
+    public CircleCollider2D GetPlayerCollider()
+    {
+        return circleCollider;
+    }
+
+    public Rigidbody2D GetPlayerRigidbody()
+    {
+        return rb;
+    }
+
 }

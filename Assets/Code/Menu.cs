@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -7,139 +6,137 @@ using UnityEngine.UI;
 
 public class Menu : MonoBehaviour
 {
-    [SerializeField] List<Level> levels = new List<Level>();
+    // Level variables
+    [SerializeField] private List<Level> levels = new List<Level>();
     private static int currentLevel = 0;
     private int lastUnlockedLevel = 0;
-    public GameObject MainMenu;
-    public GameObject LevelSelectMenu;
-    public GameObject OptionsMenu;
-    public GameObject ExitConfirmation;
-    public Button LeftArrow;
-    public Button RightArrow;
-    public Button SelectLevelButton;
-    public TextMeshProUGUI LevelName;
-    public TextMeshProUGUI LevelDifficulty;
-    public TextMeshProUGUI LevelScore;
-    public TextMeshProUGUI LevelTimeLimitText;
-    public OptionsMenu optionsM;
 
-    
+    // Menu UI Elements
+    [SerializeField] private GameObject mainMenu;
+    [SerializeField] private GameObject levelSelectMenu;
+    [SerializeField] private GameObject optionsMenu;
+    [SerializeField] private GameObject exitConfirmation;
+
+    // Level UI Elements
+    [SerializeField] private Button leftArrow;
+    [SerializeField] private Button rightArrow;
+    [SerializeField] private Button selectLevelButton;
+    [SerializeField] private TextMeshProUGUI levelName;
+    [SerializeField] private TextMeshProUGUI levelDifficulty;
+    [SerializeField] private TextMeshProUGUI levelScore;
+    [SerializeField] private TextMeshProUGUI levelTimeLimitText;
+
+    // Options Menu
+    [SerializeField] private OptionsMenu optionsM;
+
+    private void Start()
+    {
+        InitializeMenu();
+    }
+
     public void ReturnButton()
     {
-        AudioManager.Instance.PlaySFX("button");
-        MainMenu.SetActive(true);
-        LevelSelectMenu.SetActive(false);
-        OptionsMenu.SetActive(false);
-    } 
-    private void SetLastUnlockedLevel()
-    {
-        for (int i = 0; i < levels.Count; i++)
-        {
-            if (levels[i].IsUnlocked())
-            {
-                lastUnlockedLevel = i;
-            }else{
-                break;
-            }
-        }
+        PlayButtonClickSound();
+        ShowMenu(mainMenu);
     }
+
     public void ShowOptionsMenu()
     {
-        AudioManager.Instance.PlaySFX("button");
-        MainMenu.SetActive(false);
-        OptionsMenu.SetActive(true);
+        PlayButtonClickSound();
+        ShowMenu(optionsMenu);
     }
+
     public void ShowLevelSelectMenu()
     {
-        AudioManager.Instance.PlaySFX("button");
-        if (currentLevel == 0)
-        {
-            LeftArrow.gameObject.SetActive(false);
-        }else if(currentLevel == levels.Count -1)
-        {
-            RightArrow.gameObject.SetActive(false);
-        }
+        PlayButtonClickSound();
+        UpdateArrowButtons();
         UpdateLevelSelectMenu();
-        MainMenu.SetActive(false);
-        LevelSelectMenu.SetActive(true);
+        ShowMenu(levelSelectMenu);
     }
-    private void UpdateLevelSelectMenu(){
-        LevelName.text = levels[currentLevel].scene.SceneName;
-        LevelDifficulty.text = "Difficulty: "+ levels[currentLevel].GetDifficulty().ToString() + "/5";
-        LevelTimeLimitText.text = "Time Limit: " + levels[currentLevel].GetTimeLimit().ToString();
-        LevelScore.text = "Time: " + levels[currentLevel].GetTimer().ToString();
-        if(levels[currentLevel].IsUnlocked())
-        {
-            SelectLevelButton.gameObject.SetActive(true);
-        }else{
-            SelectLevelButton.gameObject.SetActive(false);
-        }
-    }
+
     public void NextLevel()
     {
-        AudioManager.Instance.PlaySFX("button");
-        if (currentLevel < levels.Count -1)
+        PlayButtonClickSound();
+        if (currentLevel < levels.Count - 1)
         {
             currentLevel++;
-            LeftArrow.gameObject.SetActive(true);
-            if(currentLevel == levels.Count -1)
-            {
-                RightArrow.gameObject.SetActive(false);
-            }
             UpdateLevelSelectMenu();
+            UpdateArrowButtons();
         }
     }
+
     public void PreviousLevel()
     {
-        AudioManager.Instance.PlaySFX("button");
+        PlayButtonClickSound();
         if (currentLevel > 0)
         {
             currentLevel--;
-            RightArrow.gameObject.SetActive(true);
-            if(currentLevel == 0)
-            {
-                LeftArrow.gameObject.SetActive(false);
-            }
             UpdateLevelSelectMenu();
+            UpdateArrowButtons();
         }
     }
+
     public void LoadCurrentLevel()
     {
-        //Si descomento esta linea de codigo el nivel no carga lol
-        //AudioManager.Instance.PlaySFX("button_start_level");
-        Debug.Log("voy a cargar un nivel");
         AudioManager.Instance.PlaySFX("button_start");
         levels[currentLevel].LoadLevel();
     }
+
     public void OpenExitConfirmation()
     {
-        ExitConfirmation.SetActive(true);
-        MainMenu.SetActive(false);
-        Application.Quit();
+        ShowMenu(exitConfirmation);
     }
+
     public void CloseExitConfirmation()
     {
-        ExitConfirmation.SetActive(false);
-        MainMenu.SetActive(true);
+        ShowMenu(mainMenu);
     }
+
     public void ExitFromApp()
     {
-        AudioManager.Instance.PlaySFX("button");
+        PlayButtonClickSound();
         Application.Quit();
     }
-    // Start is called before the first frame update
-    void Start()
+
+    private void PlayButtonClickSound()
     {
-        if (AudioManager.Instance.currentMusic != SceneManager.GetActiveScene().name)
-        {
-            AudioManager.Instance.SelectMusic();
-        }
-        optionsM.Inizialice();
+        AudioManager.Instance.PlaySFX("button");
+    }
+
+    private void InitializeMenu()
+    {
+        optionsM.Initialize();
         SetLastUnlockedLevel();
         currentLevel = lastUnlockedLevel;
-        MainMenu.SetActive(true);
-        LevelSelectMenu.SetActive(false);
-        OptionsMenu.SetActive(false);
+        ShowMenu(mainMenu);
     }
-    
+
+    private void UpdateArrowButtons()
+    {
+        leftArrow.gameObject.SetActive(currentLevel != 0);
+        rightArrow.gameObject.SetActive(currentLevel != levels.Count - 1);
+    }
+
+    private void UpdateLevelSelectMenu()
+    {
+        var level = levels[currentLevel];
+        levelName.text = level.scene.SceneName;
+        levelDifficulty.text = "Difficulty: " + level.GetDifficulty().ToString() + "/5";
+        levelTimeLimitText.text = "Time Limit: " + level.GetTimeLimit().ToString();
+        levelScore.text = "Time: " + level.GetTimer().ToString();
+        selectLevelButton.gameObject.SetActive(level.IsUnlocked());
+    }
+
+    private void SetLastUnlockedLevel()
+    {
+        lastUnlockedLevel = levels.FindLastIndex(level => level.IsUnlocked());
+    }
+
+    private void ShowMenu(GameObject menu)
+    {
+        mainMenu.SetActive(menu == mainMenu);
+        levelSelectMenu.SetActive(menu == levelSelectMenu);
+        optionsMenu.SetActive(menu == optionsMenu);
+        exitConfirmation.SetActive(menu == exitConfirmation);
+    }
 }

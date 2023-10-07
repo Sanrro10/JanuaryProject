@@ -9,35 +9,22 @@ public class OptionsMenu : MonoBehaviour
     [SerializeField] Slider volumeSlider;
     [SerializeField] Slider BrightnessSlider;
 
-
-    
-    public Slider soundSlider;
-    /*
-    public void ToggleMusic()
-    {
-        
-        AudioManager.Instance.ToggleSound();
-    }*/
-
     public void SoundVolume()
     {
-        
-            AudioManager.Instance.SoundVolume(volumeSlider.value);
-        
-        
+        AudioManager.Instance.SoundVolume(volumeSlider.value);
     }
 
     public void VolumeChanged()
     {
-        
         PlayerPrefs.SetFloat("volume", volumeSlider.value);
     }
+    
     public void BrightnessChanged()
     {
         PlayerPrefs.SetFloat("brightness", BrightnessSlider.value);
     }
 
-    public void Inizialice()
+    public void Initialize()
     {
         volumeSlider.value = PlayerPrefs.GetFloat("volume");
         BrightnessSlider.value = PlayerPrefs.GetFloat("brightness");
@@ -48,7 +35,7 @@ public class OptionsMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Inizialice();
+        Initialize();
     }
 
    

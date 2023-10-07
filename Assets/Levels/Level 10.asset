@@ -16,7 +16,7 @@ MonoBehaviour:
     m_SceneAsset: {fileID: 102900000, guid: 49e039b0271728440818da2ed3524323, type: 3}
     m_IsDirty: 0
     m_ScenePath: "Assets/Scenes/I\xF1igo_Hard_Level.unity"
-  difficulty: 0
+  difficulty: 5
   timeLimit: 300
   totalCollectibles: 0
-  unlocked: 1
+  unlocked: 0

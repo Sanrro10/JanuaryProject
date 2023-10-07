@@ -22,7 +22,7 @@ public class JumpingEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(edgeCollider.IsTouching(player.GetPLayerCollider()))
+        if(edgeCollider.IsTouching(player.GetPlayerCollider()))
         {
             gameController.Die();
         }

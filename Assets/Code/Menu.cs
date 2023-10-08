@@ -23,8 +23,7 @@ public class Menu : MonoBehaviour
     [SerializeField] private Button selectLevelButton;
     [SerializeField] private TextMeshProUGUI levelName;
     [SerializeField] private TextMeshProUGUI levelDifficulty;
-    [SerializeField] private TextMeshProUGUI levelScore;
-    [SerializeField] private TextMeshProUGUI levelTimeLimitText;
+    [SerializeField] private TextMeshProUGUI levelMinTouches;
 
     // Options Menu
     [SerializeField] private OptionsMenu optionsM;
@@ -122,8 +121,15 @@ public class Menu : MonoBehaviour
         var level = levels[currentLevel];
         levelName.text = level.scene.SceneName;
         levelDifficulty.text = "Difficulty: " + level.GetDifficulty().ToString() + "/5";
-        levelTimeLimitText.text = "Time Limit: " + level.GetTimeLimit().ToString();
-        levelScore.text = "Time: " + level.GetTimer().ToString();
+        int minTouches = level.GetMinimumTouches();
+        if(minTouches == 0)
+        {
+            levelMinTouches.text = "Minimum Touches: N/A";
+        }
+        else
+        {
+            levelMinTouches.text = "Minimum Touches: " + minTouches.ToString();
+        }
         selectLevelButton.gameObject.SetActive(level.IsUnlocked());
     }
 

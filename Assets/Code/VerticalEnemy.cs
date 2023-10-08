@@ -46,6 +46,11 @@ public class VerticalEnemy : MonoBehaviour
         tilemap = GameObject.Find("MainTilemap").GetComponent<Tilemap>();
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        InitializeEnemyTiles();
+    }
+
+    private void InitializeEnemyTiles()
+    {
         center = transform.position;
         float halfSize = (float)size / (float)2;
             upperLimit = new Vector3(center.x, center.y + halfSize, center.z);
@@ -96,8 +101,6 @@ public class VerticalEnemy : MonoBehaviour
                 spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0);
                 isUp = false;
             }
-
-        
     }
     IEnumerator Move()
     {

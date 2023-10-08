@@ -8,15 +8,15 @@ using DevLocker.Utils;
 public class Level : ScriptableObject
 {
     private const string UNLOCKED_KEY_PREFIX = "LevelUnlocked_";
-    private const string TIMER_KEY_PREFIX = "LevelTimer_";
+    private const string TOUCHES_KEY_PREFIX = "LevelTouches_";
     private const string COLLECTIBLES_KEY_PREFIX = "LevelCollectibles_";
 
     public SceneReference scene;
     [SerializeField] private int difficulty;
     [SerializeField] private float timeLimit;
 
-    private float timer;
-    private int collectibles;
+    private int _touches;
+    private int _collectibles;
     [SerializeField] private int totalCollectibles;
     [SerializeField] private bool unlocked;
 
@@ -26,20 +26,20 @@ public class Level : ScriptableObject
         SceneManager.LoadScene(scene.ScenePath);
     }
 
-    public void SetTimer(float timer)
+    public void SetTouches(int touches)
     {
-        this.timer = timer;
-        PlayerPrefs.SetFloat(TIMER_KEY_PREFIX + scene.ScenePath, timer);
+        _touches = touches;
+        PlayerPrefs.SetInt(TOUCHES_KEY_PREFIX + scene.ScenePath, _touches);
     }
 
-    public float GetTimer()
+    public int GetTimer()
     {
-        return PlayerPrefs.GetFloat(TIMER_KEY_PREFIX + scene.ScenePath, timer);
+        return PlayerPrefs.GetInt(TOUCHES_KEY_PREFIX + scene.ScenePath, _touches);
     }
 
-    public void SetUnlocked(bool unlocked)
+    public void SetUnlocked(bool unlockedVar)
     {
-        this.unlocked = unlocked;
+        this.unlocked = unlockedVar;
         PlayerPrefs.SetInt(UNLOCKED_KEY_PREFIX + scene.ScenePath, unlocked ? 1 : 0);
     }
 
@@ -50,16 +50,19 @@ public class Level : ScriptableObject
 
     public void SetCollectibles(int collectibles)
     {
-        this.collectibles = collectibles;
-        PlayerPrefs.SetInt(COLLECTIBLES_KEY_PREFIX + scene.ScenePath, collectibles);
+        _collectibles = collectibles;
+        PlayerPrefs.SetInt(COLLECTIBLES_KEY_PREFIX + scene.ScenePath, _collectibles);
     }
 
     public int GetCollectibles()
     {
-        return PlayerPrefs.GetInt(COLLECTIBLES_KEY_PREFIX + scene.ScenePath, collectibles);
+        return PlayerPrefs.GetInt(COLLECTIBLES_KEY_PREFIX + scene.ScenePath, _collectibles);
     }
-
-    public float GetTimeLimit() => timeLimit;
+    
+    public int GetMinimumTouches()
+    {
+        return PlayerPrefs.GetInt(TOUCHES_KEY_PREFIX + scene.ScenePath, _touches);
+    }
     public int GetDifficulty() => difficulty;
 }
 

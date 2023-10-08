@@ -92,6 +92,7 @@ public class Player : MonoBehaviour
     {
         if (CanJumpFromGround() || CanJumpFromSide())
         {
+            gameController.AddTouch();
             isJumping = true;
             jumpTimeCounter = jumpTime;
             rb.velocity = Vector2.up * jumpForce;

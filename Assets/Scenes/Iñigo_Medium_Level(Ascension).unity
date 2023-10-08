@@ -296,6 +296,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1030208442}
     - target: {fileID: 1011945406425578693, guid: 5591aefd01b75764da90d65e670d00b3, type: 3}
+      propertyPath: touchText
+      value: 
+      objectReference: {fileID: 1030208442}
+    - target: {fileID: 1011945406425578693, guid: 5591aefd01b75764da90d65e670d00b3, type: 3}
       propertyPath: victoryUI
       value: 
       objectReference: {fileID: 898959881}
@@ -336,6 +340,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1604524701}
     - target: {fileID: 1011945406425578693, guid: 5591aefd01b75764da90d65e670d00b3, type: 3}
+      propertyPath: victoryTouches
+      value: 
+      objectReference: {fileID: 1445722451}
+    - target: {fileID: 1011945406425578693, guid: 5591aefd01b75764da90d65e670d00b3, type: 3}
       propertyPath: nextlevelButton
       value: 
       objectReference: {fileID: 85298715}
@@ -347,6 +355,10 @@ PrefabInstance:
       propertyPath: pauseOptionsPanel
       value: 
       objectReference: {fileID: 773388002}
+    - target: {fileID: 1011945406425578693, guid: 5591aefd01b75764da90d65e670d00b3, type: 3}
+      propertyPath: victoryMinTouches
+      value: 
+      objectReference: {fileID: 2145894619}
     - target: {fileID: 1011945406425578693, guid: 5591aefd01b75764da90d65e670d00b3, type: 3}
       propertyPath: victoryCollectibles
       value: 

@@ -11,7 +11,6 @@ public class AudioManager : MonoBehaviour
 
     public AudioClip[] musicSounds, sfxSounds;
     public AudioSource musicSource, sfxSource;
-    private float timer;
     public String currentMusic;
 
 
@@ -46,19 +45,10 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
-            Debug.Log(musicSource.clip);
-            // Debug.Log("Previous clip: " + musicSource.clip.name + " Current clip: " + s.name);
-            // if (musicSource.clip.name == s.name)
-            // {
-            //     Debug.Log("Already playing " + name);
-            // }
-            // else
-            // {
-                musicSource.clip = s;
-                currentMusic = SceneManager.GetActiveScene().name;
-                Debug.Log("Playing " + name);
-                musicSource.Play();
-            // }
+            musicSource.clip = s;
+            currentMusic = SceneManager.GetActiveScene().name;
+            Debug.Log("Playing " + name);
+            musicSource.Play();
 
         }
 
@@ -88,18 +78,6 @@ public class AudioManager : MonoBehaviour
     {
         musicSource.volume = volume;
         sfxSource.volume = volume;
-    }
-    public float GetTimer()
-    {
-        return timer;
-    }
-    public void SetTimer(float time)
-    {
-        timer = time;
-    }
-    public void UpdateTimer()
-    {
-        timer -= Time.deltaTime;
     }
     public void SelectMusic()
     {

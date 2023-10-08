@@ -417,7 +417,7 @@ GameObject:
   - component: {fileID: 8104745506028247617}
   - component: {fileID: 1530929478370026812}
   m_Layer: 5
-  m_Name: TimeText
+  m_Name: TouchesText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1900,6 +1900,10 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: -5239708239120082800, guid: f9e6e6de8a21e3c4fbc82b3f3818a99e, type: 2}
+    - target: {fileID: 6897704428466274511, guid: 0c80cc021c9ba024ba6a5d622fa999d5, type: 3}
+      propertyPath: m_Name
+      value: MinTouchesText
+      objectReference: {fileID: 0}
     - target: {fileID: 6897704428785954559, guid: 0c80cc021c9ba024ba6a5d622fa999d5, type: 3}
       propertyPath: m_fontSize
       value: 22.8
@@ -1930,6 +1934,10 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: -5239708239120082800, guid: f9e6e6de8a21e3c4fbc82b3f3818a99e, type: 2}
+    - target: {fileID: 6897704429157562695, guid: 0c80cc021c9ba024ba6a5d622fa999d5, type: 3}
+      propertyPath: m_Name
+      value: VictoryTouchesText
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c80cc021c9ba024ba6a5d622fa999d5, type: 3}
 --- !u!224 &898959882 stripped

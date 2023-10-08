@@ -23,17 +23,15 @@ public class GameController : MonoBehaviour
     [Header("UI References")]
     [SerializeField] private GameObject victoryUI;
     [SerializeField] private TextMeshProUGUI victoryLevelName;
-    [SerializeField] private TextMeshProUGUI victoryTimer;
+    [SerializeField] private TextMeshProUGUI victoryTouches;
+    [SerializeField] private TextMeshProUGUI victoryMinTouches;
     [SerializeField] private TextMeshProUGUI victoryCollectibles;
-    [SerializeField] private TextMeshProUGUI timerText;
-    [SerializeField] private TextMeshProUGUI countdownText;
+    [SerializeField] private TextMeshProUGUI touchText;
     [SerializeField] private GameObject nextlevelButton;
     [SerializeField] private GameObject pauseUI;
     [SerializeField] private GameObject optionsUI;
     [SerializeField] private GameObject gameUI;
     [SerializeField] private GameObject pauseOptionsPanel;
-    [SerializeField] private Button jumpButton;
-    [SerializeField] private Button switchButton;
 
     [Header("Options Menu")]
     public OptionsMenu optionsM;
@@ -41,15 +39,13 @@ public class GameController : MonoBehaviour
     [Header("Background")]
     [SerializeField] private RawImage BgImg;
 
-    private bool orangeActive;
-    private bool running;
-    private int currentLevel = 0;
-    private int collectibles;
+    private bool _orangeActive;
+    private bool _running;
+    private int _currentLevel = 0;
+    private int _collectibles;
 
     // Countdown variables
-    private int countdownMax = 3;
-    private float countdownTime = 0;
-    private bool resumeGame = false;
+    private int _touches = 0;
     #endregion
 
     #region UnityMethods
@@ -60,54 +56,42 @@ public class GameController : MonoBehaviour
             AudioManager.Instance.SelectMusic();
         }
         optionsM.Initialize();
-        running = true;
-        orangeActive = false;
-        mainTilemap.Swap(orangeActive);
-        spikeTilemap.Swap(orangeActive);
-        if (currentLevel == 0)
+        _running = true;
+        _orangeActive = false;
+        mainTilemap.Swap(_orangeActive);
+        spikeTilemap.Swap(_orangeActive);
+        if (_currentLevel == 0)
         {
             for (int i = 0; i < levels.Count; i++)
             {
                 if (levels[i].scene.SceneName == SceneManager.GetActiveScene().name)
                 {
-                    currentLevel = i;
+                    _currentLevel = i;
                 }
             }
         }
-        if (AudioManager.Instance.GetTimer() <= 0)
-        {
-            AudioManager.Instance.SetTimer(levels[currentLevel].GetTimeLimit());
-        }
-        countdownTime = countdownMax;
-        resumeGame = true;
-    }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            //player.Jump();
-        }
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            SwapTilemaps();
-        }
-        AudioManager.Instance.UpdateTimer();
-        if (AudioManager.Instance.GetTimer() <= 0)
-        {
-            DieByTimer();
-        }
-        timerText.text = "Time: " + AudioManager.Instance.GetTimer().ToString("F0") + "s";
+        _touches = 0;
+        SetTouchText();
     }
     #endregion
 
     #region PublicMethods
-    public bool GetResumeGame() => resumeGame;
-    public bool IsRunning() => running;
+    public bool IsRunning() => _running;
+    
     public Player GetPlayer() => player;
+    
     public Tilemap GetMainTilemap() => mainTilemap.GetTilemap();
+    
     public Tilemap GetSpikeTilemap() => spikeTilemap.GetTilemap();
+    
     public Tilemap GetVictoryTilemap() => victoryTilemap;
+    
+    public void AddTouch()
+    {
+        _touches++;
+        SetTouchText();
+    }
     
     public void Die()
     {
@@ -118,36 +102,24 @@ public class GameController : MonoBehaviour
     {
         AudioManager.Instance.PlaySFX("goal");
         AudioManager.Instance.musicSource.Stop();
-        running = false;
+        _running = false;
         Time.timeScale = 0;
-        levels[currentLevel].SetTimer(AudioManager.Instance.GetTimer());
-        levels[currentLevel].SetCollectibles(collectibles);
+        levels[_currentLevel].SetTouches(_touches);
+        levels[_currentLevel].SetCollectibles(_collectibles);
         UpdateVictoryUI();
-        if (currentLevel < levels.Count - 1)
+        if (_currentLevel < levels.Count - 1)
         {
-            levels[currentLevel + 1].SetUnlocked(true);
+            levels[_currentLevel + 1].SetUnlocked(true);
             nextlevelButton.SetActive(true);
         }
         victoryUI.SetActive(true);
         gameUI.SetActive(false);
     }
-    public void DieByTimer()
-    {
-        AudioManager.Instance.PlaySFX("player_death");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        AudioManager.Instance.musicSource.Stop();
-        running = false;
-        Time.timeScale = 0;
-        UpdateVictoryUI();
-        victoryUI.SetActive(true);
-        gameUI.SetActive(false);
-    }
     public void Pause()
     {
-        countdownTime = countdownMax;
         AudioManager.Instance.PlaySFX("button");
         AudioManager.Instance.musicSource.Pause();
-        running = false;
+        _running = false;
         Time.timeScale = 0;
         pauseOptionsPanel.SetActive(true);
         pauseUI.SetActive(true);
@@ -157,12 +129,11 @@ public class GameController : MonoBehaviour
     {
         AudioManager.Instance.PlaySFX("button");
         AudioManager.Instance.musicSource.Play();
-        running = true;
+        _running = true;
         Time.timeScale = 1;
         pauseOptionsPanel.SetActive(false);
         pauseUI.SetActive(false);
         gameUI.SetActive(true);
-        resumeGame = true;
     }
     public void ReturnFromOptions()
     {
@@ -187,28 +158,30 @@ public class GameController : MonoBehaviour
         AudioManager.Instance.PlaySFX("button_start_level");
         AudioManager.Instance.SelectMusic();
         Time.timeScale = 1;
-        AudioManager.Instance.SetTimer(levels[currentLevel].GetTimeLimit());
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        _touches = 0;
+        SetTouchText();
+        touchText.text = "Touches: " + _touches;
     }
     public void LoadNextlevel()
     {
-        Debug.Log("AAAAAAAAAAAAAAAA");
         AudioManager.Instance.PlaySFX("button_start_level");
         Time.timeScale = 1;
-        levels[currentLevel + 1].LoadLevel();
+        levels[_currentLevel + 1].LoadLevel();
 
     }
     public void SwapTilemaps()
     {
+        AddTouch();
         AudioManager.Instance.PlaySFX("change_screen");
-        orangeActive = !orangeActive;
-        mainTilemap.Swap(orangeActive);
-        spikeTilemap.Swap(orangeActive);
-        ChangeBackground(BgImg, orangeActive);
+        _orangeActive = !_orangeActive;
+        mainTilemap.Swap(_orangeActive);
+        spikeTilemap.Swap(_orangeActive);
+        ChangeBackground(BgImg, _orangeActive);
     }
     public void addCollectible()
     {
-        collectibles++;
+        _collectibles++;
     }
     
     #endregion
@@ -217,15 +190,14 @@ public class GameController : MonoBehaviour
     
     private void UpdateVictoryUI()
     {
-        victoryLevelName.text = "Level " + currentLevel + ":" + levels[currentLevel].name + " Completed!";
-        victoryTimer.text = "Time: " + AudioManager.Instance.GetTimer().ToString("F2") + "s";
-        victoryCollectibles.text = "Collectibles: " + collectibles + "/" + levels[currentLevel].GetCollectibles();
+        victoryLevelName.text = "Level " + _currentLevel + ":" + levels[_currentLevel].name + " Completed!";
+        victoryMinTouches.text = "Minimum Touches: " + levels[_currentLevel].GetMinimumTouches();
+        victoryTouches.text = "Touches: " + _touches;
+        victoryCollectibles.text = "Collectibles: " + _collectibles + "/" + levels[_currentLevel].GetCollectibles();
     }
-    private void UpdateDefeatUI()
+    private void SetTouchText()
     {
-        victoryLevelName.text = "Level " + currentLevel + ":" + levels[currentLevel].name + " Failed!";
-        victoryTimer.text.Remove(0);
-        victoryCollectibles.text.Remove(0);
+        touchText.text = "Touches: " + _touches;
     }
     
     private void ChangeBackground(RawImage img, bool orangeActive)

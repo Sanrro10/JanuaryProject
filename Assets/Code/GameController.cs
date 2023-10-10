@@ -199,7 +199,7 @@ public class GameController : MonoBehaviour
         int minTouches = levels[_currentLevel].GetMinimumTouches();
         if(minTouches == 0)
         {
-            victoryMinTouches.text = "Min Touches: N/A";
+            victoryMinTouches.text = "Min Touches: " + _touches;
         }
         else
         {

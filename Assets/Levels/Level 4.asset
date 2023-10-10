@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Level 4
   m_EditorClassIdentifier: 
   scene:
-    m_SceneAsset: {fileID: 102900000, guid: bed2f7822614bce4da906c7d1b13421d, type: 3}
+    m_SceneAsset: {fileID: 102900000, guid: 55a100b068db0794c816bb676e666ca2, type: 3}
     m_IsDirty: 0
-    m_ScenePath: Assets/Scenes/Javi_Medium_Level.unity
+    m_ScenePath: Assets/Scenes/Guidance.unity
   difficulty: 2
   timeLimit: 300
   totalCollectibles: 0

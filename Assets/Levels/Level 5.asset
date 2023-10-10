@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Level 5
   m_EditorClassIdentifier: 
   scene:
-    m_SceneAsset: {fileID: 102900000, guid: 1dc570f60fe30d741ae71df899335e65, type: 3}
+    m_SceneAsset: {fileID: 102900000, guid: 698c508c9bc2afc46a6f02469c4b2863, type: 3}
     m_IsDirty: 0
-    m_ScenePath: Assets/Scenes/Javi_Hard_Level.unity
+    m_ScenePath: Assets/Scenes/Confidence.unity
   difficulty: 3
   timeLimit: 300
   totalCollectibles: 0

@@ -81,11 +81,9 @@ public class VerticalEnemy : MonoBehaviour
                     tilemap.SetTile(tilemap.WorldToCell(new Vector3(center.x, center.y - i, center.z)), centralTile);
                     tilemap.SetTile(tilemap.WorldToCell(new Vector3(center.x, center.y + i, center.z)), centralTile);
                 }
-                if (size >= 5)
-                {
-                    tilemap.SetTile(tilemap.WorldToCell(new Vector3(center.x, lowerLimit.y + 1, upperLimit.z)), centralTile);
-                    tilemap.SetTile(tilemap.WorldToCell(new Vector3(center.x, upperLimit.y - 1, upperLimit.z)), centralTile);
-                }
+                
+                tilemap.SetTile(tilemap.WorldToCell(new Vector3(center.x, lowerLimit.y + 1, upperLimit.z)), centralTile);
+                tilemap.SetTile(tilemap.WorldToCell(new Vector3(center.x, upperLimit.y - 1, upperLimit.z)), centralTile);
             }
             if(startingPosition == StartingPosition.Up)
             {

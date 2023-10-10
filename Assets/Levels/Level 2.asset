@@ -15,7 +15,7 @@ MonoBehaviour:
   scene:
     m_SceneAsset: {fileID: 102900000, guid: eeeb8e6d6d0472348b3f016da47a8828, type: 3}
     m_IsDirty: 0
-    m_ScenePath: Assets/Scenes/Enemies_Tutorial.unity
+    m_ScenePath: Assets/Scenes/Confrontation.unity
   difficulty: 0
   timeLimit: 300
   totalCollectibles: 0

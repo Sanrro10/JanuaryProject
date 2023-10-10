@@ -25,7 +25,6 @@ public class GameController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI victoryLevelName;
     [SerializeField] private TextMeshProUGUI victoryTouches;
     [SerializeField] private TextMeshProUGUI victoryMinTouches;
-    [SerializeField] private TextMeshProUGUI victoryCollectibles;
     [SerializeField] private TextMeshProUGUI touchText;
     [SerializeField] private GameObject nextlevelButton;
     [SerializeField] private GameObject pauseUI;
@@ -104,9 +103,12 @@ public class GameController : MonoBehaviour
         AudioManager.Instance.musicSource.Stop();
         _running = false;
         Time.timeScale = 0;
-        levels[_currentLevel].SetTouches(_touches);
-        levels[_currentLevel].SetCollectibles(_collectibles);
         UpdateVictoryUI();
+        if(levels[_currentLevel].GetMinimumTouches() > _touches)
+        {
+            levels[_currentLevel].SetTouches(_touches);
+        }
+        levels[_currentLevel].SetCollectibles(_collectibles);
         if (_currentLevel < levels.Count - 1)
         {
             levels[_currentLevel + 1].SetUnlocked(true);
@@ -190,10 +192,18 @@ public class GameController : MonoBehaviour
     
     private void UpdateVictoryUI()
     {
-        victoryLevelName.text = "Level " + _currentLevel + ":" + levels[_currentLevel].name + " Completed!";
-        victoryMinTouches.text = "Minimum Touches: " + levels[_currentLevel].GetMinimumTouches();
+        victoryLevelName.text = "Level " + _currentLevel + ": " + levels[_currentLevel].scene.SceneName + " Completed!";
+        int minTouches = levels[_currentLevel].GetMinimumTouches();
+        victoryMinTouches.text = "Min Touches: " + minTouches;
+        if(_touches < minTouches)
+        {
+            victoryTouches.color = Color.green;
+        }
+        else if(_touches > minTouches)
+        {
+            victoryTouches.color = Color.red;
+        }
         victoryTouches.text = "Touches: " + _touches;
-        victoryCollectibles.text = "Collectibles: " + _collectibles + "/" + levels[_currentLevel].GetCollectibles();
     }
     private void SetTouchText()
     {

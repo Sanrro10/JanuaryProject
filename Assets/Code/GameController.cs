@@ -25,6 +25,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI victoryLevelName;
     [SerializeField] private TextMeshProUGUI victoryTouches;
     [SerializeField] private TextMeshProUGUI victoryMinTouches;
+    [SerializeField] private GameObject recordImage;
     [SerializeField] private TextMeshProUGUI touchText;
     [SerializeField] private GameObject nextlevelButton;
     [SerializeField] private GameObject pauseUI;
@@ -41,7 +42,6 @@ public class GameController : MonoBehaviour
     private bool _orangeActive;
     private bool _running;
     private int _currentLevel = 0;
-    private int _collectibles;
 
     // Countdown variables
     private int _touches = 0;
@@ -55,6 +55,7 @@ public class GameController : MonoBehaviour
             AudioManager.Instance.SelectMusic();
         }
         optionsM.Initialize();
+        ApplySettings();
         _running = true;
         _orangeActive = false;
         mainTilemap.Swap(_orangeActive);
@@ -104,11 +105,10 @@ public class GameController : MonoBehaviour
         _running = false;
         Time.timeScale = 0;
         UpdateVictoryUI();
-        if(levels[_currentLevel].GetMinimumTouches() > _touches)
+        if(levels[_currentLevel].GetMinimumTouches() > _touches || levels[_currentLevel].GetMinimumTouches() == 0)
         {
             levels[_currentLevel].SetTouches(_touches);
         }
-        levels[_currentLevel].SetCollectibles(_collectibles);
         if (_currentLevel < levels.Count - 1)
         {
             levels[_currentLevel + 1].SetUnlocked(true);
@@ -181,27 +181,37 @@ public class GameController : MonoBehaviour
         spikeTilemap.Swap(_orangeActive);
         ChangeBackground(BgImg, _orangeActive);
     }
-    public void addCollectible()
-    {
-        _collectibles++;
-    }
     
     #endregion
 
     #region PrivateMethods
+
+    private void ApplySettings()
+    {
+        //Set Volume of the game
+        float volume = PlayerPrefs.GetFloat("volume", 0.5f);
+        AudioManager.Instance.SoundVolume(volume);
+    }
     
     private void UpdateVictoryUI()
     {
         victoryLevelName.text = "Level " + _currentLevel + ": " + levels[_currentLevel].scene.SceneName + " Completed!";
         int minTouches = levels[_currentLevel].GetMinimumTouches();
-        victoryMinTouches.text = "Min Touches: " + minTouches;
-        if(_touches < minTouches)
+        if(minTouches == 0)
         {
-            victoryTouches.color = Color.green;
+            victoryMinTouches.text = "Min Touches: N/A";
+        }
+        else
+        {
+            victoryMinTouches.text = "Min Touches: " + minTouches;
+        }
+        if(_touches < minTouches || minTouches == 0)
+        {
+            recordImage.SetActive(true);
         }
         else if(_touches > minTouches)
         {
-            victoryTouches.color = Color.red;
+            recordImage.SetActive(false);
         }
         victoryTouches.text = "Touches: " + _touches;
     }

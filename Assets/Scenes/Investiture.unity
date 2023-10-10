@@ -421,6 +421,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2003990744}
     - target: {fileID: 1011945406425578693, guid: 5591aefd01b75764da90d65e670d00b3, type: 3}
+      propertyPath: recordImage
+      value: 
+      objectReference: {fileID: 1099199907}
+    - target: {fileID: 1011945406425578693, guid: 5591aefd01b75764da90d65e670d00b3, type: 3}
       propertyPath: spikeTilemap
       value: 
       objectReference: {fileID: 2124973426}
@@ -1842,6 +1846,11 @@ PrefabInstance:
       objectReference: {fileID: 881265146}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cbdb5be6a778d174f8247eeec95e7725, type: 3}
+--- !u!1 &1099199907 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5756060086753843139, guid: cbdb5be6a778d174f8247eeec95e7725, type: 3}
+  m_PrefabInstance: {fileID: 1099199906}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1099199908 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1099199908, guid: cbdb5be6a778d174f8247eeec95e7725, type: 3}

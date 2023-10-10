@@ -7,7 +7,9 @@ using UnityEngine.SceneManagement;
 public class OptionsMenu : MonoBehaviour
 {
     [SerializeField] Slider volumeSlider;
-    [SerializeField] Slider BrightnessSlider;
+    [SerializeField] GameObject mainSettingsContent;
+    [SerializeField] GameObject creditsContent;
+    
 
     public void SoundVolume()
     {
@@ -19,17 +21,22 @@ public class OptionsMenu : MonoBehaviour
         PlayerPrefs.SetFloat("volume", volumeSlider.value);
     }
     
-    public void BrightnessChanged()
+    public void ShowCredits()
     {
-        PlayerPrefs.SetFloat("brightness", BrightnessSlider.value);
+        creditsContent.SetActive(true);
+        mainSettingsContent.SetActive(false);
+    }
+    
+    public void HideCredits()
+    {
+        creditsContent.SetActive(false);
+        mainSettingsContent.SetActive(true);
     }
 
     public void Initialize()
     {
-        volumeSlider.value = PlayerPrefs.GetFloat("volume");
-        BrightnessSlider.value = PlayerPrefs.GetFloat("brightness");
+        volumeSlider.value = PlayerPrefs.GetFloat("volume", 0.5f);
         volumeSlider.onValueChanged.AddListener(delegate { VolumeChanged(); });
-        BrightnessSlider.onValueChanged.AddListener(delegate { BrightnessChanged(); });
     }
 
     // Start is called before the first frame update

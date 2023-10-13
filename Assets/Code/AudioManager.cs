@@ -23,7 +23,6 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Destroying");
             Destroy(gameObject);
         }
     }
@@ -36,7 +35,6 @@ public class AudioManager : MonoBehaviour
 
     public void PlayMusic(string name)
     {
-        Debug.Log("Searching for " + name);
         AudioClip s = Array.Find(musicSounds, x => x.name == name);
 
         if (s == null)
@@ -47,7 +45,6 @@ public class AudioManager : MonoBehaviour
         {
             musicSource.clip = s;
             currentMusic = SceneManager.GetActiveScene().name;
-            Debug.Log("Playing " + name);
             musicSource.Play();
 
         }
@@ -81,34 +78,41 @@ public class AudioManager : MonoBehaviour
     }
     public void SelectMusic()
     {
-        Debug.Log("Selecting music");
-        if (SceneManager.GetActiveScene().name == "MainMenu")
+        int sceneIndex = SceneManager.GetActiveScene().buildIndex;
+        switch (sceneIndex)
         {
-            Debug.Log("SEstoy en el main menu");
-            PlayMusic("menu_music");
+            case 0:
+                PlayMusic("menu_music");
+                break;
+            case 1:
+                PlayMusic("level_music_1");
+                break;
+            case 2:
+                PlayMusic("level_music_1");
+                break;
+            case 3:
+                PlayMusic("level_music_2");
+                break;
+            case 4:
+                PlayMusic("level_music_2");
+                break;
+            case 5:
+                PlayMusic("level_music_3");
+                break;
+            case 6:
+                PlayMusic("level_music_3");
+                break;
+            case 7:
+                PlayMusic("level_music_4");
+                break;
+            case 8:
+                PlayMusic("level_music_4");
+                break;
+            default:
+                PlayMusic("level_music_5");
+                break;
         }
-        else if (SceneManager.GetActiveScene().name == "Javi_Easy_Level" || SceneManager.GetActiveScene().name == "Sergio_Easy_Level")
-        {
-            Debug.Log("estoy en el nivel 1");
-            PlayMusic("level_music_1");
-        }
-        else if (SceneManager.GetActiveScene().name == "Javi_Medium_Level" || SceneManager.GetActiveScene().name == "Sergio_Medium_Level")
-        {
-            Debug.Log("estoy en el nivel 2");
-            PlayMusic("level_music_2");
-        }
-        else if (SceneManager.GetActiveScene().name == "I�igo_Medium_Level" || SceneManager.GetActiveScene().name == "Javi_Hard_Level")
-        {
-            PlayMusic("level_music_3");
-        }
-        else if (SceneManager.GetActiveScene().name == "Sergio_Hard_Level")
-        {
-            PlayMusic("level_music_4");
-        }
-        else if (SceneManager.GetActiveScene().name == "I�igo_Hard_Level")
-        {
-            PlayMusic("level_music_5");
-        }
+        
     }
 
 }
